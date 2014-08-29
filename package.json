@@ -1,0 +1,20 @@
+{
+  "name": "password-keeper",
+  "version": "1.0.0",
+  "description": "Password-keeper helps end-user managing their password or other stuff which should be protected",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leftstick/password-keeper.git"
+  },
+  "keywords": [
+    "password",
+    "keeper",
+    "node-webkit"
+  ],
+  "author": "Howard.Zuo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leftstick/password-keeper/issues"
+  },
+  "homepage": "https://github.com/leftstick/password-keeper"
+}

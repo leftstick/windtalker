@@ -1,14 +1,14 @@
-(function(define, require) {
+(function (define, require) {
     'use strict';
 
     var features = require.toUrl('features');
 
-    define([], function() {
+    define([], function () {
         return [{
             isDefault: true,
             when: '/',
             controller: 'LoginController',
-            templateUrl: features + '/login/partials/login.html'
+            templateUrl: features + '/login/partials/Login.html'
         }];
     });
 

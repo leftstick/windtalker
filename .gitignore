@@ -3,5 +3,5 @@ build/
 
 # Dependency directory
 node_modules/
-src/bower/
+src/js/bower/
 src/css/

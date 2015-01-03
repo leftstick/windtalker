@@ -1,19 +1,37 @@
-(function() {
+/**
+ * ******************************************************************************************************
+ *
+ *  Defines the login
+ *
+ *  @author  Howard.Zuo
+ *  @date    Jan 3th, 2015
+ *
+ * ******************************************************************************************************
+ */
+(function (define) {
+    'use strict';
+
     define([
-        'features/login/controller/LoginController',
-        'features/login/router/Routes'
-    ], function(LoginController, Routes) {
+        'angular',
+        './Routes',
+        './controller/LoginController'
+    ], function (
+        angular,
+        Routes,
+        LoginController) {
 
-            var moduleName = 'login';
+        var moduleName = 'login';
 
-            var module = angular.module(moduleName, []);
+        var module = angular.module(moduleName, []);
 
-            module.controller('LoginController', LoginController);
+        module.controller('LoginController', LoginController);
 
-            return {
-                name: moduleName,
-                routes: Routes
-            };
+        return {
+            type: 'features',
+            name: moduleName,
+            routes: Routes
+        };
 
-        });
-}());
+    });
+
+}(define));

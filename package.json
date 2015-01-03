@@ -1,10 +1,10 @@
 {
-  "name": "password-keeper",
+  "name": "windtalker",
   "version": "1.0.0",
-  "description": "Password-keeper helps end-user managing their password or other stuff which should be protected",
+  "description": "windtalker helps people managing security cared information",
   "repository": {
     "type": "git",
-    "url": "https://github.com/leftstick/password-keeper.git"
+    "url": "https://github.com/leftstick/windtalker.git"
   },
   "keywords": [
     "password",
@@ -14,7 +14,7 @@
   "author": "Howard.Zuo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/leftstick/password-keeper/issues"
+    "url": "https://github.com/leftstick/windtalker/issues"
   },
-  "homepage": "https://github.com/leftstick/password-keeper"
+  "homepage": "https://github.com/leftstick/windtalker"
 }

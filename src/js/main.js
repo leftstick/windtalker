@@ -1,49 +1,47 @@
-(function(require) {
+/**
+ *  The bootstrap of the whole windtalker application
+ *
+ *  @author  Howard.Zuo
+ *  @date    Jan 3th, 2015
+ *
+ */
+(function (define, doc) {
+    'use strict';
 
-    var baseUrl = '/';
+    //specify each feature module here explicitly
+    define([
+        'angular',
+        'splash',
+        'lodash',
+        'ext/main',
+        'conf/main',
+        'common/main',
+        'service/main',
+        'features/main'
+    ], function (angular, splash, _, ext, conf, common, service, features) {
 
-    require.config({
-        baseUrl: baseUrl,
-        paths: {
-            'fw': 'js/fw',
-            'features': 'js/features',
-            'common': 'js/features/common',
-            'jquery': 'bower/jquery/dist/jquery.min',
-            'angular': 'bower/angular/angular.min',
-            'angular-route': 'bower/angular-route/angular-route.min',
-            'lodash': 'bower/lodash/dist/lodash.min',
-            'bootstrap': 'bower/bootstrap/dist/js/bootstrap.min',
-            'angular-translate': 'bower/angular-translate/angular-translate.min'
-        },
-        shim: {
-            'jquery': {
-                exports: '$'
-            },
-            'lodash': {
-                exports: '_'
-            },
-            'angular': {
-                deps: ['lodash', 'jquery']
-            },
-            'angular-route': {
-                deps: ['angular']
-            },
-            'angular-translate': {
-                deps: ['angular']
-            },
-            'bootstrap': {
-                deps: ['jquery']
-            }
-        }
+        var appName = 'windtalker';
+
+        var depends = _.pluck(ext, 'name');
+
+        Array.prototype.push.apply(depends, _.pluck(features, 'name'));
+
+        var app = angular.module(appName, depends);
+
+        _.each(conf, function (c) {
+            c.func(features, app);
+        });
+
+        _.each(service, function (s) {
+            s.func(features, app);
+        });
+
+        splash.destroy();
+
+        angular.bootstrap(doc, [appName]);
+
+        return app;
     });
 
 
-
-
-    require(['angular-translate', 'angular-route', 'bootstrap'], function() {
-
-        require(['js/boot']);
-
-    });
-
-}(require));
+}(define, document));

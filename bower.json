@@ -1,8 +1,8 @@
 {
-  "name": "password-keeper",
+  "name": "windtalker",
   "version": "1.0.0",
-  "homepage": "https://github.com/leftstick/password-keeper",
-  "description": "Password-keeper helps end-user managing their password or other stuff which should be protected",
+  "homepage": "https://github.com/leftstick/windtalker",
+  "description": "windtalker helps people managing security cared information",
   "keywords": [
     "password",
     "keeper",
@@ -20,12 +20,16 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.23",
-    "angular-route": "~1.2.23",
-    "lodash": "~2.4.1",
-    "requirejs": "~2.1.14",
-    "bootstrap": "~3.2.0",
-    "jquery": "~2.1.1",
-    "angular-translate": "~2.2.0"
+    "angular": "1.3.8",
+    "angular-route": "1.3.8",
+    "angular-animate": "1.3.8",
+    "lodash": "2.4.1",
+    "requirejs": "2.1.15",
+    "amazeui": "2.0.0",
+    "jquery": "2.1.1",
+    "angular-translate": "2.5.2",
+    "keymaster": "1.6.3",
+    "requirejs-tpl": "*",
+    "require-css": "0.1.8"
   }
 }

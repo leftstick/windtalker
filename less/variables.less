@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome-webfont_1.eot');
+    src: url('../fonts/fontawesome-webfont_2.eot') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@black:           #000;
+@white:           #fff;
+
+@gray-darker:     lighten(@black, 13.5%); // #222
+@gray-dark:       lighten(@black, 20%);   // #333
+@gray:            lighten(@black, 33.5%); // #555
+@gray-light:      lighten(@black, 60%);   // #999
+@gray-lighter:    lighten(@black, 93.5%); // #eee
+
+
+// Brand Colors
+// -----------------------------------------------------------------------------
+
+@global-primary:        #0e90d2; // #157EFB; //#428bca;
+@global-secondary:    lighten(@global-primary, 15%);
+@global-success:        #5eb95e; // #53D76A; //#5cb85c;
+@global-warning:        #F37B1D; // #FD9426; // #f0ad4e;
+@global-danger:            #dd514c; // #FC3159; //#da314b;
+@global-info:         @global-secondary;

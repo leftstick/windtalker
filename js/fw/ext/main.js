@@ -16,7 +16,9 @@
         'angular-route',
         'angular-animate',
         'angular-translate',
+        'amazeui',
         'css!amazeui-css',
+        'css!animate-css',
         'css!main-css'
     ], function () {
 

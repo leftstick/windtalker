@@ -30,6 +30,7 @@
     "angular-translate": "2.5.2",
     "keymaster": "1.6.3",
     "requirejs-tpl": "*",
-    "require-css": "0.1.8"
+    "require-css": "0.1.8",
+    "animate.css": "~3.2.0"
   }
 }

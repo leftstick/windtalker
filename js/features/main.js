@@ -3,17 +3,17 @@
  *  The entrance of features.
  *
  *  @author  Howard.Zuo
- *  @date    Jan 3th, 2015
+ *  @date    Jan 4th, 2015
  *
  **/
 (function (define) {
     'use strict';
 
     define([
-        './login/main'
-    ], function (login) {
+        './auth/main'
+    ], function (auth) {
         var values = [];
-        values.push(login);
+        values.push(auth);
         return values;
     });
 

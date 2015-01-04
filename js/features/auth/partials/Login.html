@@ -1,0 +1,27 @@
+<section class="am-u-sm-12 am-u-md-7 am-u-lg-5 am-u-md-centered am-u-lg-centered login">
+    <div class="header">
+        <h1>{{ 'LOGIN_TITLE' | translate }}</h1>
+        <div class="am-fr languages">
+          <span ng-class="{active: curLang === 'en'}" ng-click="toggleLang('en')">EN</span>
+          &nbsp;|&nbsp;
+          <span ng-class="{active: curLang === 'zh'}" ng-click="toggleLang('zh')">中文</span>
+        </div>
+    </div>
+    <hr />
+
+    <form class="am-form" ng-submit="login()">
+        <label for="account">{{ 'ACCOUNT_TITLE' | translate }}:</label>
+        <input type="text" id="account">
+        <label for="password">{{ 'PASSWORD_TITLE' | translate }}:</label>
+        <input type="password" id="password">
+        <span class="error-msg am-text-danger animated" ng-class="{fadeIn: loginInfo.errorMsg}">{{ loginInfo.errorMsg | translate }}</span>
+        <a href="#/forget" class="am-fr">
+            {{ 'FORGET_PWD' | translate }}
+        </a>
+        <button type="submit" class="am-btn am-btn-primary am-btn-block">
+            {{ 'LOGIN_BTN' | translate }}
+        </button>
+        <a href="#/signup" class="am-btn am-btn-success am-btn-block">{{ 'REGIST_BTN' | translate }}</a>
+    </form>
+    <hr>
+</section>

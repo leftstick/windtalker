@@ -7,12 +7,24 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
         <meta http-equiv="Cache-Control" content="no-siteapp">
         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
-        
+        <script type="text/javascript">
+            'use strict';
+            if(typeof window.require !== 'undefined'){
+                window.gui = require('nw.gui');
+                alert(process.execPath);
+                alert(require('nstore'));
+                window.requireNode = require;
+                delete window.require;
+
+                window.requireNode.version = process.versions.node;
+                delete process.versions.node;
+            }
+        </script>
         <script type="text/javascript" data-main="js/index" src="js/bower/requirejs/require.js"></script>
     </head>
     <body>
 
-        <div ng-view></div>
+        <div ng-view class="am-g"></div>
 
     </body>
 </html>

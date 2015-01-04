@@ -1,5 +1,6 @@
 {
   "name": "windtalker",
+  "main": "index.html",
   "version": "1.0.0",
   "description": "windtalker helps people managing security cared information",
   "repository": {
@@ -16,5 +17,23 @@
   "bugs": {
     "url": "https://github.com/leftstick/windtalker/issues"
   },
-  "homepage": "https://github.com/leftstick/windtalker"
+  "homepage": "https://github.com/leftstick/windtalker",
+  "window": {
+    "title": "Windtalker",
+    "icon": "./img/favicon.png",
+    "toolbar": true,
+    "frame": true,
+    "width": 800,
+    "height": 620,
+    "position": "center",
+    "as_desktop": true,
+    "resizable": true
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "node-webkit-builder": "^1.0.4"
+  },
+  "dependencies": {
+    "nstore": "^0.5.2"
+  }
 }

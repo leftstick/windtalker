@@ -1,9 +1,12 @@
-(function (require) {
+(function (requirejs, global) {
     'use strict';
 
-    var baseUrl = '/js/';
+    require.nodeRequire = global.requireNode;
+    global.require = global.requireNode;
 
-    require.config({
+    var baseUrl = 'js/';
+
+    requirejs.config({
         baseUrl: baseUrl,
         paths: {
             'main-css': '../css/main',
@@ -21,7 +24,9 @@
             'angular-animate': 'bower/angular-animate/angular-animate.min',
             'lodash': 'bower/lodash/dist/lodash.min',
             'keymaster': 'bower/keymaster/keymaster',
+            'amazeui': 'bower/amazeui/dist/js/amazeui.min',
             'amazeui-css': 'bower/amazeui/dist/css/amazeui.min',
+            'animate-css': 'bower/animate.css/animate.min',
             'require-css': 'bower/require-css',
             'tpl': 'bower/requirejs-tpl/tpl',
             'splash': 'libs/splash',
@@ -35,6 +40,9 @@
             },
             'keymaster': {
                 exports: 'keymaster'
+            },
+            'amazeui': {
+                deps: ['jquery']
             },
             'angular': {
                 exports: 'angular',
@@ -57,10 +65,10 @@
         }
     });
 
-    require(['splash', 'css!splash'], function (splash) {
+    requirejs(['splash', 'css!splash'], function (splash) {
         splash.enable('tailing');
     });
 
-    require(['main']);
+    requirejs(['main']);
 
-}(require));
+}(requirejs, window));

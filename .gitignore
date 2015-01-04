@@ -1,7 +1,8 @@
 # Compiled binary
 build/
+cache/
 
 # Dependency directory
 node_modules/
-src/js/bower/
-src/css/
+js/bower/
+css/

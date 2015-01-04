@@ -10,7 +10,9 @@
         "Chartist": true,
         "jQuery": true,
         "$tooltip": true,
-        "module": true
+        "module": true,
+        "requirejs": true,
+        "process": true
     },
     "globalstrict": true,
     "quotmark": true,

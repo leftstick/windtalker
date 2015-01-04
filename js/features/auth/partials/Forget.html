@@ -1,0 +1,51 @@
+<section ng-if="!forgetInfo.password" class="am-u-sm-12 am-u-md-7 am-u-lg-5 am-u-md-centered am-u-lg-centered regist">
+    <div class="header">
+        <h1>{{ 'FORGET_TITLE' | translate }}</h1>
+        <div class="am-fr languages">
+          <span ng-class="{active: curLang === 'en'}" ng-click="toggleLang('en')">EN</span>
+          &nbsp;|&nbsp;
+          <span ng-class="{active: curLang === 'zh'}" ng-click="toggleLang('zh')">中文</span>
+        </div>
+    </div>
+    <hr />
+
+    <form class="am-form" ng-submit="getPassword()">
+        <label for="account">{{ 'ACCOUNT_TITLE' | translate }}:</label>
+        <input type="text" id="account" ng-model="forgetInfo.accountName">
+        <div class="am-form-group">
+            <label for="question">{{ 'RETRIEVE_TITLE' | translate }}</label>
+            <select id="question" ng-model="forgetInfo.question">
+                <option value="question1">{{ 'QA_01' | translate }}</option>
+                <option value="question2">{{ 'QA_02' | translate }}</option>
+                <option value="question3">{{ 'QA_03' | translate }}</option>
+                <option value="question4">{{ 'QA_04' | translate }}</option>
+            </select>
+            <span class="am-form-caret"></span>
+        </div>
+        <label for="answer">{{ 'ANSWER_TITLE' | translate }}:</label>
+        <input type="text" id="answer" ng-model="forgetInfo.answer">
+        <br/>
+        <button type="submit" class="am-btn am-btn-primary am-btn-block">
+            {{ 'RETRIEVE_BTN' | translate }}
+        </button>
+        <a href="#/" class="am-btn am-btn-success am-btn-block">{{ 'LOGIN_BTN' | translate }}</a>
+    </form>
+    <hr>
+</section>
+
+<section ng-if="forgetInfo.password" class="am-u-sm-12 am-u-md-7 am-u-lg-5 am-u-md-centered am-u-lg-centered forget">
+    <header class="am-topbar am-topbar-inverse">
+        <h1 class="am-topbar-brand">
+            <i class="am-icon-angle-double-left"></i><a href ng-click="forgetInfo.password = undefined">
+                {{ 'BACK_BTN' | translate }}
+            </a>
+        </h1>
+    </header>
+    <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12 password">
+            <span class="am-badge am-badge-warning am-text-xl">
+                {{ forgetInfo.password }}
+            </span>
+        </div>
+    </div>
+</section>

@@ -9,14 +9,16 @@
         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
         <script type="text/javascript">
             'use strict';
-            if(typeof window.require !== 'undefined'){
-                window.gui = require('nw.gui');
-                alert(process.execPath);
-                alert(require('nstore'));
-                window.requireNode = require;
-                delete window.require;
+            if(typeof this.require !== 'undefined'){
+                this.gui = require('nw.gui');
+                this.requireNode = require;
+                // var path = require('path');
+                // var execPath = path.dirname( process.execPath );
+                // console.log(execPath);
+                delete this.require;
 
-                window.requireNode.version = process.versions.node;
+
+                this.requireNode.version = process.versions.node;
                 delete process.versions.node;
             }
         </script>

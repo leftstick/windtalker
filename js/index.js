@@ -1,4 +1,4 @@
-(function (requirejs, global) {
+(function(requirejs, global) {
     'use strict';
 
     require.nodeRequire = global.requireNode;
@@ -65,10 +65,10 @@
         }
     });
 
-    requirejs(['splash', 'css!splash'], function (splash) {
+    requirejs(['splash', 'css!splash'], function(splash) {
         splash.enable('tailing');
     });
 
     requirejs(['main']);
 
-}(requirejs, window));
+}(requirejs, this));

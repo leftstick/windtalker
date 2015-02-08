@@ -7,7 +7,7 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Jan 3th, 2015
+ *  @date    Feb 8th, 2015
  *
  */
 (function (define) {
@@ -21,25 +21,22 @@
                 return;
             }
 
+            var routes = _.chain(features)
+                .filter('routes')
+                .pluck('routes')
+                .flatten()
+                .value();
+
+            app.constant('Routes', routes);
+
             //config router
             app.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
-
-                var routes = [];
-
-                //retrieve router from each feature
-                _.each(features, function (feature) {
-                    if (!feature.routes) {
-                        return;
-                    }
-                    _.each(feature.routes, function (route) {
-                        routes.push(route);
-                    });
-                });
 
                 //config each router
                 _.each(routes, function (route) {
                     $routeProvider
                         .when(route.when, {
+                            id: route.id,
                             templateUrl: route.templateUrl,
                             controller: route.controller
                         });
@@ -59,14 +56,6 @@
                     enabled: false
                 });
             }]);
-
-            var routes = _.chain(features)
-                .pluck('routes')
-                .where(Boolean)
-                .flatten()
-                .value();
-
-            app.constant('Routes', routes);
 
         };
 

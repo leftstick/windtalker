@@ -1,10 +1,10 @@
 /**
  * ******************************************************************************************************
  *
- *  Defines the login
+ *  Defines the auth
  *
  *  @author  Howard.Zuo
- *  @date    Jan 4th, 2015
+ *  @date    Feb 8th, 2015
  *
  * ******************************************************************************************************
  */
@@ -14,19 +14,19 @@
     define([
         'angular',
         './Routes',
-        './lang/lang_en',
-        './lang/lang_zh',
         './controller/LoginController',
         './controller/ForgetController',
-        './controller/SignupController'
+        './controller/SignupController',
+        './controller/DBSettingController',
+        './directive/FileRead'
     ], function (
         angular,
         Routes,
-        lang_en,
-        lang_zh,
         LoginController,
         ForgetController,
-        SignupController) {
+        SignupController,
+        DBSettingController,
+        FileRead) {
 
         var moduleName = 'login';
 
@@ -35,15 +35,13 @@
         module.controller('LoginController', LoginController);
         module.controller('ForgetController', ForgetController);
         module.controller('SignupController', SignupController);
+        module.controller('DBSettingController', DBSettingController);
+        module.directive('fileread', FileRead);
 
         return {
             type: 'features',
             name: moduleName,
-            routes: Routes,
-            lang: {
-                zh: lang_zh,
-                en: lang_en
-            }
+            routes: Routes
         };
 
     });

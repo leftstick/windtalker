@@ -1,16 +1,19 @@
 /**
  *
- *  The entrance of keyboard.
+ *  The entrance of logic.
  *
  *  @author  Howard.Zuo
- *  @date    Jan 3th, 2015
+ *  @date    Feb 8th, 2015
  *
  **/
 (function (define) {
     'use strict';
 
     define([
-        './KeyBoard'
+        './BootVerification',
+        './Db',
+        './RouteIndicator',
+        './Storage'
     ], function () {
         return [].slice.apply(arguments);
     });

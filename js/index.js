@@ -1,4 +1,12 @@
-(function(requirejs, global) {
+/**
+ *
+ *  The entrance of whole application.
+ *
+ *  @author  Howard.Zuo
+ *  @date    Feb 8th, 2015
+ *
+ **/
+(function (requirejs, global) {
     'use strict';
 
     require.nodeRequire = global.requireNode;
@@ -10,6 +18,7 @@
         baseUrl: baseUrl,
         paths: {
             'main-css': '../css/main',
+
             'fw': 'fw',
             'conf': 'fw/conf',
             'ext': 'fw/ext',
@@ -17,19 +26,21 @@
             'common': 'common',
             'service': 'fw/service',
             'features': 'features',
+
             'jquery': 'bower/jquery/dist/jquery.min',
+            'lodash': 'bower/lodash/dist/lodash.min',
+
             'angular': 'bower/angular/angular.min',
             'angular-route': 'bower/angular-route/angular-route.min',
-            'angular-translate': 'bower/angular-translate/angular-translate.min',
             'angular-animate': 'bower/angular-animate/angular-animate.min',
-            'lodash': 'bower/lodash/dist/lodash.min',
-            'keymaster': 'bower/keymaster/keymaster',
-            'amazeui': 'bower/amazeui/dist/js/amazeui.min',
-            'amazeui-css': 'bower/amazeui/dist/css/amazeui.min',
-            'animate-css': 'bower/animate.css/animate.min',
+            'angular-strap': 'bower/angular-strap/dist/angular-strap.min',
+            'angular-strap-tpl': 'bower/angular-strap/dist/angular-strap.tpl.min',
+            'angular-local-storage': 'bower/angular-local-storage/dist/angular-local-storage.min',
+
+            'bootstrap-css': 'bower/bootstrap/dist/css/bootstrap.min',
+            'libraries-css': 'libs/libraries.min',
             'require-css': 'bower/require-css',
-            'tpl': 'bower/requirejs-tpl/tpl',
-            'splash': 'libs/splash',
+            'tpl': 'bower/requirejs-tpl/tpl'
         },
         shim: {
             'jquery': {
@@ -38,12 +49,6 @@
             'lodash': {
                 exports: '_'
             },
-            'keymaster': {
-                exports: 'keymaster'
-            },
-            'amazeui': {
-                deps: ['jquery']
-            },
             'angular': {
                 exports: 'angular',
                 deps: ['lodash', 'jquery']
@@ -51,10 +56,16 @@
             'angular-route': {
                 deps: ['angular']
             },
-            'angular-translate': {
+            'angular-animate': {
                 deps: ['angular']
             },
-            'angular-animate': {
+            'angular-strap-tpl': {
+                deps: ['angular-strap']
+            },
+            'angular-strap': {
+                deps: ['angular']
+            },
+            'angular-local-storage': {
                 deps: ['angular']
             }
         },
@@ -63,10 +74,6 @@
                 'css': 'require-css/css.min'
             }
         }
-    });
-
-    requirejs(['splash', 'css!splash'], function(splash) {
-        splash.enable('tailing');
     });
 
     requirejs(['main']);

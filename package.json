@@ -24,16 +24,21 @@
     "toolbar": true,
     "frame": true,
     "width": 800,
+    "min_width": 400,
     "height": 620,
+    "min_height": 300,
     "position": "center",
     "as_desktop": true,
     "resizable": true
   },
   "devDependencies": {
     "gulp": "^3.8.10",
-    "node-webkit-builder": "^1.0.4"
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-less": "^2.0.1",
+    "gulp-sourcemaps": "^1.3.0",
+    "node-webkit-builder": "^1.0.8"
   },
   "dependencies": {
-    "nstore": "^0.5.2"
+    "nedb": "^1.1.1"
   }
 }

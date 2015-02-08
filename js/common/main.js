@@ -3,16 +3,16 @@
  *  The entrance of common.
  *
  *  @author  Howard.Zuo
- *  @date    Jan 3th, 2015
+ *  @date    Feb 8th, 2015
  *
  **/
 (function (define) {
     'use strict';
 
     define([
-        './keyboard/main'
-    ], function (keyboard) {
-        var values = keyboard;
+        './logic/main'
+    ], function (logic) {
+        var values = logic;
         return values;
     });
 

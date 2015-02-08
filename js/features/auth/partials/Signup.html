@@ -1,40 +1,65 @@
-<section class="am-u-sm-12 am-u-md-7 am-u-lg-5 am-u-md-centered am-u-lg-centered regist">
-    <div class="header">
-        <h1>{{ 'SIGNUP_TITLE' | translate }}</h1>
-        <div class="am-fr languages">
-          <span ng-class="{active: curLang === 'en'}" ng-click="toggleLang('en')">EN</span>
-          &nbsp;|&nbsp;
-          <span ng-class="{active: curLang === 'zh'}" ng-click="toggleLang('zh')">中文</span>
-        </div>
-    </div>
-    <hr />
+<br/>
+<div class="container">
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">注册</div>
+                <div class="pull-right head-action"><a href="#/forget">忘记密码?</a></div>
+            </div>     
 
-    <form class="am-form" ng-submit="regist()">
-        <label for="account">{{ 'ACCOUNT_TITLE' | translate }}:</label>
-        <input type="text" id="account" ng-model="registInfo.accountName">
-        <label for="password">{{ 'PASSWORD_TITLE' | translate }}:</label>
-        <input type="password" id="password" ng-model="registInfo.password">
-        <label for="confirmPassword">{{ 'CONFIRM_PASSWORD_TITLE' | translate }}:</label>
-        <input type="password" id="confirmPassword" ng-model="registInfo.confirmPassword">
-        <div class="am-form-group">
-            <label for="question">{{ 'RETRIEVE_TITLE' | translate }}</label>
-            <select id="question" ng-model="registInfo.question">
-                <option value="question1">{{ 'QA_01' | translate }}</option>
-                <option value="question2">{{ 'QA_02' | translate }}</option>
-                <option value="question3">{{ 'QA_03' | translate }}</option>
-                <option value="question4">{{ 'QA_04' | translate }}</option>
-            </select>
-            <span class="am-form-caret"></span>
-        </div>
-        <label for="answer">{{ 'ANSWER_TITLE' | translate }}:</label>
-        <input type="text" id="answer" ng-model="registInfo.answer">
-        <a href="#/forget" class="am-fr">
-            {{ 'FORGET_PWD' | translate }}
-        </a>
-        <button type="submit" class="am-btn am-btn-primary am-btn-block">
-            {{ 'REGIST_BTN' | translate }}
-        </button>
-        <a href="#/" class="am-btn am-btn-success am-btn-block">{{ 'LOGIN_BTN' | translate }}</a>
-    </form>
-    <hr>
-</section>
+            <div class="panel-body">
+
+                <form class="form-horizontal" role="form" ng-submit="signup()">
+                                
+                    <div class="input-group form-row">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" ng-model="user.name" class="form-control" placeholder="用户名" required>
+                    </div>
+
+                    <div class="input-group form-row">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" ng-model="user.password" class="form-control" placeholder="密码" required>
+                    </div>
+
+                    <div class="input-group form-row">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-folder-close"></i></span>
+                        <input type="password" ng-model="user.repassword" class="form-control" placeholder="重复密码" required>
+                    </div>
+                            
+                    <div class="input-group form-row">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
+                        <button type="button" class="btn btn-default" ng-model="user.question" ng-options="question.value as question.label for question in questions" bs-select placeholder="请选择密码提示问题">
+                          <span class="caret"></span>
+                        </button>
+                    </div>
+
+                    <div class="input-group form-row">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open"></i></span>
+                        <input type="text" ng-model="user.answer" class="form-control" placeholder="密码提示答案" required>
+                    </div>
+                                
+                    <div class="form-group">
+                        <div class="col-sm-12 text-right">
+                            <button class="btn btn-primary confirm-btn" type="submit">
+                                注册
+                            </button>
+                            <hr/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <div>
+                                已有账号! 
+                                <a href="#/login" >
+                                    这里登录吧
+                                </a>
+                            </div>
+                        </div>
+                    </div>    
+                </form>     
+
+            </div>                     
+        </div>  
+    </div>
+</div>

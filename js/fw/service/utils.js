@@ -7,8 +7,12 @@
 (function (define, global) {
     'use strict';
 
+    var crypto = require('crypto'),
+        algorithm = 'aes-256-ctr',
+        password = 'd6F3Efeq';
 
-    define(['angular'], function (angular) {
+
+    define(['angular', 'lodash'], function (angular, _) {
 
 
         var definition = function (features, app) {
@@ -23,18 +27,18 @@
                     return global.btoa(global.unescape(global.encodeURIComponent(str)));
                 };
 
-                this.httpDefer = function () {
+                this.handyDefer = function () {
                     var deferred = $q.defer();
                     var promise = deferred.promise;
                     promise.success = function (fn) {
                         promise.then(function (response) {
-                            fn(response.data, response.status, response.headers, response.config);
+                            fn(response.data);
                         });
                         return promise;
                     };
                     promise.error = function (fn) {
                         promise.then(null, function (response) {
-                            fn(response.data, response.status, response.headers, response.config);
+                            fn(response.data);
                         });
                         return promise;
                     };
@@ -80,6 +84,20 @@
                     if (e.preventDefault) {
                         e.preventDefault();
                     }
+                };
+
+                this.encryptTxt = function (text) {
+                    var cipher = crypto.createCipher(algorithm, password);
+                    var crypted = cipher.update(text, 'utf8', 'hex');
+                    crypted += cipher.final('hex');
+                    return crypted;
+                };
+
+                this.decryptTxt = function (text) {
+                    var decipher = crypto.createDecipher(algorithm, password);
+                    var dec = decipher.update(text, 'hex', 'utf8');
+                    dec += decipher.final('utf8');
+                    return dec;
                 };
 
             };

@@ -3,7 +3,7 @@
  *  The entrance of ext.
  *
  *  @author  Howard.Zuo
- *  @date    Jan 3th, 2015
+ *  @date    Feb 8th, 2015
  *
  **/
 (function (define) {
@@ -11,14 +11,14 @@
 
     define([
         'jquery',
-        'keymaster',
         'angular',
         'angular-route',
         'angular-animate',
-        'angular-translate',
-        'amazeui',
-        'css!amazeui-css',
-        'css!animate-css',
+        'angular-strap',
+        'angular-strap-tpl',
+        'angular-local-storage',
+        'css!bootstrap-css',
+        'css!libraries-css',
         'css!main-css'
     ], function () {
 
@@ -27,7 +27,9 @@
         }, {
             name: 'ngAnimate'
         }, {
-            name: 'pascalprecht.translate'
+            name: 'mgcrea.ngStrap'
+        }, {
+            name: 'LocalStorageModule'
         }];
     });
 

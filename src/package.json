@@ -1,16 +1,17 @@
 {
   "name": "windtalker",
   "main": "index.html",
+  "description": "windtalker helps people managing security cared information",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leftstick/windtalker.git"
+  },
   "version": "1.0.0",
   "window": {
     "title": "Windtalker",
     "icon": "./img/favicon.png",
     "toolbar": true,
     "frame": true,
-    "width": 800,
-    "min_width": 400,
-    "height": 620,
-    "min_height": 300,
     "position": "center",
     "as_desktop": true,
     "resizable": true

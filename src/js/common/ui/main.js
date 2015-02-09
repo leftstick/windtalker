@@ -9,7 +9,7 @@
 (function(define) {
     'use strict';
 
-    define(['./alerts'], function() {
+    define(['./alerts', './WindowResizer'], function() {
         var args = [].slice.call(arguments);
         return args;
     });

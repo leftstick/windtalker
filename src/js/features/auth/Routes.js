@@ -21,8 +21,8 @@
             controller: 'LoginController',
             templateUrl: features + '/auth/partials/Login.html',
             windowSize: {
-                width: 430,
-                height: 315
+                width: 475,
+                height: 375
             }
         }, {
             id: 'forget',
@@ -31,8 +31,8 @@
             controller: 'ForgetController',
             templateUrl: features + '/auth/partials/Forget.html',
             windowSize: {
-                width: 430,
-                height: 315
+                width: 475,
+                height: 425
             }
         }, {
             id: 'signup',
@@ -41,8 +41,8 @@
             controller: 'SignupController',
             templateUrl: features + '/auth/partials/Signup.html',
             windowSize: {
-                width: 430,
-                height: 315
+                width: 475,
+                height: 525
             }
         }, {
             id: 'dbsetting',
@@ -51,8 +51,8 @@
             controller: 'DBSettingController',
             templateUrl: features + '/auth/partials/DBSetting.html',
             windowSize: {
-                width: 430,
-                height: 315
+                width: 475,
+                height: 415
             }
         }];
     });

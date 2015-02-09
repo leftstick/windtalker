@@ -11,7 +11,7 @@
 
     define(['lodash'], function(_) {
 
-        var LoginController = function($scope, Db, events) {
+        var LoginController = function($scope, Db, events, $location) {
             $scope.user = {};
             $scope.login = function() {
                 Db.getUsers()
@@ -27,19 +27,14 @@
                             });
                             return;
                         }
-                        events.emit('alert', {
-                            type: 'success',
-                            message: '登录成功'
-                        });
-                    });
-            };
 
-            $scope.closeError = function() {
-                delete $scope.user.error;
+                        $location.url('secret');
+
+                    });
             };
         };
 
-        return ['$scope', 'Db', 'events', LoginController];
+        return ['$scope', 'Db', 'events', '$location', LoginController];
 
     });
 

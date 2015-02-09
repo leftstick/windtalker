@@ -3,16 +3,17 @@
  *  The entrance of common.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Feb 9th, 2015
  *
  **/
-(function (define) {
+(function(define) {
     'use strict';
 
     define([
-        './logic/main'
-    ], function (logic) {
-        var values = logic;
+        './logic/main',
+        './ui/main'
+    ], function(logic, ui) {
+        var values = logic.concat(ui);
         return values;
     });
 

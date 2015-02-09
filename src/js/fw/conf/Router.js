@@ -7,15 +7,15 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Feb 9th, 2015
  *
  */
-(function (define) {
+(function(define) {
     'use strict';
 
-    define(['lodash'], function (_) {
+    define(['lodash'], function(_) {
 
-        var config = function (features, app) {
+        var config = function(features, app) {
             if (!features || features.length === 0) {
                 console.warn('No features loaded');
                 return;
@@ -30,13 +30,14 @@
             app.constant('Routes', routes);
 
             //config router
-            app.config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
+            app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 
                 //config each router
-                _.each(routes, function (route) {
+                _.each(routes, function(route) {
                     $routeProvider
                         .when(route.when, {
                             id: route.id,
+                            windowSize: route.windowSize,
                             templateUrl: route.templateUrl,
                             controller: route.controller
                         });

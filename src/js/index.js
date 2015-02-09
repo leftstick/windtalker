@@ -3,10 +3,10 @@
  *  The entrance of whole application.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Feb 9th, 2015
  *
  **/
-(function (requirejs, global) {
+(function(requirejs, global) {
     'use strict';
 
     require.nodeRequire = global.requireNode;
@@ -36,9 +36,12 @@
             'angular-strap': 'bower/angular-strap/dist/angular-strap.min',
             'angular-strap-tpl': 'bower/angular-strap/dist/angular-strap.tpl.min',
             'angular-local-storage': 'bower/angular-local-storage/dist/angular-local-storage.min',
+            'angular-motion': 'bower/angular-motion/dist/angular-motion.min',
 
+            'noty': 'bower/noty/js/noty/packaged/jquery.noty.packaged.min',
+
+            'animate-css': 'bower/animate.css/animate.min',
             'bootstrap-css': 'bower/bootstrap/dist/css/bootstrap.min',
-            'libraries-css': 'libs/libraries.min',
             'require-css': 'bower/require-css',
             'tpl': 'bower/requirejs-tpl/tpl'
         },

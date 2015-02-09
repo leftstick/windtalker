@@ -3,15 +3,16 @@
  *  The entrance of utils.
  *
  *  @author  Howard.Zuo
- *  @date    Jan 3th, 2015
+ *  @date    Feb 9th, 2015
  *
  **/
-(function (define) {
+(function(define) {
     'use strict';
 
     define([
+        './events',
         './utils'
-    ], function () {
+    ], function() {
         return [].slice.apply(arguments);
     });
 

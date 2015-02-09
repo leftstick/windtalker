@@ -3,15 +3,15 @@
  *  The SignupController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Feb 9th, 2015
  *
  **/
-(function (define) {
+(function(define) {
     'use strict';
 
-    define([], function () {
+    define([], function() {
 
-        var SignupController = function ($scope, Db) {
+        var SignupController = function($scope, Db, events) {
             $scope.user = {};
             $scope.questions = [{
                 'label': '父亲的名字',
@@ -27,27 +27,30 @@
                 'value': 'FIRST_PET_NAME'
             }];
 
-            $scope.signup = function () {
-                console.log({
-                    name: $scope.user.name,
-                    password: $scope.user.password,
-                    question: $scope.user.question,
-                    answer: $scope.user.answer
-                });
+            $scope.signup = function() {
                 Db.addUser({
                         name: $scope.user.name,
                         password: $scope.user.password,
                         question: $scope.user.question,
                         answer: $scope.user.answer
                     })
-                    .success(function () {
-                        alert('注册成功');
+                    .success(function() {
+                        events.emit('alert', {
+                            type: 'success',
+                            message: '注册成功'
+                        });
+                    })
+                    .error(function(err) {
+                        events.emit('alert', {
+                            type: 'error',
+                            message: err
+                        });
                     });
             };
 
         };
 
-        return ['$scope', 'Db', SignupController];
+        return ['$scope', 'Db', 'events', SignupController];
 
     });
 

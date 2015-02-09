@@ -6,40 +6,40 @@
  *  @date    Feb 8th, 2015
  *
  **/
-(function (define) {
+(function(define) {
     'use strict';
 
-    define(['lodash'], function (_) {
+    define(['lodash'], function(_) {
 
-        var LoginController = function ($scope, Db) {
+        var LoginController = function($scope, Db, events) {
             $scope.user = {};
-            $scope.size = {
-                width: 430,
-                height: 315
-            };
-
-            $scope.login = function () {
+            $scope.login = function() {
                 Db.getUsers()
-                    .success(function (users) {
+                    .success(function(users) {
                         var verify = _.any(users, {
                             name: $scope.user.name,
                             password: $scope.user.password
                         });
                         if (!verify) {
-                            $scope.user.error = '用户名或密码不正确，请重试';
+                            events.emit('alert', {
+                                type: 'warning',
+                                message: '用户名或密码错误'
+                            });
                             return;
                         }
-                        delete $scope.user.error;
-                        alert('登录成功!');
+                        events.emit('alert', {
+                            type: 'success',
+                            message: '登录成功'
+                        });
                     });
             };
 
-            $scope.closeError = function () {
+            $scope.closeError = function() {
                 delete $scope.user.error;
             };
         };
 
-        return ['$scope', 'Db', LoginController];
+        return ['$scope', 'Db', 'events', LoginController];
 
     });
 

@@ -3,10 +3,10 @@
  *  The entrance of ext.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Feb 9th, 2015
  *
  **/
-(function (define) {
+(function(define) {
     'use strict';
 
     define([
@@ -17,10 +17,12 @@
         'angular-strap',
         'angular-strap-tpl',
         'angular-local-storage',
+        'noty',
+        'css!angular-motion',
+        'css!animate-css',
         'css!bootstrap-css',
-        'css!libraries-css',
         'css!main-css'
-    ], function () {
+    ], function() {
 
         return [{
             name: 'ngRoute'

@@ -4,5 +4,7 @@ cache/
 
 # Dependency directory
 node_modules/
-js/bower/
+src/node_modules/
+src/js/bower/
 css/
+src/css/

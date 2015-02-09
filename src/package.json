@@ -1,0 +1,21 @@
+{
+  "name": "windtalker",
+  "main": "index.html",
+  "version": "1.0.0",
+  "window": {
+    "title": "Windtalker",
+    "icon": "./img/favicon.png",
+    "toolbar": true,
+    "frame": true,
+    "width": 800,
+    "min_width": 400,
+    "height": 620,
+    "min_height": 300,
+    "position": "center",
+    "as_desktop": true,
+    "resizable": true
+  },
+  "dependencies": {
+    "nedb": "^1.1.1"
+  }
+}

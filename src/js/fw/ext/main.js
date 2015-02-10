@@ -3,7 +3,7 @@
  *  The entrance of ext.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 9th, 2015
+ *  @date    Feb 10th, 2015
  *
  **/
 (function(define) {
@@ -17,6 +17,7 @@
         'angular-strap',
         'angular-strap-tpl',
         'angular-local-storage',
+        'angular-smart-table',
         'noty',
         'css!angular-motion',
         'css!animate-css',
@@ -32,6 +33,8 @@
             name: 'mgcrea.ngStrap'
         }, {
             name: 'LocalStorageModule'
+        }, {
+            name: 'smart-table'
         }];
     });
 

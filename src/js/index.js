@@ -37,6 +37,7 @@
             'angular-strap-tpl': 'bower/angular-strap/dist/angular-strap.tpl.min',
             'angular-local-storage': 'bower/angular-local-storage/dist/angular-local-storage.min',
             'angular-motion': 'bower/angular-motion/dist/angular-motion.min',
+            'angular-smart-table': 'bower/angular-smart-table/dist/smart-table.min',
 
             'noty': 'bower/noty/js/noty/packaged/jquery.noty.packaged.min',
 
@@ -69,6 +70,9 @@
                 deps: ['angular']
             },
             'angular-local-storage': {
+                deps: ['angular']
+            },
+            'angular-smart-table': {
                 deps: ['angular']
             }
         },

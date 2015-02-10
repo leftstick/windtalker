@@ -3,7 +3,7 @@
  *  The LoginController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Feb 10th, 2015
  *
  **/
 (function(define) {
@@ -11,30 +11,30 @@
 
     define(['lodash'], function(_) {
 
-        var LoginController = function($scope, Db, events, $location) {
+        var LoginController = function($scope, Db, events, $location, auth) {
             $scope.user = {};
             $scope.login = function() {
                 Db.getUsers()
                     .success(function(users) {
-                        var verify = _.any(users, {
+                        var found = _.find(users, {
                             name: $scope.user.name,
                             password: $scope.user.password
                         });
-                        if (!verify) {
+                        if (!found) {
                             events.emit('alert', {
                                 type: 'warning',
                                 message: '用户名或密码错误'
                             });
                             return;
                         }
-
-                        $location.url('secret');
+                        auth.currentUser(found);
+                        $location.url('secret/info');
 
                     });
             };
         };
 
-        return ['$scope', 'Db', 'events', '$location', LoginController];
+        return ['$scope', 'Db', 'events', '$location', 'auth', LoginController];
 
     });
 

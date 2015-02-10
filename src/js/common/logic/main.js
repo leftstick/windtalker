@@ -3,18 +3,19 @@
  *  The entrance of logic.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Feb 10th, 2015
  *
  **/
-(function (define) {
+(function(define) {
     'use strict';
 
     define([
+        './Auth',
         './BootVerification',
         './Db',
         './RouteIndicator',
         './Storage'
-    ], function () {
+    ], function() {
         return [].slice.apply(arguments);
     });
 

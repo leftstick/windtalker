@@ -27,7 +27,7 @@ gulp.task('less', function() {
 
 gulp.task('install', function() {
     var install = require('gulp-install');
-    return gulp.src(['./bower.json', './package.json', './src/package.json'])
+    return gulp.src(['./bower.json', './src/package.json'])
         .pipe(install());
 });
 

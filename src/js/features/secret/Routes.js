@@ -4,7 +4,7 @@
  *  Defines the Routes
  *
  *  @author  Howard.Zuo
- *  @date    Feb 9th, 2015
+ *  @date    Feb 10th, 2015
  *
  * ******************************************************************************************************
  */
@@ -17,11 +17,11 @@
         return [{
             id: 'secret',
             isDefault: false,
-            when: '/secret',
+            when: '/secret/:tab',
             controller: 'SecretController',
             templateUrl: features + '/secret/partials/Secret.html',
             windowSize: {
-                width: 700,
+                width: 800,
                 height: 650
             }
         }];

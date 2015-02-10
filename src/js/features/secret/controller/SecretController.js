@@ -3,7 +3,7 @@
  *  The SecretController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 9th, 2015
+ *  @date    Feb 10th, 2015
  *
  **/
 (function(define) {
@@ -11,11 +11,23 @@
 
     define([], function() {
 
-        var SecretController = function($scope) {
+        var SecretController = function($scope, $routeParams, $location, auth) {
+
+            $scope.tab = $routeParams.tab;
+
+            $scope.user = auth.currentUser();
+
+            $scope.displaySidebar = false;
+
+            $scope.toggleTab = function(tab) {
+                $location.url('secret/' + tab);
+            };
+
+            $scope.toggleTab($scope.tab);
 
         };
 
-        return ['$scope', SecretController];
+        return ['$scope', '$routeParams', '$location', 'auth', SecretController];
 
     });
 

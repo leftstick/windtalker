@@ -21,7 +21,7 @@
             controller: 'SecretController',
             templateUrl: features + '/secret/partials/Secret.html',
             windowSize: {
-                width: 800,
+                width: 850,
                 height: 650
             }
         }];

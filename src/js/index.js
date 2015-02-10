@@ -3,7 +3,7 @@
  *  The entrance of whole application.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 9th, 2015
+ *  @date    Feb 10th, 2015
  *
  **/
 (function(requirejs, global) {

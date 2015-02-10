@@ -15,25 +15,28 @@
         'angular',
         './Routes',
         './controller/SecretController',
-        './controller/InfoManagementController',
+        './controller/InfoController',
         './controller/CreateController',
-        './controller/SettingController'
+        './controller/SettingController',
+        './directive/StRatio'
     ], function(
         angular,
         Routes,
         SecretController,
-        InfoManagementController,
+        InfoController,
         CreateController,
-        SettingController) {
+        SettingController,
+        StRatio) {
 
         var moduleName = 'secret';
 
         var module = angular.module(moduleName, []);
 
         module.controller('SecretController', SecretController);
-        module.controller('InfoManagementController', InfoManagementController);
+        module.controller('InfoController', InfoController);
         module.controller('CreateController', CreateController);
         module.controller('SettingController', SettingController);
+        module.directive('stRatio', StRatio);
 
         return {
             type: 'features',

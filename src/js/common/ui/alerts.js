@@ -2,7 +2,7 @@
  *  Defines the Alerts
  *
  *  @author  Hao.Zuo
- *  @date    Feb 9th, 2015
+ *  @date    Feb 11th, 2015
  *
  */
 (function(define, global) {
@@ -61,7 +61,7 @@
 
                 events.on('alert', function(data) {
                     global.noty({
-                        layout: 'topRight',
+                        layout: data.type === 'confirm' ? 'center' : 'topRight',
                         text: data.message,
                         type: TYPES[data.type],
                         animation: {
@@ -71,15 +71,31 @@
                             speed: 500 // unavailable - no need
                         },
                         timeout: TIMEOUTS[data.type],
+                        dismissQueue: true,
                         maxVisible: 6,
-                        closeWith: ['click'], // ['click', 'button', 'hover', 'backdrop'] // backdrop click will close all notifications
+                        closeWith: data.type === 'confirm' ? ['backdrop'] : ['click'], // ['click', 'button', 'hover', 'backdrop'] // backdrop click will close all notifications
                         callback: {
                             onShow: data.onShow || emptyFunc,
                             afterShow: data.afterShow || emptyFunc,
                             onClose: data.onClose || emptyFunc,
                             afterClose: data.afterClose || emptyFunc,
                             onCloseClick: data.onCloseClick || emptyFunc,
-                        }
+                        },
+                        buttons: (data.type !== 'confirm') ? false : [{
+                            addClass: 'btn btn-primary',
+                            text: '确定',
+                            onClick: function($noty) {
+                                $noty.close();
+                                (data.onOkClick || emptyFunc)();
+                            }
+                        }, {
+                            addClass: 'btn btn-danger',
+                            text: '取消',
+                            onClick: function($noty) {
+                                $noty.close();
+                                (data.onCancelClick || emptyFunc)();
+                            }
+                        }]
                     });
 
                 });

@@ -3,13 +3,13 @@
  *
  *
  *  @author  Hao.Zuo
- *  @date    Feb 9th, 2015
+ *  @date    Feb 11th, 2015
  *
  */
 (function(define) {
     'use strict';
 
-    define(['./alerts', './WindowResizer'], function() {
+    define(['./alerts', './modal', './WindowResizer'], function() {
         var args = [].slice.call(arguments);
         return args;
     });

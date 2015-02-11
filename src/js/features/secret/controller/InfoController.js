@@ -3,11 +3,13 @@
  *  The InfoController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 10th, 2015
+ *  @date    Feb 11th, 2015
  *
  **/
 (function(define) {
     'use strict';
+
+    var features = requirejs.toUrl('features');
 
     define([], function() {
 
@@ -19,13 +21,18 @@
             }];
 
             $scope.removeInfo = function(info) {
-                events.emit('alert', {
-                    message: '确定要删除选中信息么？',
-                    type: 'confirm',
-                    onClose: function() {
-                        console.log(arguments);
-                    }
+                $scope.currentInfo = info;
+                events.emit('modal', {
+                    scope: $scope,
+                    title: '确认',
+                    content: '确定要删除当前纪录么？',
+                    template: features + '/secret/partials/deleteInfoModal.html'
                 });
+            };
+
+            $scope.confirmDelete = function($hide) {
+                console.log($scope.currentInfo);
+                $hide();
             };
 
         };

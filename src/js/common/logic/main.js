@@ -3,7 +3,7 @@
  *  The entrance of logic.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 10th, 2015
+ *  @date    Feb 11th, 2015
  *
  **/
 (function(define) {
@@ -11,6 +11,7 @@
 
     define([
         './Auth',
+        './BackNavigatePrevent',
         './BootVerification',
         './Db',
         './RouteIndicator',

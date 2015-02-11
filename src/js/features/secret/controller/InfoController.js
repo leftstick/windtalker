@@ -15,10 +15,11 @@
 
         var InfoController = function($scope, events, SecretService) {
 
-            $scope.infos = [{
-                name: 'http://www.baidu.com',
-                desc: '百度的小玩意'
-            }];
+            SecretService.getInfos()
+                .success(function(infos) {
+                    console.log(infos);
+                    $scope.infos = infos;
+                });
 
             $scope.removeInfo = function(info) {
                 $scope.currentInfo = info;

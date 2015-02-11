@@ -16,6 +16,7 @@
             this.getInfos = function() {
 
                 var defer = utils.handyDefer();
+
                 Db.getSecretDb().find({}, function(err, docs) {
                     if (err) {
                         defer.reject({
@@ -29,7 +30,13 @@
                         var info = {
                             id: utils.decryptTxt(doc.id),
                             name: utils.decryptTxt(doc.name),
-                            desc: utils.decryptTxt(doc.desc)
+                            desc: utils.decryptTxt(doc.desc),
+                            items: _.map(doc.items, function(item) {
+                                return {
+                                    key: utils.decryptTxt(item.key),
+                                    value: utils.decryptTxt(item.value)
+                                };
+                            })
                         };
 
                         return info;
@@ -43,52 +50,137 @@
                 return defer.promise;
             };
 
-            this.addUser = function(user) {
+            this.addInfo = function(info) {
+
                 var defer = utils.handyDefer();
-                var encryptUser = {
+
+                var encryptInfo = {
                     id: utils.encryptTxt(utils.ID()),
-                    name: utils.encryptTxt(user.name),
-                    password: utils.encryptTxt(user.password),
-                    question: utils.encryptTxt(user.question),
-                    answer: utils.encryptTxt(user.answer)
+                    userId: utils.encryptTxt(info.userId),
+                    name: utils.encryptTxt(info.name),
+                    desc: utils.encryptTxt(info.desc),
+                    items: _.map(info.items, function(item) {
+                        return {
+                            key: utils.encryptTxt(item.key),
+                            value: utils.encryptTxt(item.value)
+                        };
+                    })
                 };
 
                 Db.getSecretDb().find({
-                    name: utils.encryptTxt(user.name)
+                    name: utils.encryptTxt(info.name)
                 }, function(err, docs) {
                     if (err) {
                         defer.reject({
-                            data: '新增用户信息失败 ' + err
+                            data: '新增秘密信息失败 ' + err
                         });
                         return;
                     }
                     if (docs.length > 0) {
                         defer.reject({
-                            data: '该用户名已被注册，请重试'
+                            data: '该秘密信息已被注册，请重试'
                         });
                         return;
                     }
-                    Db.getSecretDb().insert(encryptUser, function(err, doc) {
+                    Db.getSecretDb().insert(encryptInfo, function(err, doc) {
                         if (err) {
                             defer.reject({
-                                data: '新增用户信息失败 ' + err
+                                data: '新增秘密信息失败 ' + err
                             });
                             return;
                         }
-                        var u = {
+                        var i = {
                             id: utils.decryptTxt(doc.id),
+                            userId: utils.decryptTxt(doc.userId),
                             name: utils.decryptTxt(doc.name),
-                            password: utils.decryptTxt(doc.password),
-                            question: utils.decryptTxt(doc.question),
-                            answer: utils.decryptTxt(doc.answer)
+                            desc: utils.decryptTxt(doc.desc),
+                            items: _.map(doc.items, function(item) {
+                                return {
+                                    key: utils.decryptTxt(item.key),
+                                    value: utils.decryptTxt(item.value)
+                                };
+                            })
                         };
                         defer.resolve({
-                            data: u
+                            data: i
                         });
                     });
 
                 });
 
+                return defer.promise;
+            };
+
+            this.updateInfo = function(info) {
+                var defer = utils.handyDefer();
+
+                var id = utils.encryptTxt(info.id);
+
+                var encryptInfo = {
+                    userId: utils.encryptTxt(info.userId),
+                    name: utils.encryptTxt(info.name),
+                    desc: utils.encryptTxt(info.desc),
+                    items: _.map(info.items, function(item) {
+                        return {
+                            key: utils.encryptTxt(item.key),
+                            value: utils.encryptTxt(item.value)
+                        };
+                    })
+                };
+
+                Db.getSecretDb().findOne({
+                    id: id
+                }, function(err, doc) {
+                    if (err) {
+                        defer.reject({
+                            data: '获取秘密信息失败 ' + err
+                        });
+                        return;
+                    }
+                    if (!doc) {
+                        defer.reject({
+                            data: '秘密信息不存在，或许已被删除，请检查'
+                        });
+                        return;
+                    }
+
+                    Db.getSecretDb().update({
+                        id: id
+                    }, {
+                        $set: encryptInfo
+                    }, {}, function(err) {
+                        if (err) {
+                            defer.reject({
+                                data: '修改秘密信息失败 ' + err
+                            });
+                            return;
+                        }
+                        defer.resolve({
+                            data: info
+                        });
+                    });
+
+                });
+
+                return defer.promise;
+            };
+
+            this.removeInfo = function(info) {
+                var defer = utils.handyDefer();
+
+                var id = utils.encryptTxt(info.id);
+
+                Db.getSecretDb().remove({
+                    id: id
+                }, {}, function(err) {
+                    if (err) {
+                        defer.reject({
+                            data: '删除秘密信息失败 ' + err
+                        });
+                        return;
+                    }
+                    defer.resolve({});
+                });
                 return defer.promise;
             };
 

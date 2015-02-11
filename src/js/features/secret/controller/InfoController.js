@@ -13,7 +13,7 @@
 
     define([], function() {
 
-        var InfoController = function($scope, events) {
+        var InfoController = function($scope, events, SecretService) {
 
             $scope.infos = [{
                 name: 'http://www.baidu.com',
@@ -37,7 +37,7 @@
 
         };
 
-        return ['$scope', 'events', InfoController];
+        return ['$scope', 'events', 'SecretService', InfoController];
 
     });
 

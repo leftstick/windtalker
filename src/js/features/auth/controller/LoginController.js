@@ -11,10 +11,10 @@
 
     define(['lodash'], function(_) {
 
-        var LoginController = function($scope, Db, events, $location, auth) {
+        var LoginController = function($scope, UserService, events, $location, auth) {
             $scope.user = {};
             $scope.login = function() {
-                Db.getUsers()
+                UserService.getUsers()
                     .success(function(users) {
                         var found = _.find(users, {
                             name: $scope.user.name,
@@ -34,7 +34,7 @@
             };
         };
 
-        return ['$scope', 'Db', 'events', '$location', 'auth', LoginController];
+        return ['$scope', 'UserService', 'events', '$location', 'auth', LoginController];
 
     });
 

@@ -4,11 +4,11 @@
  *  Defines the auth
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Feb 11th, 2015
  *
  * ******************************************************************************************************
  */
-(function (define) {
+(function(define) {
     'use strict';
 
     define([
@@ -18,15 +18,17 @@
         './controller/ForgetController',
         './controller/SignupController',
         './controller/DBSettingController',
-        './directive/FileRead'
-    ], function (
+        './directive/FileRead',
+        './service/UserService'
+    ], function(
         angular,
         Routes,
         LoginController,
         ForgetController,
         SignupController,
         DBSettingController,
-        FileRead) {
+        FileRead,
+        UserService) {
 
         var moduleName = 'login';
 
@@ -37,6 +39,7 @@
         module.controller('SignupController', SignupController);
         module.controller('DBSettingController', DBSettingController);
         module.directive('fileread', FileRead);
+        module.service('UserService', UserService);
 
         return {
             type: 'features',

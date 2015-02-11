@@ -11,7 +11,7 @@
 
     define([], function() {
 
-        var SignupController = function($scope, Db, events) {
+        var SignupController = function($scope, UserService, events) {
             $scope.user = {};
             $scope.questions = [{
                 'label': '父亲的名字',
@@ -28,7 +28,7 @@
             }];
 
             $scope.signup = function() {
-                Db.addUser({
+                UserService.addUser({
                         name: $scope.user.name,
                         password: $scope.user.password,
                         question: $scope.user.question,
@@ -50,7 +50,7 @@
 
         };
 
-        return ['$scope', 'Db', 'events', SignupController];
+        return ['$scope', 'UserService', 'events', SignupController];
 
     });
 

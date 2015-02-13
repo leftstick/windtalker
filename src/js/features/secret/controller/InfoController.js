@@ -3,7 +3,7 @@
  *  The InfoController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 11th, 2015
+ *  @date    Feb 13th, 2015
  *
  **/
 (function(define) {
@@ -17,7 +17,6 @@
 
             SecretService.getInfos()
                 .success(function(infos) {
-                    console.log(infos);
                     $scope.infos = infos;
                 });
 

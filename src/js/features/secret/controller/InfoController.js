@@ -15,6 +15,8 @@
 
         var InfoController = function($scope, events, SecretService) {
 
+            $scope.displayDetail = false;
+
             SecretService.getInfos()
                 .success(function(infos) {
                     $scope.infos = infos;
@@ -26,13 +28,24 @@
                     scope: $scope,
                     title: '确认',
                     content: '确定要删除当前纪录么？',
+                    animation: 'am-fade-and-slide-top',
                     template: features + '/secret/partials/deleteInfoModal.html'
                 });
             };
 
             $scope.confirmDelete = function($hide) {
-                console.log($scope.currentInfo);
+                delete $scope.currentInfo;
                 $hide();
+            };
+
+            $scope.viewInfo = function(info) {
+                $scope.currentInfo = info;
+                $scope.displayDetail = true;
+            };
+
+            $scope.closeViewInfo = function() {
+                delete $scope.currentInfo;
+                $scope.displayDetail = false;
             };
 
         };

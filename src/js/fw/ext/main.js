@@ -3,7 +3,7 @@
  *  The entrance of ext.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 10th, 2015
+ *  @date    Feb 13th, 2015
  *
  **/
 (function(define) {
@@ -22,6 +22,7 @@
         'css!angular-motion',
         'css!animate-css',
         'css!bootstrap-css',
+        'css!ngAnimate-css',
         'css!main-css'
     ], function() {
 

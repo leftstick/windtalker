@@ -33,6 +33,7 @@
     "angular-local-storage": "0.1.5",
     "noty": "2.3.4",
     "angular-smart-table": "~1.4.10",
-    "ngAnimate": "*"
+    "ngAnimate": "*",
+    "animate.css": "~3.2.0"
   }
 }

@@ -6,25 +6,24 @@
  *  @date    Feb 11th, 2015
  *
  **/
-(function(define) {
+(function (define) {
     'use strict';
 
-    define(['lodash'], function(_) {
+    define(['lodash'], function (_) {
 
-        var UserService = function(Db, utils) {
+        var UserService = function (Db, utils) {
 
-            this.getUsers = function() {
+            this.getUsers = function () {
 
                 var defer = utils.handyDefer();
-                Db.getUserDb().find({}, function(err, docs) {
+                Db.getUserDb().find({}, function (err, docs) {
                     if (err) {
                         defer.reject({
                             data: '读取用户信息失败'
                         });
                         return;
                     }
-
-                    var users = _.map(docs, function(doc) {
+                    var users = _.map(docs, function (doc) {
                         return {
                             id: utils.decryptTxt(doc.id),
                             name: utils.decryptTxt(doc.name),
@@ -41,7 +40,7 @@
                 return defer.promise;
             };
 
-            this.addUser = function(user) {
+            this.addUser = function (user) {
                 var defer = utils.handyDefer();
                 var encryptUser = {
                     id: utils.encryptTxt(utils.ID()),
@@ -53,7 +52,7 @@
 
                 Db.getUserDb().find({
                     name: utils.encryptTxt(user.name)
-                }, function(err, docs) {
+                }, function (err, docs) {
                     if (err) {
                         defer.reject({
                             data: '新增用户信息失败 ' + err
@@ -66,7 +65,7 @@
                         });
                         return;
                     }
-                    Db.getUserDb().insert(encryptUser, function(err, doc) {
+                    Db.getUserDb().insert(encryptUser, function (err, doc) {
                         if (err) {
                             defer.reject({
                                 data: '新增用户信息失败 ' + err

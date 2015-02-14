@@ -4,7 +4,7 @@
  *  @date    Jan 3th, 2015
  *
  */
-(function(define, global) {
+(function (define, global) {
     'use strict';
 
     var crypto = require('crypto'),
@@ -12,32 +12,32 @@
         password = 'd6F3Efeq';
 
 
-    define(['angular'], function(angular) {
+    define(['angular'], function (angular) {
 
 
-        var definition = function(features, app) {
+        var definition = function (features, app) {
 
-            var utils = function($q) {
+            var utils = function ($q) {
 
-                this.base64ToString = function(str) {
+                this.base64ToString = function (str) {
                     return global.decodeURIComponent(global.escape(global.atob(str)));
                 };
 
-                this.stringTobase64 = function(str) {
+                this.stringTobase64 = function (str) {
                     return global.btoa(global.unescape(global.encodeURIComponent(str)));
                 };
 
-                this.handyDefer = function() {
+                this.handyDefer = function () {
                     var deferred = $q.defer();
                     var promise = deferred.promise;
-                    promise.success = function(fn) {
-                        promise.then(function(response) {
+                    promise.success = function (fn) {
+                        promise.then(function (response) {
                             fn(response.data);
                         });
                         return promise;
                     };
-                    promise.error = function(fn) {
-                        promise.then(null, function(response) {
+                    promise.error = function (fn) {
+                        promise.then(null, function (response) {
                             fn(response.data);
                         });
                         return promise;
@@ -49,7 +49,7 @@
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
                     },
-                    transformRequest: function(data) {
+                    transformRequest: function (data) {
                         // If this is not an object, defer to native stringification.
                         if (!angular.isObject(data)) {
                             return (!data ? '' : data.toString());
@@ -74,7 +74,7 @@
                     }
                 };
 
-                this.stopEvent = function(e) {
+                this.stopEvent = function (e) {
                     if (!e) {
                         return;
                     }
@@ -86,21 +86,21 @@
                     }
                 };
 
-                this.encryptTxt = function(text) {
+                this.encryptTxt = function (text) {
                     var cipher = crypto.createCipher(algorithm, password);
                     var crypted = cipher.update(text, 'utf8', 'hex');
                     crypted += cipher.final('hex');
                     return crypted;
                 };
 
-                this.decryptTxt = function(text) {
+                this.decryptTxt = function (text) {
                     var decipher = crypto.createDecipher(algorithm, password);
                     var dec = decipher.update(text, 'hex', 'utf8');
                     dec += decipher.final('utf8');
                     return dec;
                 };
 
-                this.ID = function() {
+                this.ID = function () {
                     return new Date().getTime() + '';
                 };
 

@@ -3,7 +3,7 @@
  *  Defines Auth service
  *
  *  @author  Howard.Zuo
- *  @date    Feb 10th, 2015
+ *  @date    Feb 16th, 2015
  *
  */
 (function(define) {
@@ -25,6 +25,10 @@
                 }
                 curUser = user;
                 return user;
+            };
+
+            this.logout = function() {
+                curUser = undefined;
             };
 
         }]);

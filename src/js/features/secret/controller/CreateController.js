@@ -3,7 +3,7 @@
  *  The CreateController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 13th, 2015
+ *  @date    Feb 16th, 2015
  *
  **/
 (function(define) {
@@ -13,35 +13,37 @@
 
         var CreateController = function($scope, SecretService, auth, events, $location) {
 
-            $scope.newItem = {};
-            $scope.info = {};
+            $scope.create = {};
 
-            $scope.items = [];
+            $scope.create.newItem = {};
+            $scope.create.info = {};
 
-            $scope.addNewItem = function() {
-                $scope.items.push({
-                    key: $scope.newItem.key,
-                    value: $scope.newItem.value
+            $scope.create.items = [];
+
+            $scope.create.addNewItem = function() {
+                $scope.create.items.push({
+                    key: $scope.create.newItem.key,
+                    value: $scope.create.newItem.value
                 });
 
-                delete $scope.newItem.key;
-                delete $scope.newItem.value;
+                delete $scope.create.newItem.key;
+                delete $scope.create.newItem.value;
             };
 
-            $scope.removeItem = function(item) {
-                _.remove($scope.items, {
+            $scope.create.removeItem = function(item) {
+                _.remove($scope.create.items, {
                     key: item.key,
                     value: item.value
                 });
             };
 
-            $scope.addInfo = function() {
+            $scope.create.addInfo = function() {
                 var user = auth.currentUser();
                 SecretService.addInfo({
                         userId: user.id,
-                        name: $scope.info.name,
-                        desc: $scope.info.desc,
-                        items: $scope.items
+                        name: $scope.create.info.name,
+                        desc: $scope.create.info.desc,
+                        items: $scope.create.items
                     })
                     .success(function() {
                         events.emit('alert', {

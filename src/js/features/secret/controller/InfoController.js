@@ -15,15 +15,17 @@
 
         var InfoController = function($scope, events, SecretService) {
 
-            $scope.displayDetail = false;
+            $scope.info = {};
+
+            $scope.info.displayDetail = false;
 
             SecretService.getInfos()
                 .success(function(infos) {
-                    $scope.infos = infos;
+                    $scope.info.infos = infos;
                 });
 
-            $scope.removeInfo = function(info) {
-                $scope.currentInfo = info;
+            $scope.info.removeInfo = function(info) {
+                $scope.info.currentInfo = info;
                 events.emit('modal', {
                     scope: $scope,
                     title: '确认',
@@ -33,20 +35,24 @@
                 });
             };
 
-            $scope.confirmDelete = function($hide) {
-                delete $scope.currentInfo;
+            $scope.info.confirmDelete = function($hide) {
+                delete $scope.info.currentInfo;
                 $hide();
             };
 
-            $scope.viewInfo = function(info) {
-                $scope.currentInfo = info;
-                $scope.displayDetail = true;
+            $scope.info.viewInfo = function(info) {
+                $scope.info.currentInfo = info;
+                $scope.info.displayDetail = true;
             };
 
-            $scope.closeViewInfo = function() {
-                delete $scope.currentInfo;
-                $scope.displayDetail = false;
+            $scope.info.closeViewInfo = function() {
+                delete $scope.info.currentInfo;
+                $scope.info.displayDetail = false;
             };
+
+            $scope.$on('$destroy', function() {
+                delete $scope.info.infos;
+            });
 
         };
 

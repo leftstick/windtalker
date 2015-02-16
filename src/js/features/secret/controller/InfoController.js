@@ -16,12 +16,14 @@
         var InfoController = function($scope, events, SecretService) {
 
             $scope.info = {};
+            $scope.info.originInfos = [];
 
             $scope.info.displayDetail = false;
 
             SecretService.getInfos()
                 .success(function(infos) {
-                    $scope.info.infos = infos;
+                    $scope.info.originInfos = infos;
+                    $scope.info.infos = [].concat($scope.info.originInfos);
                 });
 
             $scope.info.removeInfo = function(info) {
@@ -50,9 +52,7 @@
                 $scope.info.displayDetail = false;
             };
 
-            $scope.$on('$destroy', function() {
-                delete $scope.info.infos;
-            });
+            $scope.$on('$destroy', function() {});
 
         };
 

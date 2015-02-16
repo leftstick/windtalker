@@ -3,7 +3,7 @@
  *  The InfoController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 13th, 2015
+ *  @date    Feb 16th, 2015
  *
  **/
 (function(define) {
@@ -11,22 +11,32 @@
 
     var features = requirejs.toUrl('features');
 
-    define([], function() {
+    define(['angular', 'lodash'], function(angular, _) {
 
-        var InfoController = function($scope, events, SecretService) {
+        var InfoController = function($scope, events, SecretService, utils) {
 
             $scope.info = {};
             $scope.info.originInfos = [];
+            $scope.info.edit = {};
 
             $scope.info.displayDetail = false;
 
-            SecretService.getInfos()
-                .success(function(infos) {
-                    $scope.info.originInfos = infos;
-                    $scope.info.infos = [].concat($scope.info.originInfos);
-                });
+            var refreshInfos = function(callback) {
+                SecretService.getInfos($scope.user.id)
+                    .success(function(infos) {
+                        $scope.info.originInfos = infos;
+                        $scope.info.infos = [].concat($scope.info.originInfos);
+                        if (angular.isFunction(callback)) {
+                            callback($scope.info.infos);
+                        }
+                        console.log($scope.info.infos);
+                    });
+            };
 
-            $scope.info.removeInfo = function(info) {
+            refreshInfos();
+
+            $scope.info.removeInfo = function(info, $event) {
+                utils.stopEvent($event);
                 $scope.info.currentInfo = info;
                 events.emit('modal', {
                     scope: $scope,
@@ -38,11 +48,29 @@
             };
 
             $scope.info.confirmDelete = function($hide) {
-                delete $scope.info.currentInfo;
+                SecretService.removeInfo($scope.info.currentInfo)
+                    .success(function() {
+                        _.remove($scope.info.originInfos, {
+                            id: $scope.info.currentInfo.id
+                        });
+                        delete $scope.info.currentInfo;
+                        events.emit('alert', {
+                            type: 'success',
+                            message: '信息删除成功'
+                        });
+                    })
+                    .error(function(err) {
+                        events.emit('alert', {
+                            type: 'error',
+                            message: err
+                        });
+                    });
+
                 $hide();
             };
 
-            $scope.info.viewInfo = function(info) {
+            $scope.info.viewInfo = function(info, $event) {
+                utils.stopEvent($event);
                 $scope.info.currentInfo = info;
                 $scope.info.displayDetail = true;
             };
@@ -50,13 +78,72 @@
             $scope.info.closeViewInfo = function() {
                 delete $scope.info.currentInfo;
                 $scope.info.displayDetail = false;
+                $scope.info.isEditing = false;
+            };
+
+            $scope.info.toggleEdit = function(isEdit, $event) {
+                utils.stopEvent($event);
+                $scope.info.isEditing = isEdit;
+                if (isEdit) {
+                    $scope.info.edit.info = angular.copy($scope.info.currentInfo);
+                    $scope.info.edit.newItem = {};
+                } else {
+                    delete $scope.info.edit.info;
+                    delete $scope.info.edit.newItem;
+                }
+            };
+
+            $scope.info.edit.addNewItem = function() {
+                $scope.info.edit.info.items.push({
+                    key: $scope.info.edit.newItem.key,
+                    value: $scope.info.edit.newItem.value
+                });
+
+                delete $scope.info.edit.newItem.key;
+                delete $scope.info.edit.newItem.value;
+            };
+
+            $scope.info.edit.removeItem = function(item, $event) {
+                utils.stopEvent($event);
+
+                _.remove($scope.info.edit.info.items, {
+                    key: item.key,
+                    value: item.value
+                });
+            };
+
+            $scope.info.edit.updateInfo = function($event) {
+                utils.stopEvent($event);
+                console.log($scope.info.edit.info);
+                if (!$scope.info.edit.info) {
+                    return;
+                }
+                SecretService.updateInfo($scope.info.edit.info)
+                    .success(function() {
+                        events.emit('alert', {
+                            type: 'success',
+                            message: '信息修改成功'
+                        });
+                        refreshInfos(function(infos) {
+                            $scope.info.currentInfo = _.find(infos, {
+                                id: $scope.info.edit.info.id
+                            });
+                            $scope.info.toggleEdit(false);
+                        });
+                    })
+                    .error(function(err) {
+                        events.emit('alert', {
+                            type: 'error',
+                            message: err
+                        });
+                    });
             };
 
             $scope.$on('$destroy', function() {});
 
         };
 
-        return ['$scope', 'events', 'SecretService', InfoController];
+        return ['$scope', 'events', 'SecretService', 'utils', InfoController];
 
     });
 

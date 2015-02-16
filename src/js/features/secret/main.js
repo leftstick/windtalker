@@ -4,7 +4,7 @@
  *  Defines the secret
  *
  *  @author  Howard.Zuo
- *  @date    Feb 11th, 2015
+ *  @date    Feb 16th, 2015
  *
  * ******************************************************************************************************
  */
@@ -19,6 +19,7 @@
         './controller/CreateController',
         './controller/SettingController',
         './directive/StRatio',
+        './directive/OnOutClick',
         './service/SecretService'
     ], function(
         angular,
@@ -28,6 +29,7 @@
         CreateController,
         SettingController,
         StRatio,
+        OnOutClick,
         SecretService) {
 
         var moduleName = 'secret';
@@ -39,6 +41,7 @@
         module.controller('CreateController', CreateController);
         module.controller('SettingController', SettingController);
         module.directive('stRatio', StRatio);
+        module.directive('onOutClick', OnOutClick);
         module.service('SecretService', SecretService);
 
         return {

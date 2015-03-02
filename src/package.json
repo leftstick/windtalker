@@ -10,7 +10,7 @@
   "window": {
     "title": "Windtalker",
     "icon": "./img/favicon.png",
-    "toolbar": true,
+    "toolbar": false,
     "frame": true,
     "position": "center",
     "as_desktop": true,

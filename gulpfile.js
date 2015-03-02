@@ -12,7 +12,7 @@ gulp.task('less', function() {
     var less = require('gulp-less');
     var LessPluginAutoPrefix = require('less-plugin-autoprefix');
     var autoprefix = new LessPluginAutoPrefix({
-        browsers: ["last 5 versions"]
+        browsers: ['last 5 versions']
     });
 
     return gulp.src('src/less/main.less')

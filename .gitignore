@@ -8,3 +8,5 @@ src/node_modules/
 src/js/bower/
 css/
 src/css/
+
+.DS_Store

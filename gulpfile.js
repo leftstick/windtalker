@@ -10,17 +10,14 @@ var SYSTEMS = {
 
 gulp.task('less', function() {
     var less = require('gulp-less');
-    var prefix = require('gulp-autoprefixer');
-    var sourcemap = require('gulp-sourcemaps');
+    var LessPluginAutoPrefix = require('less-plugin-autoprefix');
+    var autoprefix = new LessPluginAutoPrefix({
+        browsers: ["last 5 versions"]
+    });
+
     return gulp.src('src/less/main.less')
-        .pipe(sourcemap.init())
         .pipe(less({
-            compress: false
-        }))
-        .pipe(sourcemap.write())
-        .pipe(prefix({
-            browsers: ['last 5 versions'],
-            cascade: true
+            plugins: [autoprefix]
         }))
         .pipe(gulp.dest('src/css/'));
 });

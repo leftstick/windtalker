@@ -15,7 +15,7 @@ Windtalker
 
 ### 本地编译环境需求 ###
 
-1. [NodeJs](http://nodejs.org)
+* [NodeJs](http://nodejs.org)
 
 
 ### 编译 ###

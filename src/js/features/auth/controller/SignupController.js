@@ -3,7 +3,7 @@
  *  The SignupController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 9th, 2015
+ *  @date    Mar 3th, 2015
  *
  **/
 (function(define) {
@@ -11,7 +11,7 @@
 
     define([], function() {
 
-        var SignupController = function($scope, UserService, events) {
+        var SignupController = function($scope, UserService, events, auth, $location) {
             $scope.user = {};
             $scope.questions = [{
                 'label': '父亲的名字',
@@ -34,11 +34,13 @@
                         question: $scope.user.question,
                         answer: $scope.user.answer
                     })
-                    .success(function() {
+                    .success(function(user) {
                         events.emit('alert', {
                             type: 'success',
                             message: '注册成功'
                         });
+                        auth.currentUser(user);
+                        $location.url('secret/info');
                     })
                     .error(function(err) {
                         events.emit('alert', {
@@ -50,7 +52,7 @@
 
         };
 
-        return ['$scope', 'UserService', 'events', SignupController];
+        return ['$scope', 'UserService', 'events', 'auth', '$location', SignupController];
 
     });
 

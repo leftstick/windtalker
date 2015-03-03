@@ -10,11 +10,11 @@
   "window": {
     "title": "Windtalker",
     "icon": "./img/favicon.png",
-    "toolbar": false,
+    "toolbar": <%= devBuild %>,
     "frame": true,
     "position": "center",
     "as_desktop": true,
-    "resizable": false
+    "resizable": <%= devBuild %>
   },
   "dependencies": {
     "nedb": "^1.1.1"

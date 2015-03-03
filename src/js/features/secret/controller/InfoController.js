@@ -3,13 +3,11 @@
  *  The InfoController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 16th, 2015
+ *  @date    Mar 3th, 2015
  *
  **/
 (function(define) {
     'use strict';
-
-    var features = requirejs.toUrl('features');
 
     define(['angular', 'lodash'], function(angular, _) {
 
@@ -38,35 +36,28 @@
             $scope.info.removeInfo = function(info, $event) {
                 utils.stopEvent($event);
                 $scope.info.currentInfo = info;
-                events.emit('modal', {
-                    scope: $scope,
-                    title: '确认',
+                events.emit('confirm', {
                     content: '确定要删除当前纪录么？',
-                    animation: 'am-fade-and-slide-top',
-                    template: features + '/secret/partials/deleteInfoModal.html'
+                    onConfirm: function() {
+                        SecretService.removeInfo($scope.info.currentInfo)
+                            .success(function() {
+                                _.remove($scope.info.originInfos, {
+                                    id: $scope.info.currentInfo.id
+                                });
+                                delete $scope.info.currentInfo;
+                                events.emit('alert', {
+                                    type: 'success',
+                                    message: '信息删除成功'
+                                });
+                            })
+                            .error(function(err) {
+                                events.emit('alert', {
+                                    type: 'error',
+                                    message: err
+                                });
+                            });
+                    }
                 });
-            };
-
-            $scope.info.confirmDelete = function($hide) {
-                SecretService.removeInfo($scope.info.currentInfo)
-                    .success(function() {
-                        _.remove($scope.info.originInfos, {
-                            id: $scope.info.currentInfo.id
-                        });
-                        delete $scope.info.currentInfo;
-                        events.emit('alert', {
-                            type: 'success',
-                            message: '信息删除成功'
-                        });
-                    })
-                    .error(function(err) {
-                        events.emit('alert', {
-                            type: 'error',
-                            message: err
-                        });
-                    });
-
-                $hide();
             };
 
             $scope.info.viewInfo = function(info, $event) {

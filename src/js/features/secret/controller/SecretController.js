@@ -3,13 +3,11 @@
  *  The SecretController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 16th, 2015
+ *  @date    Mar 3th, 2015
  *
  **/
 (function(define) {
     'use strict';
-
-    var features = requirejs.toUrl('features');
 
     define([], function() {
 
@@ -26,19 +24,13 @@
             };
 
             $scope.logout = function() {
-                events.emit('modal', {
-                    scope: $scope,
-                    title: '确认',
+                events.emit('confirm', {
                     content: '确定要登出该用户么？',
-                    animation: 'am-fade-and-slide-top',
-                    template: features + '/secret/partials/confirmLogoutModal.html'
+                    onConfirm: function() {
+                        auth.logout();
+                        $location.url('login');
+                    }
                 });
-            };
-
-            $scope.confirmLogout = function($hide) {
-                auth.logout();
-                $location.url('login');
-                $hide();
             };
 
             $scope.toggleTab($scope.tab);

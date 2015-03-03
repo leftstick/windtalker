@@ -25,7 +25,9 @@
 1. `sudo npm install gulp -g`
 2. `git clone git@github.com:leftstick/windtalker.git`
 3. `cd windtalker`
-4. `gulp release`
+4. `sudo npm install`
+5. `gulp` - dev build
+6. `gulp --prod` - release build
 
 
 #### Windows ####
@@ -33,6 +35,8 @@
 1. `npm install gulp -g`
 2. `git clone git@github.com:leftstick/windtalker.git`
 3. `cd windtalker`
-4. `gulp release`
+4. `npm install`
+5. `gulp` - dev build
+6. `gulp --prod` - release build
 
 > 编译后的可执行文件在`build/windtalker／<OS>/`下，双击`windtalker.app`或者`windtalker.exe`即可打开

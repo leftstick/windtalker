@@ -27,7 +27,6 @@
                         if (angular.isFunction(callback)) {
                             callback($scope.info.infos);
                         }
-                        console.log($scope.info.infos);
                     });
             };
 

@@ -9,9 +9,9 @@
 (function(define) {
     'use strict';
 
-    define([], function() {
+    define(['lodash'], function(_) {
 
-        var SettingController = function($scope, boot, events, auth, $location) {
+        var SettingController = function($scope, boot, events, auth, $location, UserService) {
             $scope.setting = {};
 
             $scope.setting.activeTab = 0;
@@ -48,13 +48,94 @@
             });
 
 
+            //password management
+            $scope.setting.showPwdUpdateConfirmModal = function(pwdForm) {
+                events.emit('confirm', {
+                    content: '确定要修改密码么？',
+                    onConfirm: function() {
+
+                        if ($scope.setting.oldPassword !== auth.currentUser().password) {
+                            events.emit('alert', {
+                                type: 'warning',
+                                message: '旧密码错误！'
+                            });
+                            return;
+                        }
+
+                        if ($scope.setting.newPassword !== $scope.setting.renewPassword) {
+                            events.emit('alert', {
+                                type: 'warning',
+                                message: '重复新密码输入不相同，请检查！'
+                            });
+                            return;
+                        }
+
+                        var newUser = _.assign(auth.currentUser(), {
+                            password: $scope.setting.newPassword
+                        });
+
+                        UserService.updateUser(newUser)
+                            .success(function(user) {
+                                auth.currentUser(user);
+                                events.emit('alert', {
+                                    type: 'success',
+                                    message: '密码修改成功！'
+                                });
+                                pwdForm.$setPristine();
+                                events.emit('info', {
+                                    content: '密码修改后，需要重新登录！',
+                                    onClose: function() {
+                                        auth.logout();
+                                        $location.url('login');
+                                    }
+                                });
+                            })
+                            .error(function(err) {
+                                events.emit('alert', {
+                                    type: 'error',
+                                    message: err
+                                });
+                            });
+
+                    }
+                });
+            };
+
+
             //QA management
             $scope.setting.questions = auth.questions();
-
+            $scope.setting.selectedQuestion = auth.currentUser().question;
+            $scope.setting.answer = auth.currentUser().answer;
+            $scope.setting.showHintChangeConfirmModal = function(hintForm) {
+                events.emit('confirm', {
+                    content: '确定要修改密码提示信息么？',
+                    onConfirm: function() {
+                        var newUser = _.assign(auth.currentUser(), {
+                            question: $scope.setting.selectedQuestion,
+                            answer: $scope.setting.answer
+                        });
+                        UserService.updateUser(newUser)
+                            .success(function(user) {
+                                auth.currentUser(user);
+                                events.emit('alert', {
+                                    type: 'success',
+                                    message: '修改密码提示信息成功！'
+                                });
+                                hintForm.$setPristine();
+                            })
+                            .error(function(err) {
+                                events.emit('alert', {
+                                    type: 'error',
+                                    message: err
+                                });
+                            });
+                    }
+                });
+            };
 
         };
 
-        return ['$scope', 'boot', 'events', 'auth', '$location', SettingController];
+        return ['$scope', 'boot', 'events', 'auth', '$location', 'UserService', SettingController];
 
     });
 

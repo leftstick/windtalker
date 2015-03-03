@@ -116,6 +116,37 @@
                 return defer.promise;
             };
 
+            this.getUserByName = function(name) {
+                var defer = utils.handyDefer();
+                Db.getUserDb().findOne({
+                    name: utils.encryptTxt(name)
+                }, function(err, doc) {
+                    if (err) {
+                        defer.reject({
+                            data: '读取用户信息失败'
+                        });
+                        return;
+                    }
+                    if (!doc) {
+                        defer.resolve({});
+                        return;
+                    }
+                    var user = {
+                        id: utils.decryptTxt(doc.id),
+                        name: utils.decryptTxt(doc.name),
+                        password: utils.decryptTxt(doc.password),
+                        question: utils.decryptTxt(doc.question),
+                        answer: utils.decryptTxt(doc.answer)
+                    };
+
+                    defer.resolve({
+                        data: user
+                    });
+                });
+
+                return defer.promise;
+            };
+
         };
 
         return ['Db', 'utils', UserService];

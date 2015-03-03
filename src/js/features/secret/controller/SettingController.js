@@ -17,9 +17,10 @@
             $scope.setting = {};
 
             $scope.setting.activeTab = 0;
+
+            //DB management
             $scope.setting.dbLocation = boot.getDb();
             $scope.setting.dirty = false;
-
             $scope.setting.setDbLocation = function($hide) {
                 $hide();
                 boot.setDb($scope.setting.dbLocation);
@@ -57,6 +58,11 @@
                     $scope.setting.dirty = false;
                 }
             });
+
+
+            //QA management
+            $scope.setting.questions = auth.questions();
+
 
         };
 

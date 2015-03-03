@@ -3,34 +3,22 @@
  *  The ForgetController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Mar 3th, 2015
  *
  **/
-(function (define) {
+(function(define) {
     'use strict';
 
-    define([], function () {
+    define([], function() {
 
-        var ForgetController = function ($scope) {
+        var ForgetController = function($scope, auth) {
 
             $scope.selectedQuestion = '';
-            $scope.questions = [{
-                'label': '父亲的名字',
-                'value': 'FATHER_NAME'
-            }, {
-                'label': '母亲的名字',
-                'value': 'MOTHER_NAME'
-            }, {
-                'label': '小学的名字',
-                'value': 'PRIMARY_SCHOOL_NAME'
-            }, {
-                'label': '第一只宠物的名字',
-                'value': 'FIRST_PET_NAME'
-            }];
+            $scope.questions = auth.questions();
 
         };
 
-        return ['$scope', ForgetController];
+        return ['$scope', 'auth', ForgetController];
 
     });
 

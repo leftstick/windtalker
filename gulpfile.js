@@ -12,7 +12,7 @@ var devBuild = !require('minimist')(process.argv.slice(2)).prod;
 
 gulp.task('clean', function(cb) {
     var rimraf = require('rimraf');
-    rimraf('build/', cb);
+    rimraf('build/windtalker/', cb);
 });
 
 gulp.task('less', ['clean'], function() {

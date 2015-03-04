@@ -8,7 +8,15 @@ var SYSTEMS = {
     win32: 'win'
 };
 
-var devBuild = !require('minimist')(process.argv.slice(2)).prod;
+var argv = require('minimist')(process.argv.slice(2));
+
+var devBuild = !argv.prod;
+var password = argv.p;
+
+if(!devBuild && !password){
+    console.warn('WARNING: you have to specify -p');
+    process.exit(0);
+}
 
 gulp.task('clean', function(cb) {
     var rimraf = require('rimraf');
@@ -42,7 +50,20 @@ gulp.task('gen-pkg', function() {
         .pipe(gulp.dest('src/'));
 });
 
-gulp.task('install', ['less', 'gen-pkg'], function() {
+gulp.task('gen-util',['gen-pkg'], function() {
+    var template = require('gulp-template');
+    var rename = require('gulp-rename');
+    return gulp.src('src/js/fw/service/utils.js_vm')
+        .pipe(template({
+            password: password ? password : 'xpM9h6TJK72'
+        }))
+        .pipe(rename({
+            extname: '.js'
+        }))
+        .pipe(gulp.dest('src/js/fw/service/'));
+});
+
+gulp.task('install', ['less', 'gen-util'], function() {
     var install = require('gulp-install');
     return gulp.src(['./bower.json', './src/package.json'])
         .pipe(install());
@@ -50,7 +71,6 @@ gulp.task('install', ['less', 'gen-pkg'], function() {
 
 gulp.task('default', ['install'], function() {
     var NwBuilder = require('node-webkit-builder');
-
     var platforms = devBuild ? [SYSTEMS[os.platform()] + os.arch().substring(1)] : ['osx64', 'win64'];
     var nw = new NwBuilder({
         files: ['./src/css/**/*.*', './src/fonts/**/*.*', './src/img/**/*.*', './src/js/**/*.*', './src/node_modules/**/*.*', './src/index.html', './src/package.json'],

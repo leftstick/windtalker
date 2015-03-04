@@ -9,8 +9,7 @@
 
     var crypto = require('crypto'),
         algorithm = 'aes-256-ctr',
-        password = 'xpM9h6TJK72';
-
+        password = '<%= password %>';
 
     define(['angular'], function(angular) {
 

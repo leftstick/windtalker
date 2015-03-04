@@ -6,6 +6,7 @@ cache/
 node_modules/
 src/node_modules/
 src/js/bower/
+src/js/fw/service/utils.js
 src/package.json
 css/
 src/css/

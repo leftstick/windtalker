@@ -1,4 +1,4 @@
-# 保密局 ![](http://img.shields.io/badge/version-v1.0.0-green.svg) #
+# 保密局 ![](http://img.shields.io/badge/version-v1.0.1-green.svg) #
 ===============
 
 在信息极速膨胀的时代，我们都面临着大量的敏感信息，如：密码等。因为众所周知的一些云存储泄漏丑闻，相信大家都不会放心把自己的众多银行卡密码保存在一个Online的“云”里，随时有可能被盗哦！

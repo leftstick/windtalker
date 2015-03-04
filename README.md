@@ -10,6 +10,13 @@
 ![](./docs/imgs/forget.png) ![](./docs/imgs/secret.png)
 ![](./docs/imgs/create.png) ![](./docs/imgs/setting.png)
 
+## Downloads ##
+
+* **v1.0.0** (2015-03-04)
+
+ * Windows: [64bit](https://github.com/leftstick/windtalker/releases/download/1.0.0/windtalker-v1.0.0-win-x64.tar.gz)
+ * Mac 10.7+: [64bit](https://github.com/leftstick/windtalker/releases/download/1.0.0/windtalker-v1.0.0-darwin-x64.tar.gz)
+
 
 ## 本地编译 ##
 

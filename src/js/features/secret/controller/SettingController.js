@@ -49,6 +49,9 @@
 
 
             //password management
+            $scope.setting.valiate = {};
+            $scope.setting.valiate.showHint = false;
+            $scope.setting.valiate.title = '';
             $scope.setting.showPwdUpdateConfirmModal = function(pwdForm) {
                 events.emit('confirm', {
                     content: '确定要修改密码么？',
@@ -61,15 +64,6 @@
                             });
                             return;
                         }
-
-                        if ($scope.setting.newPassword !== $scope.setting.renewPassword) {
-                            events.emit('alert', {
-                                type: 'warning',
-                                message: '重复新密码输入不相同，请检查！'
-                            });
-                            return;
-                        }
-
                         var newUser = _.assign(auth.currentUser(), {
                             password: $scope.setting.newPassword
                         });
@@ -100,6 +94,28 @@
                     }
                 });
             };
+
+            var check = function() {
+                if (!$scope.setting.newPassword && !$scope.setting.renewPassword) {
+                    $scope.setting.valiate.title = '';
+                    $scope.setting.valiate.showHint = false;
+                    return;
+                }
+                if (!$scope.setting.newPassword) {
+                    $scope.setting.valiate.title = '请先填写新密码';
+                    $scope.setting.valiate.showHint = true;
+                    return;
+                }
+                if ($scope.setting.newPassword !== $scope.setting.renewPassword) {
+                    $scope.setting.valiate.title = '重复密码不一致';
+                    $scope.setting.valiate.showHint = true;
+                    return;
+                }
+                $scope.setting.valiate.showHint = false;
+                $scope.setting.valiate.title = '';
+            };
+
+            $scope.$watchGroup(['setting.newPassword', 'setting.renewPassword'], check);
 
 
             //QA management

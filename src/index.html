@@ -17,6 +17,16 @@
 
                 this.requireNode.version = process.versions.node;
                 delete process.versions.node;
+
+                try {
+                    //make copy/paste works on mac
+                    var win = this.gui.Window.get();
+                    var nativeMenuBar = new gui.Menu({ type: 'menubar' });
+                    nativeMenuBar.createMacBuiltin('Windtalker');
+                    win.menu = nativeMenuBar;
+                } catch (ex) {
+                    console.log(ex.message);
+                }
             }
         </script>
         <script type="text/javascript" data-main="js/index" src="js/bower/requirejs/require.js"></script>

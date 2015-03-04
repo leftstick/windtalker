@@ -9,7 +9,7 @@
 
             <div class="panel-body">
 
-                <form class="form-horizontal" role="form" ng-submit="signup()">
+                <form class="form-horizontal" role="form" ng-submit="signup()" name="signupForm">
                                 
                     <div class="input-group form-row">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -23,7 +23,7 @@
 
                     <div class="input-group form-row">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-folder-close"></i></span>
-                        <input type="password" ng-model="user.repassword" class="form-control" placeholder="重复密码" required>
+                        <input type="password" ng-model="user.repassword" class="form-control" placeholder="重复密码" required data-title="{{ valiate.title }}" data-trigger="manual" bs-show="valiate.showHint" data-placement="bottom" data-type="info" bs-tooltip>
                     </div>
                             
                     <div class="input-group form-row">
@@ -40,7 +40,7 @@
                                 
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
-                            <button class="btn btn-primary confirm-btn" type="submit">
+                            <button class="btn btn-primary confirm-btn" type="submit" ng-disabled="signupForm.$invalid || !user.question || valiate.showHint">
                                 注册
                             </button>
                             <hr/>

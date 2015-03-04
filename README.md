@@ -12,10 +12,10 @@
 
 ## Downloads ##
 
-* **v1.0.0** (2015-03-04)
+* **v1.0.1** (2015-03-04)
 
- * Windows: [64bit](https://github.com/leftstick/windtalker/releases/download/1.0.0/windtalker-v1.0.0-win-x64.tar.gz)
- * Mac 10.7+: [64bit](https://github.com/leftstick/windtalker/releases/download/1.0.0/windtalker-v1.0.0-darwin-x64.tar.gz)
+ * Windows: [64bit](https://github.com/leftstick/windtalker/releases/download/1.0.1/windtalker-v1.0.1-win-x64.tar.gz)
+ * Mac 10.7+: [64bit](https://github.com/leftstick/windtalker/releases/download/1.0.1/windtalker-v1.0.1-darwin-x64.tar.gz)
 
 
 ## 本地编译 ##

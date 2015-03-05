@@ -3,7 +3,7 @@
  *  The CreateController.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 16th, 2015
+ *  @date    Mar 5th, 2015
  *
  **/
 (function(define) {
@@ -11,12 +11,13 @@
 
     define(['lodash'], function(_) {
 
-        var CreateController = function($scope, SecretService, auth, events, $location) {
+        var CreateController = function($scope, SecretService, auth, events, $location, utils) {
 
             $scope.create = {};
 
             $scope.create.newItem = {};
             $scope.create.info = {};
+            $scope.create.edit = {};
 
             $scope.create.items = [];
 
@@ -60,10 +61,30 @@
                     });
             };
 
+            $scope.create.enableEditItem = function(item) {
+                item.isEditing = true;
+                item.editKey = item.key;
+                item.editValue = item.value;
+            };
+
+            $scope.create.edit.cancelEditItem = function(item, $event) {
+                utils.stopEvent($event);
+                item.isEditing = false;
+                item.editKey = item.key;
+                item.editValue = item.value;
+            };
+
+            $scope.create.edit.editItem = function(item, $event) {
+                utils.stopEvent($event);
+                item.isEditing = false;
+                item.key = item.editKey;
+                item.value = item.editValue;
+            };
+
             $scope.$on('$destroy', function() {});
         };
 
-        return ['$scope', 'SecretService', 'auth', 'events', '$location', CreateController];
+        return ['$scope', 'SecretService', 'auth', 'events', '$location', 'utils', CreateController];
 
     });
 

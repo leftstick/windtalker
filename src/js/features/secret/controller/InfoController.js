@@ -106,7 +106,6 @@
 
             $scope.info.edit.updateInfo = function($event) {
                 utils.stopEvent($event);
-                console.log($scope.info.edit.info);
                 if (!$scope.info.edit.info) {
                     return;
                 }
@@ -138,6 +137,26 @@
                 var clipboard = global.gui.Clipboard.get();
                 clipboard.set(text, 'text');
                 $scope.info.hintMsg = '已复制';
+            };
+
+            $scope.info.enableEditItem = function(item) {
+                item.isEditing = true;
+                item.editKey = item.key;
+                item.editValue = item.value;
+            };
+
+            $scope.info.edit.cancelEditItem = function(item, $event) {
+                utils.stopEvent($event);
+                item.isEditing = false;
+                item.editKey = item.key;
+                item.editValue = item.value;
+            };
+
+            $scope.info.edit.editItem = function(item, $event) {
+                utils.stopEvent($event);
+                item.isEditing = false;
+                item.key = item.editKey;
+                item.value = item.editValue;
             };
 
             $scope.$on('tooltip.hide', function(e, org) {

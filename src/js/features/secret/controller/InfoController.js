@@ -3,10 +3,10 @@
  *  The InfoController.
  *
  *  @author  Howard.Zuo
- *  @date    Mar 3th, 2015
+ *  @date    Mar 5th, 2015
  *
  **/
-(function(define) {
+(function(define, global) {
     'use strict';
 
     define(['angular', 'lodash'], function(angular, _) {
@@ -18,6 +18,8 @@
             $scope.info.edit = {};
 
             $scope.info.displayDetail = false;
+
+            $scope.info.hintMsg = '双击复制';
 
             var refreshInfos = function(callback) {
                 SecretService.getInfos($scope.user.id)
@@ -129,6 +131,23 @@
                     });
             };
 
+            $scope.info.copy = function(text) {
+                if (!global.gui) {
+                    return;
+                }
+                var clipboard = global.gui.Clipboard.get();
+                clipboard.set(text, 'text');
+                $scope.info.hintMsg = '已复制';
+            };
+
+            $scope.$on('tooltip.hide', function(e, org) {
+                if (org.$id.indexOf('copy') > -1) {
+                    $scope.$apply(function() {
+                        $scope.info.hintMsg = '双击复制';
+                    });
+                }
+            });
+
             $scope.$on('$destroy', function() {});
 
         };
@@ -138,4 +157,4 @@
     });
 
 
-})(define);
+})(define, this);

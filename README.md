@@ -12,7 +12,7 @@
 
 ## Downloads ##
 
-* **v1.1.0** (2015-03-04)
+* **v1.1.0** (2015-03-05)
 
  * Windows: [64bit](https://github.com/leftstick/windtalker/releases/download/1.1.0/windtalker-v1.1.0-win-x64.tar.gz)
  * Mac 10.7+: [64bit](https://github.com/leftstick/windtalker/releases/download/1.1.0/windtalker-v1.1.0-darwin-x64.tar.gz)

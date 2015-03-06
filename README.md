@@ -6,9 +6,7 @@
 `保密局`就是这样一个工具，她将你的“机密”仅仅保存在你指定的位置，当然可以是本地磁盘、移动硬盘、U盘也可以是网络硬盘。  
 经过`保密局`存储到文件数据库的信息都是经过OpenSSL加密的，确保不会被人为破解，所以可以放心使用。
 
-![](./docs/imgs/login.png)  ![](./docs/imgs/signup.png)
-![](./docs/imgs/forget.png) ![](./docs/imgs/secret.png)
-![](./docs/imgs/create.png) ![](./docs/imgs/setting.png)
+![](./docs/imgs/example.gif)
 
 ## Downloads ##
 

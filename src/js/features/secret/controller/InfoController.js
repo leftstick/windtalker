@@ -3,7 +3,7 @@
  *  The InfoController.
  *
  *  @author  Howard.Zuo
- *  @date    Mar 5th, 2015
+ *  @date    Mar 6th, 2015
  *
  **/
 (function(define, global) {
@@ -11,7 +11,7 @@
 
     define(['angular', 'lodash'], function(angular, _) {
 
-        var InfoController = function($scope, events, SecretService, utils) {
+        var InfoController = function($scope, events, SecretService, utils, $timeout) {
 
             $scope.info = {};
             $scope.info.originInfos = [];
@@ -32,7 +32,10 @@
                     });
             };
 
-            refreshInfos();
+            $timeout(function() {
+                refreshInfos();
+            }, 300);
+
 
             $scope.info.removeInfo = function(info, $event) {
                 utils.stopEvent($event);
@@ -171,7 +174,7 @@
 
         };
 
-        return ['$scope', 'events', 'SecretService', 'utils', InfoController];
+        return ['$scope', 'events', 'SecretService', 'utils', '$timeout', InfoController];
 
     });
 

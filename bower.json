@@ -34,6 +34,7 @@
     "noty": "2.3.4",
     "angular-smart-table": "1.4.11",
     "ngAnimate": "*",
-    "animate.css": "~3.2.0"
+    "animate.css": "~3.2.0",
+    "keymaster": "~1.6.3"
   }
 }

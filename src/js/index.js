@@ -3,7 +3,7 @@
  *  The entrance of whole application.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 10th, 2015
+ *  @date    Mar 6th, 2015
  *
  **/
 (function(requirejs, global) {
@@ -29,6 +29,7 @@
 
             'jquery': 'bower/jquery/dist/jquery.min',
             'lodash': 'bower/lodash/dist/lodash.min',
+            'keymaster': 'bower/keymaster/keymaster',
 
             'angular': 'bower/angular/angular.min',
             'angular-route': 'bower/angular-route/angular-route.min',
@@ -53,6 +54,9 @@
             },
             'lodash': {
                 exports: '_'
+            },
+            'keymaster': {
+                exports: 'key'
             },
             'angular': {
                 exports: 'angular',

@@ -71,7 +71,8 @@
                 };
 
                 Db.getSecretDb().find({
-                    name: utils.encryptTxt(info.name)
+                    userId: encryptInfo.userId,
+                    name: encryptInfo.name
                 }, function(err, docs) {
                     if (err) {
                         defer.reject({

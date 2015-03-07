@@ -11,7 +11,7 @@
 
     define(['angular', 'lodash'], function(angular, _) {
 
-        var InfoController = function($scope, events, SecretService, utils, $timeout) {
+        var InfoController = function($scope, events, SecretService, utils, $timeout, key) {
 
             $scope.info = {};
             $scope.info.originInfos = [];
@@ -68,12 +68,20 @@
                 utils.stopEvent($event);
                 $scope.info.currentInfo = info;
                 $scope.info.displayDetail = true;
+                key.nonBlockMode();
+                key.on('⌘+w, ctrl+w', function(e) {
+                    utils.stopEvent(e);
+                    $scope.info.closeViewInfo();
+                    $scope.$apply();
+                });
             };
 
             $scope.info.closeViewInfo = function() {
                 delete $scope.info.currentInfo;
                 $scope.info.displayDetail = false;
                 $scope.info.isEditing = false;
+                key.off('⌘+w, ctrl+w');
+                key.defaultMode();
             };
 
             $scope.info.toggleEdit = function(isEdit, $event) {
@@ -174,7 +182,7 @@
 
         };
 
-        return ['$scope', 'events', 'SecretService', 'utils', '$timeout', InfoController];
+        return ['$scope', 'events', 'SecretService', 'utils', '$timeout', 'key', InfoController];
 
     });
 

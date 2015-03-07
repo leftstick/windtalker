@@ -22,19 +22,24 @@
             $scope.info.hintMsg = '双击复制';
 
             var refreshInfos = function(callback) {
-                SecretService.getInfos($scope.user.id)
-                    .success(function(infos) {
-                        $scope.info.originInfos = infos;
-                        $scope.info.infos = [].concat($scope.info.originInfos);
-                        if (angular.isFunction(callback)) {
-                            callback($scope.info.infos);
-                        }
-                    });
+                $scope.info.showSpinner = true;
+                $timeout(function() {
+                    SecretService.getInfos($scope.user.id)
+                        .success(function(infos) {
+                            $scope.info.showSpinner = false;
+                            $scope.info.originInfos = infos;
+                            $scope.info.infos = [].concat($scope.info.originInfos);
+                            if (angular.isFunction(callback)) {
+                                callback($scope.info.infos);
+                            }
+                        });
+
+                }, 200);
             };
 
-            $timeout(function() {
-                refreshInfos();
-            }, 300);
+
+            refreshInfos();
+
 
 
             $scope.info.removeInfo = function(info, $event) {

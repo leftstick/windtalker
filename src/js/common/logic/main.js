@@ -3,7 +3,7 @@
  *  The entrance of logic.
  *
  *  @author  Howard.Zuo
- *  @date    Mar 6th, 2015
+ *  @date    Mar 7th, 2015
  *
  **/
 (function(define) {
@@ -13,6 +13,7 @@
         './Auth',
         './BackNavigatePrevent',
         './BootVerification',
+        './CloseBlocker',
         './Db',
         './KeyBoard',
         './RouteIndicator',

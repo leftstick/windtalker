@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/leftstick/windtalker.git"
   },
-  "version": "1.2.1",
+  "version": "1.2.2",
   "window": {
     "title": "Windtalker",
     "icon": "./img/favicon.png",

@@ -29,12 +29,13 @@
     "requirejs-tpl": "*",
     "require-css": "0.1.8",
     "bootstrap": "3.3.2",
-    "angular-strap": "2.1.6",
+    "angular-strap": "2.2.0",
     "angular-local-storage": "0.1.5",
     "noty": "2.3.4",
     "angular-smart-table": "1.4.11",
     "ngAnimate": "*",
     "animate.css": "~3.2.0",
-    "keymaster": "~1.6.3"
+    "keymaster": "~1.6.3",
+    "angular-motion": "0.3.4"
   }
 }

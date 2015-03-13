@@ -3,7 +3,7 @@
  *  The entrance of whole application.
  *
  *  @author  Howard.Zuo
- *  @date    Mar 6th, 2015
+ *  @date    Mar 13th, 2015
  *
  **/
 (function(requirejs, global) {
@@ -39,6 +39,7 @@
             'angular-local-storage': 'bower/angular-local-storage/dist/angular-local-storage.min',
             'angular-motion': 'bower/angular-motion/dist/angular-motion.min',
             'angular-smart-table': 'bower/angular-smart-table/dist/smart-table.debug',
+            'angular-theme-spinner': 'bower/angular-theme-spinner/dist/angular-theme-spinner.min',
             'ngAnimate-css': 'bower/ngAnimate/css/ng-animation',
 
             'noty': 'bower/noty/js/noty/packaged/jquery.noty.packaged.min',
@@ -78,6 +79,9 @@
                 deps: ['angular']
             },
             'angular-smart-table': {
+                deps: ['angular']
+            },
+            'angular-theme-spinner':{
                 deps: ['angular']
             }
         },

@@ -1,6 +1,6 @@
 {
   "name": "windtalker",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "homepage": "https://github.com/leftstick/windtalker",
   "description": "windtalker helps people managing security cared information",
   "keywords": [
@@ -36,6 +36,7 @@
     "ngAnimate": "*",
     "animate.css": "~3.2.0",
     "keymaster": "~1.6.3",
-    "angular-motion": "0.3.4"
+    "angular-motion": "0.3.4",
+    "angular-theme-spinner": "~1.0.2"
   }
 }

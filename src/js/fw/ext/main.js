@@ -3,7 +3,7 @@
  *  The entrance of ext.
  *
  *  @author  Howard.Zuo
- *  @date    Mar 6th, 2015
+ *  @date    Mar 13th, 2015
  *
  **/
 (function(define) {
@@ -18,8 +18,10 @@
         'angular-strap-tpl',
         'angular-local-storage',
         'angular-smart-table',
+        'angular-theme-spinner',
         'noty',
         'keymaster',
+        'css!angular-theme-spinner',
         'css!angular-motion',
         'css!animate-css',
         'css!bootstrap-css',
@@ -37,6 +39,8 @@
             name: 'LocalStorageModule'
         }, {
             name: 'smart-table'
+        }, {
+            name: 'angular-theme-spinner'
         }];
     });
 

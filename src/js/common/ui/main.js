@@ -3,7 +3,7 @@
  *
  *
  *  @author  Hao.Zuo
- *  @date    Mar 7th, 2015
+ *  @date    Mar 13th, 2015
  *
  */
 (function(define) {
@@ -15,7 +15,6 @@
         './confirm',
         './Info',
         './modal',
-        './spinner',
         './WindowResizer'
     ], function() {
         var args = [].slice.call(arguments);

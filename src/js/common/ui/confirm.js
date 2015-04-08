@@ -2,7 +2,7 @@
  *  Defines the Confirm Modal
  *
  *  @author  Hao.Zuo
- *  @date    Mar 3th, 2015
+ *  @date    Apr 8th, 2015
  *
  */
 (function(define) {
@@ -16,7 +16,7 @@
 
         var common = angular.module(moduleName, []);
 
-        common.run(['events', '$timeout', '$rootScope', function(events, $timeout, $rootScope) {
+        common.run(['events', '$rootScope', function(events, $rootScope) {
 
             events.on('confirm', function(opts) {
                 if (!opts) {
@@ -32,15 +32,13 @@
                     }
                 };
 
-                $timeout(function() {
-                    events.emit('modal', {
-                        scope: scope,
-                        title: '确认',
-                        content: opts.content,
-                        animation: 'am-fade-and-slide-top',
-                        template: commonBase + '/ui/confirm.html'
-                    });
-                }, 0);
+                events.emit('modal', {
+                    scope: scope,
+                    title: '确认',
+                    content: opts.content,
+                    animation: 'am-fade-and-slide-top',
+                    template: commonBase + '/ui/confirm.html'
+                });
             });
 
         }]);

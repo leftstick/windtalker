@@ -7,7 +7,7 @@
     "url": "https://github.com/leftstick/windtalker.git"
   },
   "author": "Howard.Zuo",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "window": {
     "title": "Windtalker",
     "icon": "./img/favicon.png",

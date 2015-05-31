@@ -28,7 +28,7 @@
             'features': 'features',
 
             'jquery': 'bower/jquery/dist/jquery.min',
-            'lodash': 'bower/lodash/dist/lodash.min',
+            'lodash': 'bower/lodash/main',
             'keymaster': 'bower/keymaster/keymaster',
 
             'angular': 'bower/angular/angular.min',
@@ -52,9 +52,6 @@
         shim: {
             'jquery': {
                 exports: '$'
-            },
-            'lodash': {
-                exports: '_'
             },
             'keymaster': {
                 exports: 'key'

@@ -17,9 +17,14 @@
 
                 var defer = utils.handyDefer();
 
-                Db.getSecretDb().find({
+                 Db.getSecretDb()
+                 .find({
                     userId: utils.encryptTxt(userId)
-                }, function(err, docs) {
+                })
+                 .sort({
+                    updateDate: -1
+                })
+                 .exec(function(err, docs) {
                     if (err) {
                         defer.reject({
                             data: '读取秘密信息失败'
@@ -34,6 +39,8 @@
                             userId: utils.decryptTxt(doc.userId),
                             name: utils.decryptTxt(doc.name),
                             desc: utils.decryptTxt(doc.desc),
+                            createDate: doc.createDate,
+                            updateDate: doc.updateDate,
                             items: _.map(doc.items, function(item) {
                                 return {
                                     key: utils.decryptTxt(item.key),
@@ -62,6 +69,8 @@
                     userId: utils.encryptTxt(info.userId),
                     name: utils.encryptTxt(info.name),
                     desc: utils.encryptTxt(info.desc),
+                    createDate: new Date().getTime(),
+                    updateDate: new Date().getTime(),
                     items: _.map(info.items, function(item) {
                         return {
                             key: utils.encryptTxt(item.key),
@@ -98,6 +107,8 @@
                             userId: utils.decryptTxt(doc.userId),
                             name: utils.decryptTxt(doc.name),
                             desc: utils.decryptTxt(doc.desc),
+                            createDate: doc.createDate,
+                            updateDate: doc.updateDate,
                             items: _.map(doc.items, function(item) {
                                 return {
                                     key: utils.decryptTxt(item.key),
@@ -124,6 +135,8 @@
                     userId: utils.encryptTxt(info.userId),
                     name: utils.encryptTxt(info.name),
                     desc: utils.encryptTxt(info.desc),
+                    createDate: info.createDate,
+                    updateDate: new Date().getTime(),
                     items: _.map(info.items, function(item) {
                         return {
                             key: utils.encryptTxt(item.key),

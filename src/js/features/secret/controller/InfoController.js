@@ -177,9 +177,7 @@
 
             $scope.$on('tooltip.hide', function(e, org) {
                 if (org.$id.indexOf('copy') > -1) {
-                    $scope.$apply(function() {
-                        $scope.info.hintMsg = '双击复制';
-                    });
+                    $scope.info.hintMsg = '双击复制';
                 }
             });
 
@@ -187,7 +185,15 @@
 
         };
 
-        return ['$scope', 'events', 'SecretService', 'utils', '$timeout', 'key', InfoController];
+        return [
+            '$scope',
+            'events',
+            'SecretService',
+            'utils',
+            '$timeout',
+            'key',
+            InfoController
+        ];
 
     });
 

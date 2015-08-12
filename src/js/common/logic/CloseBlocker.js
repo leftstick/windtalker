@@ -17,30 +17,37 @@
 
         var win = global.gui.Window.get();
 
-        module.run(['events', 'auth', function(events, auth) {
+        module.run([
+            'events',
+            'auth',
+            function(events, auth) {
 
-            win.on('close', function() {
+                win.on('close', function() {
 
-                if (!auth.currentUser()) {
-                    win.close(true);
-                    return;
-                }
-
-                events.emit('confirm', {
-                    content: '您确定要退出保密局么？',
-                    onConfirm: function() {
+                    if (!auth.currentUser()) {
                         win.close(true);
+                        return;
                     }
+
+                    if (angular.element('#exit.modal').length > 0) {
+                        return;
+                    }
+
+                    events.emit('confirm', {
+                        id: 'exit',
+                        content: '您确定要退出保密局么？',
+                        onConfirm: function() {
+                            win.close(true);
+                        }
+                    });
+
+
                 });
 
+            }
+        ]);
 
-            });
-
-        }]);
-
-        return {
-            name: modulename
-        };
+        return {name: modulename};
 
     });
 

@@ -9,7 +9,7 @@
 (function(define, global) {
     'use strict';
 
-    define(['angular'], function(angular) {
+    define(['angular', 'lodash'], function(angular, _) {
 
         var modulename = 'ExitModule';
 
@@ -17,25 +17,28 @@
 
         var win = global.gui.Window.get();
 
-        module.run(['auth', 'key', 'utils', function(auth, key, utils) {
+        module.run([
+            'auth',
+            'key',
+            'utils',
+            function(auth, key, utils) {
 
-            key.on('esc', function(e) {
+                key.on('esc', _.debounce(function(e) {
 
-                if (!auth.currentUser()) {
-                    win.close(true);
-                    return;
-                }
+                    if (!auth.currentUser()) {
+                        win.close(true);
+                        return;
+                    }
 
-                utils.stopEvent(e);
-                win.close();
-            });
+                    utils.stopEvent(e);
+                    win.close();
+                }, 150));
 
 
-        }]);
+            }
+        ]);
 
-        return {
-            name: modulename
-        };
+        return {name: modulename};
 
     });
 

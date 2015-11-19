@@ -14,17 +14,11 @@ var fs = nativeRequire('fs');
 
 var DB_ADDRESS_KEY = 'windtaler.dbaddress';
 
-var SetDBController = function($scope, events, utils, $interval, $timeout, StorageService) {
+var SetDBController = function($scope, events, utils, StorageService) {
 
     $scope.db = {address: StorageService.get(DB_ADDRESS_KEY)};
 
-    $scope.state = {shake: '', invalidAddress: false};
-    var shakePromise = $interval(function() {
-        $scope.state.shake = 'bounce';
-        $timeout(function() {
-            $scope.state.shake = '';
-        }, 1000);
-    }, 5000);
+    $scope.state = {invalidAddress: false};
 
     $scope.openDialog = function($event) {
         utils.stopEvent($event);
@@ -65,7 +59,6 @@ var SetDBController = function($scope, events, utils, $interval, $timeout, Stora
     });
 
     $scope.$on('$destroy', function() {
-        $interval.cancel(shakePromise);
         unwatch();
     });
 };
@@ -74,8 +67,6 @@ export default [
     '$scope',
     'events',
     'utils',
-    '$interval',
-    '$timeout',
     'StorageService',
     SetDBController
 ];

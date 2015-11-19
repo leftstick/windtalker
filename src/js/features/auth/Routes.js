@@ -10,6 +10,7 @@
 
 import tpl from './partials/login.html';
 import dbTpl from './partials/setdb.html';
+import signupTpl from './partials/signup.html';
 
 export default [
     {
@@ -32,6 +33,17 @@ export default [
         size: {
             width: 500,
             height: 300
+        }
+    },
+    {
+        id: 'signup',
+        isDefault: false,
+        when: '/signup',
+        controller: 'SignupController',
+        template: signupTpl,
+        size: {
+            width: 500,
+            height: 600
         }
     }
 ];

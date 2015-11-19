@@ -13,7 +13,9 @@ import FeatureBase from 'lib/FeatureBase';
 import Routes from './Routes';
 import LoginController from './controller/LoginController';
 import SetDBController from './controller/SetDBController';
+import SignupController from './controller/SignupController';
 import AuthService from './service/AuthService';
+import ShakeIcon from './directive/ShakeIcon';
 
 class Feature extends FeatureBase {
 
@@ -25,7 +27,9 @@ class Feature extends FeatureBase {
     execute() {
         this.controller('LoginController', LoginController);
         this.controller('SetDBController', SetDBController);
+        this.controller('SignupController', SignupController);
         this.service('AuthService', AuthService);
+        this.directive('shakeIcon', ShakeIcon);
     }
 }
 

@@ -1,19 +1,12 @@
 /**
- *
- *  The entrance of utils.
+ *  Entrance of services
  *
  *  @author  Howard.Zuo
- *  @date    Feb 9th, 2015
+ *  @date    Nov 18, 2015
  *
- **/
-(function(define) {
-    'use strict';
+ */
+'use strict';
+import events from './Events';
+import utils from './Utils';
 
-    define([
-        './events',
-        './utils'
-    ], function() {
-        return [].slice.apply(arguments);
-    });
-
-}(define));
+export default [events, utils];

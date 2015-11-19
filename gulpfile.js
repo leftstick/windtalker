@@ -3,85 +3,126 @@
 var gulp = require('gulp');
 var os = require('os');
 
-var SYSTEMS = {darwin: 'osx', win32: 'win'};
+var path = require('path');
+var resolve = path.resolve;
 
-var argv = require('minimist')(process.argv.slice(2));
+var logger = console.log;
 
-var devBuild = !argv.prod;
-var password = argv.p;
+var SYSTEMS = {darwin: 'osx', win32: 'win', linux: 'linux'};
 
-if (!devBuild && !password) {
-    console.warn('WARNING: you have to specify -p');
-    process.exit(0);
-}
+var getTime = function() {
+    var d = new Date();
+    return d.getHours() + ':' + d.getMinutes() + ' ' + d.getSeconds() + '-' + d.getMilliseconds();
+};
 
-gulp.task('clean', function(cb) {
-    var rimraf = require('rimraf');
-    rimraf('build/windtalker/', cb);
-});
+var handleStatsError = function(stats) {
+    var info = stats.toJson();
+    if (info.errors.length > 0) {
+        logger('[webpack]', stats.toString({colors: true}));
+        logger('\n [ ' + getTime() + ' ]   webpack: bundle is now INVALID.');
+        return;
+    }
+    logger('\n [ ' + getTime() + ' ]   webpack: bundle is now VALID!');
+};
 
-gulp.task('less', ['clean'], function() {
-    var less = require('gulp-less');
-    var LessPluginAutoPrefix = require('less-plugin-autoprefix');
-    var autoprefix = new LessPluginAutoPrefix({
-        browsers: [
-            'last 5 versions'
-        ]
+var compile = function(isDev, cb) {
+    var webpack = require('webpack');
+    var go = require('go-txt');
+    var config;
+
+    var indexVm = resolve(__dirname, 'src', 'index.html.vm');
+    var indexHtml = resolve(__dirname, 'src', 'build', 'index.html');
+
+    if (isDev) {
+        config = require(resolve(__dirname, 'webpack.config.dev'));
+    } else {
+        config = require(resolve(__dirname, 'webpack.config.prod'));
+    }
+
+    require('rimraf').sync(resolve(__dirname, 'src', 'build'));
+    go(resolve(__dirname, 'src', 'main.js.vm'), resolve(__dirname, 'src', 'build', 'main.js'));
+    go(resolve(__dirname, 'package.json'), resolve(__dirname, 'src', 'build', 'package.json'));
+
+    var compiler = webpack(config);
+
+    if (isDev) {
+        go(indexVm, indexHtml);
+        compiler.watch({aggregateTimeout: 500, poll: true}, function(err, stats) {
+            if (err) {
+                logger('[ERROR]: ', err);
+                return;
+            }
+            handleStatsError(stats);
+        });
+        return;
+    }
+
+    compiler.run(function(err, stats) {
+        if (err) {
+            cb(err);
+            return;
+        }
+        go(indexVm, indexHtml, function(tmp) {
+            return tmp.replace('common.bundle.js', stats.hash + '.common.bundle.js').replace('index.bundle.js', stats.hash + '.index.bundle.js');
+        });
+        handleStatsError(stats);
+        cb();
     });
+};
 
-    return gulp.src('src/less/main.less')
-        .pipe(less({plugins: [autoprefix]}))
-        .pipe(gulp.dest('src/css/'));
+gulp.task('compile-dev', function(cb) {
+    compile(true, cb);
 });
 
-gulp.task('gen-pkg', function() {
-    var template = require('gulp-template');
-    var rename = require('gulp-rename');
-    return gulp.src('src/package.json_vm')
-        .pipe(template({devBuild: devBuild}))
-        .pipe(rename({extname: '.json'}))
-        .pipe(gulp.dest('src/'));
+gulp.task('compile-release', ['clean-dist'], function(cb) {
+    compile(false, cb);
 });
 
-gulp.task('gen-util', ['gen-pkg'], function() {
-    var template = require('gulp-template');
-    var rename = require('gulp-rename');
-    return gulp.src('src/js/fw/service/utils.js_vm')
-        .pipe(template({password: password ? password : 'xpM9h6TJK72'}))
-        .pipe(rename({extname: '.js'}))
-        .pipe(gulp.dest('src/js/fw/service/'));
+gulp.task('clean-dist', function() {
+    return require('rimraf').sync(resolve(__dirname, 'dist'));
 });
 
-gulp.task('install', ['less', 'gen-util'], function() {
-    var install = require('gulp-install');
-    return gulp.src(['./bower.json', './src/package.json'])
-        .pipe(install());
+gulp.task('release', ['compile-release'], function() {
+
+    var electron = require('gulp-electron');
+    var packageJson = require('./package.json');
+    return gulp.src('')
+        .pipe(electron({
+            src: './src/build/',
+            packageJson: packageJson,
+            release: './dist',
+            cache: './cache',
+            version: 'v0.35.0',
+            packaging: true,
+            asar: true,
+            platforms: [
+                'darwin-x64'
+            ],
+            platformResources: {
+                darwin: {
+                    CFBundleDisplayName: packageJson.name,
+                    CFBundleIdentifier: packageJson.name,
+                    CFBundleName: packageJson.name,
+                    CFBundleVersion: packageJson.version,
+                    icon: 'icon/windtalker.icns'
+                },
+                win: {
+                    'version-string': packageJson.version,
+                    'file-version': packageJson.version,
+                    'product-version': packageJson.version,
+                    'icon': 'icon/windtalker.ico'
+                }
+            }
+        }))
+        .pipe(gulp.dest(''));
 });
 
-gulp.task('default', ['install'], function() {
-    var NwBuilder = require('node-webkit-builder');
-    var platforms = devBuild ? [
-        SYSTEMS[os.platform()] + os.arch().substring(1)
-    ] : ['osx64', 'win64'];
-    var nw = new NwBuilder({
-        files: [
-            './src/css/**/*.*',
-            './src/fonts/**/*.*',
-            './src/img/**/*.*',
-            './src/js/**/*.*',
-            './src/node_modules/**/*.*',
-            './src/index.html',
-            './src/package.json'
-        ],
-        version: 'v0.12.3',
-        macZip: true,
-        platforms: platforms
-    // platforms: ['osx32', 'osx64', 'win32', 'win64']
-    });
-
-    nw.build().then(function() {
-        console.log('all done!');
-    }).catch(function(error) {
-        console.error(error);
-    });
+gulp.task('dev', function(cb) {
+    require('child_process')
+        .exec('node ./node_modules/.bin/electron ./src/build/', {
+            cwd: __dirname,
+            env: {
+                NODE_ENV: 'dev'
+            }
+        }, cb);
 });

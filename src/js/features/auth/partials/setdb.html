@@ -1,0 +1,25 @@
+<form id="setdb" layout="column" name="dbform" ng-submit="saveDB()">
+    <a href="#/login" class="back-login animated" ng-class="state.shake"><i class="icon-angle-double-down"></i>返回登录</a>
+
+    <div flex="40" class="header" layout="row" layout-align="start end">
+        <span class="hint md-display-1">选择数据文件存放位置</span>
+    </div>
+
+    <div flex="60" layout="row" layout-align="center start">
+        <md-content layout-padding class="content">
+            <md-input-container class="md-block">
+                <label>数据库目录</label>
+                <input class="md-accent" ng-model="db.address" ng-click="openDialog($event)">
+                <div ng-messages="state">
+                    <div ng-message="invalidAddress">路径输入错误！请选择正确的文件路径</div>
+                </div>
+            </md-input-container>
+
+            <md-content class="content md-body-1" layout="row" layout-align="end center">
+                <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="!db.address || state.invalidAddress">确认</md-button>
+            </md-content>
+
+        </md-content>
+    </div>
+
+</form>

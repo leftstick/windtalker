@@ -1,14 +1,13 @@
 # Compiled binary
-build/
+dist/
 cache/
 
 # Dependency directory
 node_modules/
-src/node_modules/
-src/js/bower/
-src/js/fw/service/utils.js
-src/package.json
-css/
-src/css/
 
 .DS_Store
+npm-debug.log
+
+src/index.html
+
+src/build/

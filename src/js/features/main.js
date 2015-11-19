@@ -1,19 +1,14 @@
 /**
- *
- *  The entrance of features.
+ *  Entrance of features
  *
  *  @author  Howard.Zuo
- *  @date    Feb 9th, 2015
+ *  @date    Nov 18, 2015
  *
- **/
-(function(define) {
-    'use strict';
+ */
+'use strict';
+import flatten from 'lib/Flatten';
 
-    define([
-        './auth/main',
-        './secret/main'
-    ], function() {
-        return [].slice.apply(arguments);
-    });
+import auth from './auth/main';
+import common from './common/main';
 
-}(define));
+export default flatten([common, auth]);

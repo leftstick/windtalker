@@ -1,42 +1,81 @@
 /**
- *  The bootstrap of the whole windtalker application
+ *  main.js manage the whole application.
  *
  *  @author  Howard.Zuo
- *  @date    Feb 8th, 2015
+ *  @date    Nov 18, 2015
  *
  */
-(function (define, doc) {
-    'use strict';
+'use strict';
+import angular from 'angular';
+import Initializers from 'init/main';
+import Extensions from 'ext/main';
+import Configurators from 'config/main';
+import Services from 'service/main';
+import Features from 'features/main';
 
-    //specify each feature module here explicitly
-    define([
-        'angular',
-        'lodash',
-        'ext/main',
-        'conf/main',
-        'common/main',
-        'service/main',
-        'features/main'
-    ], function (angular, _, ext, conf, common, service, features) {
+class App {
 
-        var appName = 'windtalker';
+    constructor() {
+        this.appName = 'windtalkerr';
+        this.features = [];
+        Features.forEach(function(Feature) {
+            this.features.push(new Feature());
+        }, this);
+    }
 
-        var depends = ext.concat(common).concat(features);
+    findDependencies() {
+        this.depends = Extensions.slice(0);
+        var featureNames = this.features.filter(function(feature) {
+            return feature.export;
+        })
+            .map(function(feature) {
+                return feature.export;
+            });
+        Array.prototype.push.apply(this.depends, featureNames);
+    }
 
-        var app = angular.module(appName, _.pluck(depends, 'name'));
+    beforeStart() {
+        Initializers.forEach(function(Initializer) {
+            (new Initializer(this.features)).execute();
+        }, this);
 
-        _.each(conf, function (c) {
-            c.func(features, app);
+        this.features.forEach(function(feature) {
+            feature.beforeStart();
         });
+    }
 
-        _.each(service, function (s) {
-            s.func(features, app);
+    createApp() {
+        this.features.forEach(function(feature) {
+            feature.execute();
         });
+        this.app = angular.module(this.appName, this.depends);
+    }
 
-        angular.bootstrap(doc, [appName]);
+    configApp() {
+        Configurators.forEach(function(Configurator) {
+            (new Configurator(this.features, this.app)).execute();
+        }, this);
+    }
 
-        return app;
-    });
+    registerService() {
+        Services.forEach(function(Service) {
+            (new Service(this.features, this.app)).execute();
+        }, this);
+    }
 
+    launch() {
+        angular.bootstrap(document, [this.appName]);
+    }
 
-}(define, document));
+    run() {
+        this.findDependencies();
+        this.beforeStart();
+        this.createApp();
+        this.configApp();
+        this.registerService();
+        this.launch();
+    }
+
+}
+
+export default App;

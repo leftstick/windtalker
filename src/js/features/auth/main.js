@@ -1,52 +1,32 @@
 /**
  * ******************************************************************************************************
  *
- *  Defines the auth
+ *   Defines a auth feature
  *
  *  @author  Howard.Zuo
- *  @date    Feb 11th, 2015
+ *  @date    Nov 19, 2015
  *
  * ******************************************************************************************************
  */
-(function(define) {
-    'use strict';
+'use strict';
+import FeatureBase from 'lib/FeatureBase';
+import Routes from './Routes';
+import LoginController from './controller/LoginController';
+import SetDBController from './controller/SetDBController';
+import AuthService from './service/AuthService';
 
-    define([
-        'angular',
-        './Routes',
-        './controller/LoginController',
-        './controller/ForgetController',
-        './controller/SignupController',
-        './controller/DBSettingController',
-        './directive/FileRead',
-        './service/UserService'
-    ], function(
-        angular,
-        Routes,
-        LoginController,
-        ForgetController,
-        SignupController,
-        DBSettingController,
-        FileRead,
-        UserService) {
+class Feature extends FeatureBase {
 
-        var moduleName = 'login';
+    constructor() {
+        super('auth');
+        this.routes = Routes;
+    }
 
-        var module = angular.module(moduleName, []);
+    execute() {
+        this.controller('LoginController', LoginController);
+        this.controller('SetDBController', SetDBController);
+        this.service('AuthService', AuthService);
+    }
+}
 
-        module.controller('LoginController', LoginController);
-        module.controller('ForgetController', ForgetController);
-        module.controller('SignupController', SignupController);
-        module.controller('DBSettingController', DBSettingController);
-        module.directive('fileread', FileRead);
-        module.service('UserService', UserService);
-
-        return {
-            type: 'features',
-            name: moduleName,
-            routes: Routes
-        };
-
-    });
-
-}(define));
+export default Feature;

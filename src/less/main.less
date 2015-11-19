@@ -1,49 +1,15 @@
-@import "./variables";
-@import "./background";
-@import "./auth_login";
-@import "./auth_forget";
-@import "./auth_signup";
-@import "./auth_dbsetting";
-@import "./secret";
-@import "./secret_info";
-@import "./secret_create";
-@import "./secret_setting";
+@import "../../node_modules/angular-material/angular-material.css";
+@import "../../node_modules/animate.css/animate.css";
 
-hr{
-    margin: 5px auto;
+@import "./fontello";
+
+@import "./auth/login";
+@import "./auth/setdb";
+
+html, body, div[ng-view]{
+    height: 100%;
 }
 
-body{
-    overflow-x: hidden;
-}
-
-.panel-info{
-    >.panel-heading{
-        .head-action{
-            margin-top: -20px;
-        }
-    }
-
-    >.panel-body{
-        padding-top: 30px;
-    }
-    .form-row{
-        margin-bottom: 15px;
-    }
-    .confirm-btn{
-        padding: 6px 30px;
-    }
-    hr{
-        margin-top: 15px;
-    }
-    .form-group{
-        margin-bottom: 5px;
-    }
-
-    >.panel-footer{
-    }
-}
-
-.disable-select {
-    user-select: none;
+a{
+    text-decoration: none;
 }

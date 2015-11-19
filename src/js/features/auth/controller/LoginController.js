@@ -1,42 +1,35 @@
 /**
- *
- *  The LoginController.
+ *  Defines the LoginController controller
  *
  *  @author  Howard.Zuo
- *  @date    Feb 10th, 2015
+ *  @date    Nov 19, 2015
  *
- **/
-(function(define) {
-    'use strict';
+ */
+'use strict';
+var LoginController = function($scope, events, utils, AuthService, $interval, $timeout) {
 
-    define(['lodash'], function(_) {
+    $scope.state = {shake: ''};
 
-        var LoginController = function($scope, UserService, events, $location, auth) {
-            $scope.user = {};
-            $scope.login = function() {
-                UserService.getUsers()
-                    .success(function(users) {
-                        var found = _.find(users, {
-                            name: $scope.user.name,
-                            password: $scope.user.password
-                        });
-                        if (!found) {
-                            events.emit('alert', {
-                                type: 'warning',
-                                message: '用户名或密码错误'
-                            });
-                            return;
-                        }
-                        auth.currentUser(found);
-                        $location.url('secret/info');
+    $scope.user = {};
 
-                    });
-            };
-        };
+    var shakePromise = $interval(function() {
+        $scope.state.shake = 'bounce';
+        $timeout(function() {
+            $scope.state.shake = '';
+        }, 1000);
+    }, 5000);
 
-        return ['$scope', 'UserService', 'events', '$location', 'auth', LoginController];
-
+    $scope.$on('$destroy', function() {
+        $interval.cancel(shakePromise);
     });
+};
 
-
-})(define);
+export default [
+    '$scope',
+    'events',
+    'utils',
+    'AuthService',
+    '$interval',
+    '$timeout',
+    LoginController
+];

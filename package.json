@@ -1,7 +1,13 @@
 {
   "name": "windtalker",
-  "version": "1.2.6",
+  "version": "2.0.0",
   "description": "windtalker helps people managing security cared information",
+  "main": "main.js",
+  "scripts": {
+    "release": "node ./node_modules/.bin/gulp release",
+    "dev": "node ./node_modules/.bin/gulp dev",
+    "watch": "node ./node_modules/.bin/gulp compile-dev"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/leftstick/windtalker.git"
@@ -9,7 +15,7 @@
   "keywords": [
     "password",
     "keeper",
-    "node-webkit"
+    "electron"
   ],
   "author": "Howard.Zuo",
   "license": "MIT",
@@ -18,14 +24,30 @@
   },
   "homepage": "https://github.com/leftstick/windtalker",
   "devDependencies": {
+    "autoprefixer-loader": "^3.1.0",
+    "babel-core": "^6.1.21",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "css-loader": "^0.23.0",
+    "electron-prebuilt": "^0.35.0",
+    "file-loader": "^0.8.4",
+    "go-txt": "^1.1.0",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.1",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.4.3",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.6",
     "gulp": "^3.9.0",
-    "gulp-install": "^0.4.0",
-    "gulp-less": "^3.0.3",
-    "gulp-rename": "^1.2.2",
-    "gulp-template": "^3.0.0",
-    "less-plugin-autoprefix": "^1.4.2",
-    "minimist": "^1.1.3",
-    "node-webkit-builder": "^1.0.13",
-    "rimraf": "^2.4.2"
+    "gulp-electron": "0.0.9"
+  },
+  "dependencies": {
+    "angular": "^1.4.7",
+    "angular-animate": "^1.4.7",
+    "angular-aria": "^1.4.7",
+    "angular-material": "^0.11.4",
+    "angular-messages": "^1.4.7",
+    "angular-route": "^1.4.7",
+    "animate.css": "^3.4.0"
   }
 }

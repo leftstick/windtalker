@@ -6,10 +6,10 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 18, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import validator from './Validator';
+var validator = require('./Validator');
 
-export default [validator];
+module.exports = [validator];

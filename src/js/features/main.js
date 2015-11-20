@@ -2,13 +2,13 @@
  *  Entrance of features
  *
  *  @author  Howard.Zuo
- *  @date    Nov 18, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import flatten from 'lib/Flatten';
+var flatten = require('lib/Flatten');
 
-import auth from './auth/main';
-import common from './common/main';
+var auth = require('./auth/main');
+var common = require('./common/main');
 
-export default flatten([common, auth]);
+module.exports = flatten([common, auth]);

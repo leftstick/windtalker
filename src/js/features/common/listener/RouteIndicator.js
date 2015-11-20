@@ -3,12 +3,13 @@
  *  Defines RouteIndicator service
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
-import pluck from 'lib/Pluck';
-import angular from 'angular';
-import FeatureBase from 'lib/FeatureBase';
+'use strict';
+var pluck = require('lib/Pluck');
+var angular = require('angular');
+var FeatureBase = require('lib/FeatureBase');
 
 class Feature extends FeatureBase {
 
@@ -35,4 +36,4 @@ class Feature extends FeatureBase {
     }
 }
 
-export default Feature;
+module.exports = Feature;

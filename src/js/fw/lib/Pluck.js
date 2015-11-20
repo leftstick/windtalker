@@ -2,12 +2,12 @@
  *  Gets the property value of path from all elements in collection.
  *
  *  @author  Howard.Zuo
- *  @date    Nov 18, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
 
-import angular from 'angular';
+var angular = require('angular');
 
 var pluck = function(arr, key) {
     if (!angular.isArray(arr) || arr.length === 0) {
@@ -21,4 +21,4 @@ var pluck = function(arr, key) {
     });
 };
 
-export default pluck;
+module.exports = pluck;

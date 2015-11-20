@@ -4,13 +4,13 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import ConfiguratorBase from 'lib/ConfiguratorBase';
-import pluck from 'lib/Pluck';
-import omit from 'lib/Omit';
+var ConfiguratorBase = require('lib/ConfiguratorBase');
+var pluck = require('lib/Pluck');
+var omit = require('lib/Omit');
 
 class Configurator extends ConfiguratorBase {
     constructor(features, app) {
@@ -85,4 +85,4 @@ class Configurator extends ConfiguratorBase {
     }
 }
 
-export default Configurator;
+module.exports = Configurator;

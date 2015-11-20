@@ -3,12 +3,12 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import InitBase from 'lib/InitBase';
-import pluck from 'lib/Pluck';
+var InitBase = require('lib/InitBase');
+var pluck = require('lib/Pluck');
 
 class Initializer extends InitBase {
     constructor(features, app) {
@@ -30,4 +30,4 @@ class Initializer extends InitBase {
     }
 }
 
-export default Initializer;
+module.exports = Initializer;

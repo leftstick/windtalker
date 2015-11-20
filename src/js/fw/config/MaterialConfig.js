@@ -3,11 +3,11 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 18, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import ConfiguratorBase from 'lib/ConfiguratorBase';
+var ConfiguratorBase = require('lib/ConfiguratorBase');
 
 class Configurator extends ConfiguratorBase {
     constructor(features, app) {
@@ -28,4 +28,4 @@ class Configurator extends ConfiguratorBase {
     }
 }
 
-export default Configurator;
+module.exports = Configurator;

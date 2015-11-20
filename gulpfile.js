@@ -63,7 +63,7 @@ var compile = function(isDev, cb) {
             return;
         }
         go(indexVm, indexHtml, function(tmp) {
-            return tmp.replace('common.bundle.js', stats.hash + '.common.bundle.js').replace('index.bundle.js', stats.hash + '.index.bundle.js');
+            return tmp.replace('index.bundle.js', stats.hash + '.index.bundle.js');
         });
         handleStatsError(stats);
         cb();

@@ -3,16 +3,17 @@
  *  Routes module expose route information used in auth feature
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
 
-import tpl from './partials/login.html';
-import dbTpl from './partials/setdb.html';
-import signupTpl from './partials/signup.html';
+var tpl = require('./partials/login.html');
+var dbTpl = require('./partials/setdb.html');
+var signupTpl = require('./partials/signup.html');
+var forgetTpl = require('./partials/forget.html');
 
-export default [
+module.exports = [
     {
         id: 'login',
         isDefault: true,
@@ -44,6 +45,17 @@ export default [
         size: {
             width: 500,
             height: 600
+        }
+    },
+    {
+        id: 'forget',
+        isDefault: false,
+        when: '/forget',
+        controller: 'ForgetController',
+        template: forgetTpl,
+        size: {
+            width: 500,
+            height: 400
         }
     }
 ];

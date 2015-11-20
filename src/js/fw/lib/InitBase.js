@@ -3,9 +3,10 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 18, 2015
+ *  @date    Nov 20, 2015
  *
  */
+'use strict';
 class InitBase {
 
     constructor(features) {
@@ -15,4 +16,4 @@ class InitBase {
     execute() {}
 }
 
-export default InitBase;
+module.exports = InitBase;

@@ -17,4 +17,4 @@ class ConfiguratorBase {
     execute() {}
 }
 
-export default ConfiguratorBase;
+module.exports = ConfiguratorBase;

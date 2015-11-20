@@ -12,6 +12,7 @@ module.exports = {
         chunkFilename: '[hash].[id].bundle.js',
         publicPath: 'js/'
     },
+    target: 'electron',
     module: {
         loaders: [
             {
@@ -21,7 +22,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel',
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 query: {
                     presets: [
                         'es2015'
@@ -50,7 +51,6 @@ module.exports = {
             compress: {
                 warnings: false
             }
-        }),
-        new webpack.optimize.CommonsChunkPlugin('[hash].common.bundle.js')
+        })
     ]
 };

@@ -12,6 +12,7 @@ module.exports = {
         chunkFilename: '[id].bundle.js',
         publicPath: 'js/'
     },
+    target: 'electron',
     debug: true,
     devtool: 'sourcemap',
     module: {
@@ -23,7 +24,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel',
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 query: {
                     presets: [
                         'es2015'
@@ -47,7 +48,5 @@ module.exports = {
             path.resolve(__dirname, 'src', 'js', 'fw')
         ]
     },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin('common.bundle.js')
-    ]
+    plugins: []
 };

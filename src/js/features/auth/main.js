@@ -4,18 +4,19 @@
  *   Defines a auth feature
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  * ******************************************************************************************************
  */
 'use strict';
-import FeatureBase from 'lib/FeatureBase';
-import Routes from './Routes';
-import LoginController from './controller/LoginController';
-import SetDBController from './controller/SetDBController';
-import SignupController from './controller/SignupController';
-import AuthService from './service/AuthService';
-import ShakeIcon from './directive/ShakeIcon';
+var FeatureBase = require('lib/FeatureBase');
+var Routes = require('./Routes');
+var LoginController = require('./controller/LoginController');
+var SetDBController = require('./controller/SetDBController');
+var SignupController = require('./controller/SignupController');
+var ForgetController = require('./controller/ForgetController');
+var AuthService = require('./service/AuthService');
+var ShakeIcon = require('./directive/ShakeIcon');
 
 class Feature extends FeatureBase {
 
@@ -28,9 +29,10 @@ class Feature extends FeatureBase {
         this.controller('LoginController', LoginController);
         this.controller('SetDBController', SetDBController);
         this.controller('SignupController', SignupController);
+        this.controller('ForgetController', ForgetController);
         this.service('AuthService', AuthService);
         this.directive('shakeIcon', ShakeIcon);
     }
 }
 
-export default Feature;
+module.exports = Feature;

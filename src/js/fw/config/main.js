@@ -3,11 +3,11 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import material from './MaterialConfig';
-import router from './RouterConfig';
+var material = require('./MaterialConfig');
+var router = require('./RouterConfig');
 
-export default [material, router];
+module.exports = [material, router];

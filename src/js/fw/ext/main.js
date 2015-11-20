@@ -2,16 +2,16 @@
  *  Return all information of external angular resources
  *
  *  @author  Howard.Zuo
- *  @date    Nov 18, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import 'angular-animate';
-import 'angular-route';
-import 'angular-messages';
-import 'angular-material';
+require('angular-animate');
+require('angular-route');
+require('angular-messages');
+require('angular-material');
 
-export default [
+module.exports = [
     'ngAnimate',
     'ngRoute',
     'ngMessages',

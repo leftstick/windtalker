@@ -5,12 +5,12 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import ServiceBase from 'lib/ServiceBase';
-import angular from 'angular';
+var ServiceBase = require('lib/ServiceBase');
+var angular = require('angular');
 
 class Service extends ServiceBase {
     constructor(features, app) {
@@ -65,4 +65,4 @@ class Service extends ServiceBase {
     }
 }
 
-export default Service;
+module.exports = Service;

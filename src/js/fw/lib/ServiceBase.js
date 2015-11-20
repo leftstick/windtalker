@@ -3,7 +3,7 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
@@ -17,4 +17,4 @@ class ServiceBase {
     execute() {}
 }
 
-export default ServiceBase;
+module.exports = ServiceBase;

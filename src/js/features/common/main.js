@@ -3,11 +3,13 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
-import ui from './ui/main';
-import service from './service/main';
-import listener from './listener/main';
+'use strict';
 
-export default [...ui, ...service, ...listener];
+var ui = require('./ui/main');
+var service = require('./service/main');
+var listener = require('./listener/main');
+
+module.exports = [...ui, ...service, ...listener];

@@ -2,11 +2,11 @@
  *  index.js launch the application.
  *
  *  @author  Howard.Zuo
- *  @date    Nov 18, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import 'less/main.less';
-import App from './main';
+require('less/main.less');
+var App = require('./main');
 
 (new App()).run();

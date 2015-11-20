@@ -7,7 +7,7 @@
  */
 'use strict';
 
-import angular from 'angular';
+var angular = require('angular');
 
 var flatten = function(arr) {
     var newArr = [];
@@ -27,4 +27,4 @@ var flatten = function(arr) {
     return newArr;
 };
 
-export default flatten;
+module.exports = flatten;

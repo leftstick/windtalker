@@ -2,7 +2,7 @@
  *  Defines the ShakeIcon directive
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
@@ -36,4 +36,4 @@ var ShakeIcon = function($timeout) {
     };
 };
 
-export default ['$timeout', ShakeIcon];
+module.exports = ['$timeout', ShakeIcon];

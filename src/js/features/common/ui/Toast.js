@@ -2,13 +2,13 @@
  *  Defines the Toast
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
 
-import FeatureBase from 'lib/FeatureBase';
-import { merge } from 'angular';
+var FeatureBase = require('lib/FeatureBase');
+var {merge} = require('angular');
 
 class Feature extends FeatureBase {
     constructor() {
@@ -44,4 +44,4 @@ class Feature extends FeatureBase {
     }
 }
 
-export default Feature;
+module.exports = Feature;

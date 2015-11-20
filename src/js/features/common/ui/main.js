@@ -2,12 +2,12 @@
  *  Entrance of common ui
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
 
-import toast from './Toast';
-import autofocus from './Autofocus';
+var toast = require('./Toast');
+var autofocus = require('./Autofocus');
 
-export default [toast, autofocus];
+module.exports = [toast, autofocus];

@@ -2,11 +2,11 @@
  *  Entrance of services
  *
  *  @author  Howard.Zuo
- *  @date    Nov 18, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import events from './Events';
-import utils from './Utils';
+var events = require('./Events');
+var utils = require('./Utils');
 
-export default [events, utils];
+module.exports = [events, utils];

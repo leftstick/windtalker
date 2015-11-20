@@ -3,11 +3,11 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import angular from 'angular';
+var angular = require('angular');
 
 class FeatureBase {
 
@@ -26,4 +26,4 @@ class FeatureBase {
     execute() {}
 }
 
-export default FeatureBase;
+module.exports = FeatureBase;

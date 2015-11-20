@@ -2,15 +2,15 @@
  *  Defines the SetDBController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import debounce from 'lib/Debounce';
+var debounce = require('lib/Debounce');
 
-var mainWindow = nativeRequire('electron').remote.getCurrentWindow();
-var dialog = nativeRequire('electron').remote.require('dialog');
-var fs = nativeRequire('fs');
+var mainWindow = require('electron').remote.getCurrentWindow();
+var dialog = require('electron').remote.require('dialog');
+var fs = require('fs');
 
 var DB_ADDRESS_KEY = 'windtaler.dbaddress';
 
@@ -63,7 +63,7 @@ var SetDBController = function($scope, events, utils, StorageService) {
     });
 };
 
-export default [
+module.exports = [
     '$scope',
     'events',
     'utils',

@@ -3,12 +3,18 @@
 
 @import "./fontello";
 
+@import "./auth/auth";
 @import "./auth/login";
 @import "./auth/setdb";
 @import "./auth/signup";
+@import "./auth/forget";
 
 html, body, div[ng-view]{
     height: 100%;
+}
+
+body{
+    overflow-y: hidden;
 }
 
 a{

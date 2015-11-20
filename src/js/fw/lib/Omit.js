@@ -7,7 +7,7 @@
  */
 'use strict';
 
-import angular from 'angular';
+var angular = require('angular');
 
 var clone = function(obj) {
     if (typeof obj !== 'object' || !obj) {
@@ -42,4 +42,4 @@ var omit = function(obj, keys) {
     return o;
 };
 
-export default omit;
+module.exports = omit;

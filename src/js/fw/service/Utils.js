@@ -8,8 +8,8 @@
  *
  */
 'use strict';
-import ServiceBase from 'lib/ServiceBase';
-import angular from 'angular';
+var ServiceBase = require('lib/ServiceBase');
+var angular = require('angular');
 
 class Service extends ServiceBase {
     constructor(features, app) {
@@ -30,33 +30,21 @@ class Service extends ServiceBase {
                     return btoa(unescape(encodeURIComponent(str)));
                 };
 
-                this.formEncodedOpts = {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                    },
-                    transformRequest: function(data) {
-                        // If this is not an object, defer to native stringification.
-                        if (!angular.isObject(data)) {
-                            return (!data ? '' : data.toString());
-                        }
-                        var buffer = [];
-                        // Serialize each key in the object.
-                        for (var name in data) {
-                            if (!data.hasOwnProperty(name)) {
-                                continue;
-                            }
-                            var value = data[name];
-                            buffer.push(
-                                encodeURIComponent(name) +
-                                '=' +
-                                encodeURIComponent(!value ? '' : value)
-                            );
-                        }
-                        // Serialize the buffer and clean it up for transportation.
-                        return buffer
-                            .join('&')
-                            .replace(/%20/g, '+');
-                    }
+                this.promise = function(func) {
+                    var promise = $q(func);
+                    promise.success = function(fn) {
+                        promise.then(function(response) {
+                            fn(response);
+                        });
+                        return promise;
+                    };
+                    promise.error = function(fn) {
+                        promise.then(null, function(response) {
+                            fn(response);
+                        });
+                        return promise;
+                    };
+                    return promise;
                 };
 
                 this.stopEvent = function(e) {
@@ -89,4 +77,4 @@ class Service extends ServiceBase {
     }
 }
 
-export default Service;
+module.exports = Service;

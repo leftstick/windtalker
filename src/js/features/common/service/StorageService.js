@@ -3,10 +3,11 @@
  *  This module used to control data in LocalStorage
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
-import FeatureBase from 'lib/FeatureBase';
+'use strict';
+var FeatureBase = require('lib/FeatureBase');
 
 class Feature extends FeatureBase {
 
@@ -48,4 +49,4 @@ class Feature extends FeatureBase {
     }
 }
 
-export default Feature;
+module.exports = Feature;

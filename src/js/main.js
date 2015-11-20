@@ -2,16 +2,16 @@
  *  main.js manage the whole application.
  *
  *  @author  Howard.Zuo
- *  @date    Nov 18, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-import angular from 'angular';
-import Initializers from 'init/main';
-import Extensions from 'ext/main';
-import Configurators from 'config/main';
-import Services from 'service/main';
-import Features from 'features/main';
+var angular = require('angular');
+var Initializers = require('init/main');
+var Extensions = require('ext/main');
+var Configurators = require('config/main');
+var Services = require('service/main');
+var Features = require('features/main');
 
 class App {
 
@@ -78,4 +78,4 @@ class App {
 
 }
 
-export default App;
+module.exports = App;

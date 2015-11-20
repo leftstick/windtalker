@@ -1,42 +1,44 @@
-<form id="signup" layout="column" name="dbform" ng-submit="saveDB()">
-    <a href="#/login" shake-icon class="back-login animated" shake-icon ng-class="state.shake"><i class="icon-angle-double-down"></i>返回登录</a>
+<form id="signup" layout="column" name="signupform" ng-submit="saveUser()">
+    <a href="#/login" shake-icon class="top-back animated" shake-icon><i class="icon-angle-double-down"></i>返回登录</a>
 
-    <div flex="25" class="header" layout="row" layout-align="start end">
+    <div flex="20" class="top-half-panel" layout="row" layout-align="start end">
         <span class="hint md-display-1">开始注册</span>
     </div>
 
-    <div flex="75" layout="row" layout-align="center start">
+    <div flex="80" layout="row" layout-align="center start">
         <md-content layout-padding class="content">
             <md-input-container class="md-block">
                 <label>用户名</label>
-                <input class="md-accent" ng-model="user.username">
+                <input class="md-accent" ng-model="user.username" required>
             </md-input-container>
 
             <md-input-container class="md-block">
                 <label>密码</label>
-                <input class="md-accent" ng-model="user.password">
+                <input class="md-accent" type="password" ng-model="user.password" required>
             </md-input-container>
 
-            <md-input-container class="md-block">
+            <md-input-container class="md-block" style="padding-bottom: 0;">
                 <label>确认密码</label>
-                <input class="md-accent" ng-model="user.repassword">
+                <input class="md-accent" type="password" ng-model="user.repassword" required>
+                <div ng-messages="state">
+                    <div ng-message="notsame">确认密码不一致</div>
+                </div>
             </md-input-container>
 
-            <md-input-container>
+            <md-input-container style="padding-top: 0;">
                 <label>密码提示问题</label>
                 <md-select name="question" ng-model="user.question" required>
-                    <md-option value="1">One</md-option>
-                    <md-option value="2">Two</md-option>
+                    <md-option value="{{ question.value }}" ng-repeat="question in questions">{{ question.label }}</md-option>
                 </md-select>
             </md-input-container>
 
             <md-input-container class="md-block">
                 <label>密码提示答案</label>
-                <input class="md-accent" ng-model="user.answer">
+                <input class="md-accent" ng-model="user.answer" required>
             </md-input-container>
 
             <md-content class="content md-body-1" layout="row" layout-align="end center">
-                <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="!db.address || state.invalidAddress">确认</md-button>
+                <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="signupform.$invalid">确认</md-button>
             </md-content>
 
         </md-content>

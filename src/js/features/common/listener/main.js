@@ -2,12 +2,12 @@
  *  Entrance of common listener
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
 
-import indicator from './RouteIndicator';
-import routeListener from './RouteListener';
+var indicator = require('./RouteIndicator');
+var routeListener = require('./RouteListener');
 
-export default [indicator, routeListener];
+module.exports = [indicator, routeListener];

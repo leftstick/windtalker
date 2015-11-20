@@ -2,34 +2,21 @@
  *  Defines the LoginController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
-var LoginController = function($scope, events, utils, AuthService, $interval, $timeout) {
-
-    $scope.state = {shake: ''};
+var LoginController = function($scope, events, utils, AuthService) {
 
     $scope.user = {};
 
-    var shakePromise = $interval(function() {
-        $scope.state.shake = 'bounce';
-        $timeout(function() {
-            $scope.state.shake = '';
-        }, 1000);
-    }, 5000);
-
-    $scope.$on('$destroy', function() {
-        $interval.cancel(shakePromise);
-    });
+    $scope.$on('$destroy', function() {});
 };
 
-export default [
+module.exports = [
     '$scope',
     'events',
     'utils',
     'AuthService',
-    '$interval',
-    '$timeout',
     LoginController
 ];

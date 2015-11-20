@@ -3,11 +3,12 @@
  *  This module used to emit events while route changed
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
-import FeatureBase from 'lib/FeatureBase';
-var mainWindow = nativeRequire('electron').remote.getCurrentWindow();
+'use strict';
+var FeatureBase = require('lib/FeatureBase');
+var mainWindow = require('electron').remote.getCurrentWindow();
 
 class Feature extends FeatureBase {
 
@@ -30,4 +31,4 @@ class Feature extends FeatureBase {
     }
 }
 
-export default Feature;
+module.exports = Feature;

@@ -9,7 +9,7 @@
         <md-content layout-padding class="content">
             <md-input-container class="md-block">
                 <label>用户名</label>
-                <input class="md-accent" ng-model="user.username" required>
+                <input class="md-accent" ng-model="user.name" required>
             </md-input-container>
 
             <md-input-container class="md-block">
@@ -38,7 +38,7 @@
             </md-input-container>
 
             <md-content class="content md-body-1" layout="row" layout-align="end center">
-                <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="signupform.$invalid">确认</md-button>
+                <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="signupform.$invalid || !hasDbSet">确认</md-button>
             </md-content>
 
         </md-content>

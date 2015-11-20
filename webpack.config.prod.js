@@ -2,6 +2,8 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var presetsQuery = JSON.stringify({presets: ['es2015']});
+
 module.exports = {
     entry: {
         index: './src/js/index.js'
@@ -16,18 +18,13 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.less$/,
-                loader: 'style!css!autoprefixer?browsers=last 5 version!less!'
+                test: /\.js$/,
+                loader: 'babel?' + presetsQuery + '!modify?value=',
+                exclude: /node_modules/
             },
             {
-                test: /\.js$/,
-                loader: 'babel',
-                exclude: /node_modules/,
-                query: {
-                    presets: [
-                        'es2015'
-                    ]
-                }
+                test: /\.less$/,
+                loader: 'style!css!autoprefixer?browsers=last 5 version!less!'
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)\w*/,

@@ -4,12 +4,15 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 19, 2015
+ *  @date    Nov 20, 2015
  *
  */
 'use strict';
 var ServiceBase = require('lib/ServiceBase');
-var angular = require('angular');
+
+var crypto = require('crypto'),
+    algorithm = 'aes-256-ctr',
+    password = '<%= password %>';
 
 class Service extends ServiceBase {
     constructor(features, app) {
@@ -19,8 +22,7 @@ class Service extends ServiceBase {
     execute() {
         this.app.service('utils', [
             '$q',
-            '$window',
-            function($q, $window) {
+            function($q) {
 
                 this.base64ToString = function(str) {
                     return decodeURIComponent(escape(atob(str)));
@@ -59,17 +61,22 @@ class Service extends ServiceBase {
                     }
                 };
 
-                this.isFile = function(item) {
-                    return angular.isObject(item) && item instanceof $window.File;
+                this.encryptTxt = function(text) {
+                    var cipher = crypto.createCipher(algorithm, password);
+                    var crypted = cipher.update(text, 'utf8', 'hex');
+                    crypted += cipher.final('hex');
+                    return crypted;
                 };
 
-                this.isImage = function(file) {
-                    if (!file) {
-                        return false;
-                    }
+                this.decryptTxt = function(text) {
+                    var decipher = crypto.createDecipher(algorithm, password);
+                    var dec = decipher.update(text, 'hex', 'utf8');
+                    dec += decipher.final('utf8');
+                    return dec;
+                };
 
-                    var type = '|' + angular.lowercase(file.type.slice(file.type.lastIndexOf('/') + 1)) + '|';
-                    return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+                this.ID = function() {
+                    return new Date().getTime() + '';
                 };
 
             }

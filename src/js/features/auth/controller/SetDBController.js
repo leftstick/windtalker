@@ -14,7 +14,7 @@ var fs = require('fs');
 
 var DB_ADDRESS_KEY = 'windtaler.dbaddress';
 
-var SetDBController = function($scope, events, utils, StorageService) {
+var SetDBController = function($scope, events, utils, StorageService, DbService) {
 
     $scope.db = {address: StorageService.get(DB_ADDRESS_KEY)};
 
@@ -37,7 +37,11 @@ var SetDBController = function($scope, events, utils, StorageService) {
 
     $scope.saveDB = function() {
         StorageService.set(DB_ADDRESS_KEY, $scope.db.address);
-        events.emit('toast', {content: '数据库目录锁定成功！'});
+        events.emit('toast', {
+            type: 'success',
+            content: '数据库目录锁定成功！'
+        });
+        DbService.init(StorageService.get(DB_ADDRESS_KEY));
     };
 
     var checkAddress = debounce(function(value) {
@@ -68,5 +72,6 @@ module.exports = [
     'events',
     'utils',
     'StorageService',
+    'DbService',
     SetDBController
 ];

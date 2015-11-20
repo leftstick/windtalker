@@ -10,6 +10,10 @@ var logger = console.log;
 
 var SYSTEMS = {darwin: 'osx', win32: 'win', linux: 'linux'};
 
+var argv = require('minimist')(process.argv.slice(2));
+
+var password = argv.p;
+
 var getTime = function() {
     var d = new Date();
     return d.getHours() + ':' + d.getMinutes() + ' ' + d.getSeconds() + '-' + d.getMilliseconds();
@@ -38,6 +42,9 @@ var compile = function(isDev, cb) {
     } else {
         config = require(resolve(__dirname, 'webpack.config.prod'));
     }
+    config.module.loaders[0].loader = config.module.loaders[0].loader + new Buffer(JSON.stringify({
+            password: password
+        })).toString('base64');
 
     require('rimraf').sync(resolve(__dirname, 'src', 'build'));
     go(resolve(__dirname, 'src', 'main.js.vm'), resolve(__dirname, 'src', 'build', 'main.js'));
@@ -75,6 +82,10 @@ gulp.task('compile-dev', function(cb) {
 });
 
 gulp.task('compile-release', ['clean-dist'], function(cb) {
+    if (!password) {
+        console.warn('WARNING: you have to specify encryption password by -p');
+        process.exit(0);
+    }
     compile(false, cb);
 });
 

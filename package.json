@@ -6,7 +6,7 @@
   "scripts": {
     "release": "node ./node_modules/.bin/gulp release",
     "dev": "node ./node_modules/.bin/gulp dev",
-    "watch": "node ./node_modules/.bin/gulp compile-dev"
+    "watch": "node ./node_modules/.bin/gulp compile-dev -p abcdefg"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,16 @@
     "url": "https://github.com/leftstick/windtalker/issues"
   },
   "homepage": "https://github.com/leftstick/windtalker",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "angular-animate": "^1.4.7",
+    "angular-aria": "^1.4.7",
+    "angular-material": "^0.11.4",
+    "angular-messages": "^1.4.7",
+    "angular-route": "^1.4.7",
+    "animate.css": "^3.4.0",
+    "nedb": "^1.4.0"
+  },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
     "babel-core": "^6.1.21",
@@ -32,22 +42,15 @@
     "electron-prebuilt": "^0.35.0",
     "file-loader": "^0.8.4",
     "go-txt": "^1.1.0",
+    "gulp": "^3.9.0",
+    "gulp-electron": "0.0.9",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
+    "minimist": "^1.2.0",
+    "modify-loader": "^2.0.0",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.4.3",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.6",
-    "gulp": "^3.9.0",
-    "gulp-electron": "0.0.9"
-  },
-  "dependencies": {
-    "angular": "^1.4.7",
-    "angular-animate": "^1.4.7",
-    "angular-aria": "^1.4.7",
-    "angular-material": "^0.11.4",
-    "angular-messages": "^1.4.7",
-    "angular-route": "^1.4.7",
-    "animate.css": "^3.4.0"
+    "webpack": "^1.12.6"
   }
 }

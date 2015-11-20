@@ -21,9 +21,13 @@ class Feature extends FeatureBase {
             '$rootScope',
             function($rootScope) {
                 $rootScope.$on('$routeChangeSuccess', function(e, route) {
-                    if (route && route.$$route && route.$$route.size) {
-                        mainWindow.setContentSize(route.$$route.size.width, route.$$route.size.height);
+                    if (!route || !route.$$route || !route.$$route.size) {
+                        return;
                     }
+                    var size = route.$$route.size;
+                    mainWindow.setContentSize(size.width, size.height);
+                    mainWindow.setMinimumSize(size.minWidth || size.width, size.minHeight || size.height);
+                    mainWindow.setResizable(!!size.resizable);
                 });
 
             }

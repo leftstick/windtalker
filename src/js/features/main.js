@@ -10,5 +10,6 @@ var flatten = require('lib/Flatten');
 
 var auth = require('./auth/main');
 var common = require('./common/main');
+var manager = require('./manager/main');
 
-module.exports = flatten([common, auth]);
+module.exports = flatten([common, auth, manager]);

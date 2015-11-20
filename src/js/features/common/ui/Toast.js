@@ -22,7 +22,8 @@ class Feature extends FeatureBase {
         var defaults = {
             content: '',
             position: 'top right',
-            delay: 3000
+            delay: 3000,
+            type: 'info'
         };
 
         this.run([
@@ -32,12 +33,11 @@ class Feature extends FeatureBase {
 
                 events.on('toast', function(data) {
                     var opts = merge({}, defaults, data);
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .content(opts.content)
-                            .position(opts.position)
-                            .hideDelay(opts.delay)
-                    );
+                    $mdToast.show({
+                        template: '<md-toast class="md-toast ' + opts.type + '">' + opts.content + '</md-toast>',
+                        hideDelay: opts.delay,
+                        position: opts.position
+                    });
                 });
             }
         ]);

@@ -7,6 +7,7 @@
  */
 'use strict';
 
+var db = require('./DB');
 var storageService = require('./StorageService');
 
-module.exports = [storageService];
+module.exports = [db, storageService];

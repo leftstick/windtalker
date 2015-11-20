@@ -1,4 +1,4 @@
-<form id="forget" layout="column" name="forgetform" ng-submit="saveUser()">
+<form id="forget" layout="column" name="forgetform" ng-submit="getPassword()">
     <a href="#/login" shake-icon class="top-back animated" shake-icon><i class="icon-angle-double-down"></i>返回登录</a>
 
     <div flex="20" class="top-half-panel" layout="row" layout-align="start end">
@@ -9,7 +9,7 @@
         <md-content layout-padding class="content">
             <md-input-container class="md-block">
                 <label>用户名</label>
-                <input class="md-accent" ng-model="user.username" required>
+                <input class="md-accent" ng-model="user.name" required>
             </md-input-container>
 
             <md-input-container style="padding-top: 0;">
@@ -26,7 +26,7 @@
             </md-input-container>
 
             <md-content class="content md-body-1" layout="row" layout-align="end center">
-                <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="forgetform.$invalid">确认找回</md-button>
+                <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="forgetform.$invalid || !hasDbSet">确认找回</md-button>
             </md-content>
 
         </md-content>

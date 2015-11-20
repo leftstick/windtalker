@@ -7,7 +7,11 @@
  */
 'use strict';
 
-var SignupController = function($scope, AuthService) {
+var DB_ADDRESS_KEY = 'windtaler.dbaddress';
+
+var SignupController = function($scope, events, AuthService, $location, DbService) {
+    $scope.hasDbSet = DbService.checkDbAddress();
+
     $scope.user = {};
     $scope.state = {notsame: false};
 
@@ -25,12 +29,25 @@ var SignupController = function($scope, AuthService) {
     });
 
     $scope.saveUser = function() {
-        console.log({
-            name: $scope.user.username,
+        AuthService.addUser({
+            name: $scope.user.name,
             password: $scope.user.password,
             question: $scope.user.question,
             answer: $scope.user.answer
-        });
+        })
+            .success(function() {
+                events.emit('toast', {
+                    type: 'success',
+                    content: '用户创建成功，请登录'
+                });
+                $location.url('login');
+            })
+            .error(function(err) {
+                events.emit('toast', {
+                    type: 'error',
+                    content: err
+                });
+            });
     };
 
     $scope.$on('$destroy', function() {
@@ -39,4 +56,11 @@ var SignupController = function($scope, AuthService) {
     });
 };
 
-module.exports = ['$scope', 'AuthService', SignupController];
+module.exports = [
+    '$scope',
+    'events',
+    'AuthService',
+    '$location',
+    'DbService',
+    SignupController
+];

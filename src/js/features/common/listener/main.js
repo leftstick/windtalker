@@ -7,7 +7,8 @@
  */
 'use strict';
 
+var boot = require('./BootVerification');
 var indicator = require('./RouteIndicator');
 var routeListener = require('./RouteListener');
 
-module.exports = [indicator, routeListener];
+module.exports = [boot, indicator, routeListener];

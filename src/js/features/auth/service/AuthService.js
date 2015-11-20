@@ -7,7 +7,7 @@
  */
 'use strict';
 
-var AuthService = function(utils) {
+var AuthService = function(utils, DbService) {
 
     var questions;
     this.questions = function() {
@@ -41,6 +41,144 @@ var AuthService = function(utils) {
 
         return questions;
     };
+
+    this.getUsers = function() {
+
+        return utils.promise(function(resolve, reject) {
+
+            DbService.getUserDb().find({}, function(err, docs) {
+                if (err) {
+                    reject('读取用户信息失败');
+                    return;
+                }
+                var users = docs.map(function(doc) {
+                    return {
+                        id: utils.decryptTxt(doc.id),
+                        name: utils.decryptTxt(doc.name),
+                        password: utils.decryptTxt(doc.password),
+                        question: utils.decryptTxt(doc.question),
+                        answer: utils.decryptTxt(doc.answer)
+                    };
+                });
+                resolve(users);
+            });
+        });
+    };
+
+    this.addUser = function(user) {
+        var encryptUser = {
+            id: utils.encryptTxt(utils.ID()),
+            name: utils.encryptTxt(user.name),
+            password: utils.encryptTxt(user.password),
+            question: utils.encryptTxt(user.question),
+            answer: utils.encryptTxt(user.answer)
+        };
+
+        return utils.promise(function(resolve, reject) {
+            DbService.getUserDb().find({
+                name: utils.encryptTxt(user.name)
+            }, function(err, docs) {
+                if (err) {
+                    reject('新增用户信息失败 ' + err);
+                    return;
+                }
+                if (docs.length > 0) {
+                    reject('该用户名已被注册，请重试');
+                    return;
+                }
+                DbService.getUserDb()
+                    .insert(encryptUser, function(err, doc) {
+                        if (err) {
+                            reject('新增用户信息失败 ' + err);
+                            return;
+                        }
+                        var u = {
+                            id: utils.decryptTxt(doc.id),
+                            name: utils.decryptTxt(doc.name),
+                            password: utils.decryptTxt(doc.password),
+                            question: utils.decryptTxt(doc.question),
+                            answer: utils.decryptTxt(doc.answer)
+                        };
+                        resolve(u);
+                    });
+            });
+        });
+    };
+
+    this.updateUser = function(user) {
+
+        var encryptUser = {
+            id: utils.encryptTxt(user.id),
+            name: utils.encryptTxt(user.name),
+            password: utils.encryptTxt(user.password),
+            question: utils.encryptTxt(user.question),
+            answer: utils.encryptTxt(user.answer)
+        };
+
+        return utils.promise(function(resolve, reject) {
+            DbService.getUserDb()
+                .update({id: encryptUser.id}, encryptUser, {}, function(err) {
+                    if (err) {
+                        reject('修改用户信息失败 ' + err);
+                        return;
+                    }
+                    resolve(user);
+                });
+        });
+    };
+
+    this.getUserByName = function(name) {
+
+        return utils.promise(function(resolve, reject) {
+            DbService.getUserDb()
+                .findOne({name: utils.encryptTxt(name)}, function(err, doc) {
+                    if (err) {
+                        reject('读取用户信息失败');
+                        return;
+                    }
+                    if (!doc) {
+                        reject('该用户不存在');
+                        return;
+                    }
+                    var user = {
+                        id: utils.decryptTxt(doc.id),
+                        name: utils.decryptTxt(doc.name),
+                        password: utils.decryptTxt(doc.password),
+                        question: utils.decryptTxt(doc.question),
+                        answer: utils.decryptTxt(doc.answer)
+                    };
+
+                    resolve(user);
+                });
+        });
+    };
+
+    this.getUserById = function(userId) {
+
+        return utils.promise(function(resolve, reject) {
+            DbService.getUserDb()
+                .findOne({id: utils.encryptTxt(userId)}, function(err, doc) {
+                    if (err) {
+                        reject('读取用户信息失败');
+                        return;
+                    }
+                    if (!doc) {
+                        reject('该用户不存在');
+                        return;
+                    }
+                    var user = {
+                        id: utils.decryptTxt(doc.id),
+                        name: utils.decryptTxt(doc.name),
+                        password: utils.decryptTxt(doc.password),
+                        question: utils.decryptTxt(doc.question),
+                        answer: utils.decryptTxt(doc.answer)
+                    };
+                    resolve(user);
+                });
+        });
+    };
+
+
 };
 
-module.exports = ['utils', AuthService];
+module.exports = ['utils', 'DbService', AuthService];

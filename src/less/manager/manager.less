@@ -1,5 +1,10 @@
 .manager{
 
+    div[ng-view] > md-content{
+        height: 100%;
+        padding-bottom: 15px;
+    }
+
     .md-toolbar-tools{
         padding-left: 0;
     }
@@ -29,8 +34,28 @@
         font-weight: bold;
     }
 
-    md-list-item.secrets{
+    .searchtxt-container{
+        padding: 0 20px;
+        > label, > input{
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    .secrets-container{
+        overflow-y: auto;
+        padding-bottom: 0;
+    }
+
+    md-list-item.secret{
         position: relative;
+        margin-bottom: 10px;
+        .md-list-item-text{
+            padding-left: 20px;
+        }
+        &:last-child{
+            margin-bottom: 0;
+        }
 
         .key-title{
             margin: 5px 0 0 0;
@@ -38,10 +63,14 @@
         .key-desc{
             margin: 10px 0 5px 0;
         }
+        .key-icon{
+            font-size: 22px;
+            margin-left: -1px;
+        }
     }
 
-    md-list-item.secrets > div{
+    md-list-item.secret > div{
         padding-left: 10px;
-        padding-right: 160px;
+        padding-right: 150px;
     }
 }

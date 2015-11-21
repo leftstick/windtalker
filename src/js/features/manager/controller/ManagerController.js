@@ -15,6 +15,51 @@ var ManagerController = function($scope, events, user, $location) {
             who: 'nanfeng',
             what: 'fucking yourself nige erbi',
             notes: 'i have to tell you something'
+        },
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
+        },
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
+        },
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
+        },
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
+        },
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
+        },
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
+        },
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
+        },
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
+        },
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
         }
     ];
 

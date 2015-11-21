@@ -1,4 +1,4 @@
-<md-content>
+<md-content layout="column">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <md-icon md-font-icon="icon-lock" class="logo"></md-icon>
@@ -30,18 +30,26 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-list>
-        <md-subheader class="md-no-sticky">3 line item</md-subheader>
-        <md-list-item ng-repeat="topping in todos" class="secrets">
+    <md-input-container class="searchtxt-container">
+        <label>搜索</label>
+        <input ng-model="searchTxt">
+    </md-input-container>
+    <md-list flex class="secrets-container">
+        <md-list-item ng-repeat="topping in todos" class="secret">
             <div class="md-list-item-text">
                 <h4 class="key-title">{{ topping.who }}</h4>
                 <p class="key-desc">
-                    Secondary line text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa quam.
-                    Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum
-                    velit. Class aptent taciti sociosqu ad litra torquent per conubia nostra, per inceptos himenaeos.
+                    Secondary line text
                 </p>
             </div>
-            <md-button class="md-fab md-mini md-warn md-secondary" ng-model="topping.wanted">
+            <md-button class="md-fab md-mini md-primary md-secondary" style="right: 65px;">
+                <md-icon class="key-icon" md-font-icon="icon-eye"></md-icon>
+                <md-tooltip>
+                    查看
+                </md-tooltip>
+            </md-button>
+            <md-button class="md-fab md-mini md-warn md-secondary" style="right: 12px;">
+                <md-icon class="key-icon" md-font-icon="icon-close"></md-icon>
                 <md-tooltip>
                     删除
                 </md-tooltip>

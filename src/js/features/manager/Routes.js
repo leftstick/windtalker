@@ -3,7 +3,7 @@
  *  Routes module expose route information used in auth feature
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 21, 2015
  *
  */
 'use strict';
@@ -27,7 +27,7 @@ module.exports = [
         },
         template: tpl,
         size: {
-            width: 900,
+            width: 700,
             height: 700,
             resizable: true,
             minWidth: 500,

@@ -10,6 +10,14 @@
 var ManagerController = function($scope, events, user, $location) {
     $scope.user = user;
 
+    $scope.todos = [
+        {
+            who: 'nanfeng',
+            what: 'fucking yourself nige erbi',
+            notes: 'i have to tell you something'
+        }
+    ];
+
     $scope.logout = function() {
         $location.url('url');
         return;

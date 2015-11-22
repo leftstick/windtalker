@@ -63,8 +63,14 @@ var ManagerController = function($scope, events, user, $location) {
         }
     ];
 
-    $scope.logout = function() {
-        $location.url('url');
+    $scope.logout = function($event) {
+        events.emit('confirm', {
+            content: '您确定要登出么？',
+            event: $event,
+            onComplete: function() {
+                $location.url('url');
+            }
+        });
         return;
     };
 

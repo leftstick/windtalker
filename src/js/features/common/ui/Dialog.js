@@ -2,12 +2,13 @@
  *  Defines the Dialog
  *
  *  @author  Howard.Zuo
- *  @date    Nov 21, 2015
+ *  @date    Nov 22, 2015
  *
  */
 'use strict';
 
 var FeatureBase = require('lib/FeatureBase');
+var merge = require('angular').merge;
 
 class Feature extends FeatureBase {
     constructor() {
@@ -19,10 +20,8 @@ class Feature extends FeatureBase {
     execute() {
 
         var defaults = {
-            content: '',
-            position: 'top right',
-            delay: 3000,
-            type: 'info'
+            template: '',
+            onComplete: function() {}
         };
 
         this.run([
@@ -33,9 +32,10 @@ class Feature extends FeatureBase {
                 events.on('dialog', function(data) {
                     var opts = merge({}, defaults, data);
                     $mdDialog.show({
-                        template: '<md-toast class="md-toast ' + opts.type + '">' + opts.content + '</md-toast>',
-                        hideDelay: opts.delay,
-                        position: opts.position
+                        scope: opts.scope,
+                        targetEvent: opts.event,
+                        template: opts.template,
+                        onComplete: opts.onComplete
                     });
                 });
             }

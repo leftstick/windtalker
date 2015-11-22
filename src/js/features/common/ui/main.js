@@ -2,12 +2,19 @@
  *  Entrance of common ui
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 22, 2015
  *
  */
 'use strict';
 
-var toast = require('./Toast');
 var autofocus = require('./Autofocus');
+var confirm = require('./Confirm');
+var dialog = require('./Dialog');
+var toast = require('./Toast');
 
-module.exports = [toast, autofocus];
+module.exports = [
+    autofocus,
+    confirm,
+    dialog,
+    toast
+];

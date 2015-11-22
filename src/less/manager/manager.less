@@ -1,5 +1,30 @@
 .manager{
 
+    md-bottom-sheet{
+        border-top: 0;
+        padding: 0;
+        height: 380px;
+        > md-content{
+            height: 100%;
+            > md-tabs{
+                height: 100%;
+                position: static;
+                border-radius: 0;
+
+                md-input-container{
+                    padding-left: 0;
+                    input, label{
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+
+        md-tab-content{
+            padding: 5px 20px;
+        }
+    }
+
     div[ng-view] > md-content{
         height: 100%;
         padding-bottom: 15px;

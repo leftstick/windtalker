@@ -1,0 +1,71 @@
+<md-bottom-sheet class="md-grid">
+    <md-content>
+        <md-tabs class="md-primary">
+            <md-tab id="password">
+                <md-tab-label>密码重置</md-tab-label>
+                <md-tab-body>
+
+                    <md-input-container class="md-block" style="padding-bottom: 8px;">
+                        <label>原密码</label>
+                        <input type="password" ng-model="user.oldpassword" required>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" style="padding-bottom: 8px;">
+                        <label>新密码</label>
+                        <input type="password" ng-model="user.password" required>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" style="padding-bottom: 8px;">
+                        <label>重复新密码</label>
+                        <input type="password" ng-model="user.password" required>
+                    </md-input-container>
+
+                    <md-content class="content md-body-1" layout="row" layout-align="end center">
+                        <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="forgetform.$invalid || !hasDbSet">确认变更</md-button>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="question">
+                <md-tab-label>提示问题变更</md-tab-label>
+                <md-tab-body>
+
+                    <md-input-container class="md-block">
+                        <label>密码提示问题</label>
+                        <md-select name="question" ng-model="user.question" required>
+                            <md-option value="{{ question.value }}" ng-repeat="question in questions">
+                                {{ question.label }}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" style="padding-bottom: 8px;">
+                        <label>密码提示答案</label>
+                        <input ng-model="user.answer" required>
+                    </md-input-container>
+
+                    <md-content class="content md-body-1" layout="row" layout-align="end center">
+                        <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="forgetform.$invalid || !hasDbSet">确认变更</md-button>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="database">
+                <md-tab-label>数据库位置</md-tab-label>
+                <md-tab-body>
+
+                    <md-input-container class="md-block">
+                        <label>数据库目录</label>
+                        <input ng-model="db.address" ng-click="openDialog($event)">
+                        <div ng-messages="state">
+                            <div ng-message="invalidAddress">路径输入错误！请选择正确的文件路径</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-content class="content md-body-1" layout="row" layout-align="end center">
+                        <md-button type="submit" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="!db.address || state.invalidAddress">确认变更</md-button>
+                    </md-content>
+
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</md-bottom-sheet>

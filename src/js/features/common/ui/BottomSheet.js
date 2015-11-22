@@ -1,5 +1,5 @@
 /**
- *  Defines the Dialog
+ *  Defines the BottomSheet
  *
  *  @author  Howard.Zuo
  *  @date    Nov 22, 2015
@@ -13,32 +13,29 @@ var merge = require('angular').merge;
 
 class Feature extends FeatureBase {
     constructor() {
-        super('DialogModule');
+        super('BottomSheetModule');
     }
 
     beforeStart() {};
 
     execute() {
-
-        var defaults = {
-            template: '',
-            onComplete: function() {}
-        };
+        var defaults = {template: '', event: null};
 
         this.run([
             'events',
-            '$mdDialog',
-            function(events, $mdDialog) {
+            '$mdBottomSheet',
+            function(events, $mdBottomSheet) {
 
-                events.on('dialog', function(data) {
+                events.on('bottomsheet', function(data) {
                     var opts = merge({}, defaults, omit(data, [
-                        'scope'
+                        'scope',
+                        'event'
                     ]));
-                    $mdDialog.show({
-                        scope: opts.scope,
-                        targetEvent: opts.event,
+
+                    $mdBottomSheet.show({
                         template: opts.template,
-                        onComplete: opts.onComplete
+                        targetEvent: data.event,
+                        controller: opts.controller
                     });
                 });
             }

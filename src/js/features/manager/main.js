@@ -4,7 +4,7 @@
  *   Defines a manager feature
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 22, 2015
  *
  * ******************************************************************************************************
  */
@@ -12,6 +12,7 @@
 var FeatureBase = require('lib/FeatureBase');
 var Routes = require('./Routes');
 var ManagerController = require('./controller/ManagerController');
+var SettingController = require('./controller/SettingController');
 var ManagerService = require('./service/ManagerService');
 
 class Feature extends FeatureBase {
@@ -23,6 +24,7 @@ class Feature extends FeatureBase {
 
     execute() {
         this.controller('ManagerController', ManagerController);
+        this.controller('SettingController', SettingController);
         this.service('ManagerService', ManagerService);
     }
 }

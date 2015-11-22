@@ -7,61 +7,23 @@
  */
 'use strict';
 
-var ManagerController = function($scope, events, user, $location) {
+var settingTpl = require('../partials/setting.html');
+
+var ManagerController = function($scope, events, user, $location, ManagerService) {
     $scope.user = user;
 
-    $scope.todos = [
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        },
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        },
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        },
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        },
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        },
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        },
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        },
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        },
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        },
-        {
-            who: 'nanfeng',
-            what: 'fucking yourself nige erbi',
-            notes: 'i have to tell you something'
-        }
-    ];
+    ManagerService.getInfos(user.id)
+        .success(function(data) {
+            $scope.secrets = data;
+        });
+
+    $scope.setting = function($event) {
+        events.emit('bottomsheet', {
+            event: $event,
+            controller: 'SettingController',
+            template: settingTpl
+        });
+    };
 
     $scope.logout = function($event) {
         events.emit('confirm', {
@@ -82,5 +44,6 @@ module.exports = [
     'events',
     'user',
     '$location',
+    'ManagerService',
     ManagerController
 ];

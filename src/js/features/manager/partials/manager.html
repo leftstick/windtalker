@@ -15,7 +15,7 @@
               </md-tooltip>
             </md-button>
 
-            <md-button class="md-mini setting" aria-label="new" ng-click="setting()">
+            <md-button class="md-mini setting" aria-label="new" ng-click="setting($event)">
               <md-icon md-font-icon="icon-wrench"></md-icon>
               <md-tooltip>
                   设置
@@ -35,11 +35,11 @@
         <input ng-model="searchTxt">
     </md-input-container>
     <md-list flex class="secrets-container">
-        <md-list-item ng-repeat="topping in todos" class="secret">
+        <md-list-item ng-repeat="secret in secrets" class="secret">
             <div class="md-list-item-text">
-                <h4 class="key-title">{{ topping.who }}</h4>
+                <h4 class="key-title">{{ secret.name }}</h4>
                 <p class="key-desc">
-                    Secondary line text
+                    {{ secret.desc }}
                 </p>
             </div>
             <md-button class="md-fab md-mini md-primary md-secondary" style="right: 65px;">

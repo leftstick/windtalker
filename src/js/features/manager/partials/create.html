@@ -1,0 +1,30 @@
+<md-bottom-sheet class="md-grid create">
+    <md-content>
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h2>
+              <span>新增机密</span>
+            </h2>
+            <span flex></span>
+          </div>
+        </md-toolbar>
+        <md-input-container class="md-block">
+            <label>保密项名称</label>
+            <input ng-model="secret.name" required>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>保密项描述</label>
+            <textarea ng-model="secret.desc" columns="1" md-maxlength="100"></textarea>
+        </md-input-container>
+        <div layout layout-sm="column">
+            <md-input-container flex>
+              <label>First name</label>
+              <input ng-model="user.firstName">
+            </md-input-container>
+            <md-input-container flex>
+              <label>Last Name</label>
+              <input ng-model="theMax">
+            </md-input-container>
+        </div>
+    </md-content>
+</md-bottom-sheet>

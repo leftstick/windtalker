@@ -9,8 +9,9 @@
 
 var debounce = require('lib/Debounce');
 var settingTpl = require('../partials/setting.html');
+var createTpl = require('../partials/create.html');
 
-var ManagerController = function($scope, events, $location, ManagerService, AuthService) {
+var ManagerController = function($scope, events, utils, ManagerService, AuthService) {
     $scope.user = AuthService.currentUser();
     $scope.search = {txt: ''};
 
@@ -21,6 +22,14 @@ var ManagerController = function($scope, events, $location, ManagerService, Auth
             $scope.secrets = data;
             $scope.loading = false;
         });
+
+    $scope.create = function($event) {
+        events.emit('bottomsheet', {
+            event: $event,
+            controller: 'CreateController',
+            template: createTpl
+        });
+    };
 
     $scope.setting = function($event) {
         events.emit('bottomsheet', {
@@ -35,7 +44,7 @@ var ManagerController = function($scope, events, $location, ManagerService, Auth
             content: '您确定要登出么？',
             event: $event,
             onComplete: function() {
-                $location.url('url');
+                utils.redirect('/login');
             }
         });
         return;
@@ -58,7 +67,7 @@ var ManagerController = function($scope, events, $location, ManagerService, Auth
 module.exports = [
     '$scope',
     'events',
-    '$location',
+    'utils',
     'ManagerService',
     'AuthService',
     ManagerController

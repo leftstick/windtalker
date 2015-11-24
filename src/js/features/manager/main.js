@@ -13,6 +13,7 @@ var FeatureBase = require('lib/FeatureBase');
 var Routes = require('./Routes');
 var ManagerController = require('./controller/ManagerController');
 var SettingController = require('./controller/SettingController');
+var CreateController = require('./controller/CreateController');
 var ManagerService = require('./service/ManagerService');
 var SearchFilter = require('./filter/SearchFilter');
 
@@ -26,6 +27,7 @@ class Feature extends FeatureBase {
     execute() {
         this.controller('ManagerController', ManagerController);
         this.controller('SettingController', SettingController);
+        this.controller('CreateController', CreateController);
         this.service('ManagerService', ManagerService);
         this.filter('searchFilter', SearchFilter);
     }

@@ -20,7 +20,7 @@ var LoginController = function($scope, events, utils, AuthService) {
                 });
                 if (founds.length) {
                     AuthService.currentUser(founds[0]);
-                    utils.redirect('manager');
+                    utils.redirect('/manager');
                     return;
                 }
                 events.emit('toast', {

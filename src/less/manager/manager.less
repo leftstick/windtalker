@@ -1,6 +1,11 @@
 .manager{
 
-    md-bottom-sheet{
+    div[ng-view] > md-content{
+        height: 100%;
+        padding-bottom: 15px;
+    }
+
+    md-bottom-sheet.setting{
         border-top: 0;
         padding: 0;
         height: 420px;
@@ -25,10 +30,26 @@
         }
     }
 
-    div[ng-view] > md-content{
-        height: 100%;
-        padding-bottom: 15px;
+    md-bottom-sheet.create{
+        border-top: 0;
+        padding: 0;
+        height: 600px;
+        > md-content{
+            height: 100%;
+
+            .md-toolbar-tools{
+                padding: 20px;
+            }
+            md-input-container{
+                padding: 0 20px 8px 20px;
+                .md-char-counter{
+                    right: 20px;
+                }
+            }
+        }
     }
+
+
 
     .md-toolbar-tools{
         padding-left: 0;

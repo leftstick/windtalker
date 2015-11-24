@@ -35,8 +35,14 @@ class Feature extends FeatureBase {
                     $mdBottomSheet.show({
                         template: opts.template,
                         targetEvent: data.event,
-                        controller: opts.controller
+                        controller: opts.controller,
+                        locals: opts.locals,
+                        resolve: opts.resolve
                     });
+                });
+
+                events.on('bottomsheet-hide', function(data) {
+                    $mdBottomSheet.hide();
                 });
             }
         ]);

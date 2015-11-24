@@ -102,6 +102,64 @@ var ManagerService = function(utils, DbService) {
                 });
         });
     };
+
+    this.updateInfo = function(info) {
+
+        return utils.promise(function(resolve, reject) {
+            var id = utils.encryptTxt(info.id);
+
+            var encryptInfo = {
+                userId: utils.encryptTxt(info.userId),
+                name: utils.encryptTxt(info.name),
+                desc: utils.encryptTxt(info.desc),
+                createDate: info.createDate,
+                updateDate: new Date().getTime(),
+                items: _.map(info.items, function(item) {
+                    return {
+                        key: utils.encryptTxt(item.key),
+                        value: utils.encryptTxt(item.value)
+                    };
+                })
+            };
+
+            DbService.getSecretDb()
+                .findOne({id: id}, function(err, doc) {
+                    if (err) {
+                        reject('获取秘密信息失败 ' + err);
+                        return;
+                    }
+                    if (!doc) {
+                        reject('秘密信息不存在，或许已被删除，请检查');
+                        return;
+                    }
+
+                    DbService.getSecretDb()
+                        .update({id: id}, {$set: encryptInfo}, {}, function(err) {
+                            if (err) {
+                                reject('修改秘密信息失败 ' + err);
+                                return;
+                            }
+                            resolve(info);
+                        });
+                });
+        });
+    };
+
+    this.removeInfo = function(info) {
+
+        return utils.promise(function(resolve, reject) {
+            var id = utils.encryptTxt(info.id);
+
+            DbService.getSecretDb()
+                .remove({id: id}, {}, function(err) {
+                    if (err) {
+                        reject('删除秘密信息失败 ' + err);
+                        return;
+                    }
+                    resolve();
+                });
+        });
+    };
 };
 
 module.exports = ['utils', 'DbService', ManagerService];

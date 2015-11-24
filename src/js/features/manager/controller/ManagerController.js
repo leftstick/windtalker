@@ -9,7 +9,7 @@
 
 var settingTpl = require('../partials/setting.html');
 
-var ManagerController = function($scope, events, user, $location, ManagerService) {
+var ManagerController = function($routeParams, $scope, events, user, $location, ManagerService, AuthService) {
     $scope.user = user;
 
     ManagerService.getInfos(user.id)
@@ -21,6 +21,12 @@ var ManagerController = function($scope, events, user, $location, ManagerService
         events.emit('bottomsheet', {
             event: $event,
             controller: 'SettingController',
+            resolve: {
+                user: function() {
+                    return AuthService.getUserById($routeParams.userId);
+                }
+
+            },
             template: settingTpl
         });
     };
@@ -40,10 +46,12 @@ var ManagerController = function($scope, events, user, $location, ManagerService
 };
 
 module.exports = [
+    '$routeParams',
     '$scope',
     'events',
     'user',
     '$location',
     'ManagerService',
+    'AuthService',
     ManagerController
 ];

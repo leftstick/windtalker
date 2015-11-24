@@ -3,7 +3,7 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 24, 2015
  *
  */
 'use strict';
@@ -19,6 +19,7 @@ class FeatureBase {
         this.service = this.mod.service;
         this.factory = this.mod.factory;
         this.directive = this.mod.directive;
+        this.filter = this.mod.filter;
     }
 
     beforeStart() {}

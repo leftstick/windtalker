@@ -70,11 +70,19 @@
     .secrets-container{
         overflow-y: auto;
         padding-bottom: 0;
+        transition: background-color 0.3s ease;
+
+        md-list-item:hover{
+            background-color: #FAFAFA;
+        }
     }
 
     md-list-item.secret{
         position: relative;
         margin-bottom: 10px;
+        button{
+            margin-top: 0;
+        }
         .md-list-item-text{
             padding-left: 20px;
         }

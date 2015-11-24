@@ -7,14 +7,19 @@
  */
 'use strict';
 
+var debounce = require('lib/Debounce');
 var settingTpl = require('../partials/setting.html');
 
 var ManagerController = function($scope, events, $location, ManagerService, AuthService) {
     $scope.user = AuthService.currentUser();
+    $scope.search = {txt: ''};
+
+    $scope.loading = true;
 
     ManagerService.getInfos($scope.user.id)
         .success(function(data) {
             $scope.secrets = data;
+            $scope.loading = false;
         });
 
     $scope.setting = function($event) {
@@ -36,7 +41,18 @@ var ManagerController = function($scope, events, $location, ManagerService, Auth
         return;
     };
 
-    $scope.$on('$destroy', function() {});
+    var updateSearchTxt = debounce(function(newValue) {
+        $scope.search.searchTxt = newValue;
+        $scope.$apply();
+    }, 300);
+
+    var searchWatch = $scope.$watch('search.txt', function(newValue) {
+        updateSearchTxt(newValue);
+    });
+
+    $scope.$on('$destroy', function() {
+        updateSearchTxt();
+    });
 };
 
 module.exports = [

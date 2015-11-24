@@ -2,14 +2,14 @@
  *  Defines the SignupController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 24, 2015
  *
  */
 'use strict';
 
 var DB_ADDRESS_KEY = 'windtaler.dbaddress';
 
-var SignupController = function($scope, events, AuthService, $location, DbService) {
+var SignupController = function($scope, events, AuthService, utils, DbService) {
     $scope.hasDbSet = DbService.checkDbAddress();
 
     $scope.user = {};
@@ -40,7 +40,7 @@ var SignupController = function($scope, events, AuthService, $location, DbServic
                     type: 'success',
                     content: '用户创建成功，请登录'
                 });
-                $location.url('login');
+                utils.redirect('login');
             })
             .error(function(err) {
                 events.emit('toast', {
@@ -60,7 +60,7 @@ module.exports = [
     '$scope',
     'events',
     'AuthService',
-    '$location',
+    'utils',
     'DbService',
     SignupController
 ];

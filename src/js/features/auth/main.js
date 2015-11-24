@@ -4,7 +4,7 @@
  *   Defines a auth feature
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 24, 2015
  *
  * ******************************************************************************************************
  */
@@ -15,7 +15,6 @@ var LoginController = require('./controller/LoginController');
 var SetDBController = require('./controller/SetDBController');
 var SignupController = require('./controller/SignupController');
 var ForgetController = require('./controller/ForgetController');
-var AuthService = require('./service/AuthService');
 var ShakeIcon = require('./directive/ShakeIcon');
 
 class Feature extends FeatureBase {
@@ -30,7 +29,6 @@ class Feature extends FeatureBase {
         this.controller('SetDBController', SetDBController);
         this.controller('SignupController', SignupController);
         this.controller('ForgetController', ForgetController);
-        this.service('AuthService', AuthService);
         this.directive('shakeIcon', ShakeIcon);
     }
 }

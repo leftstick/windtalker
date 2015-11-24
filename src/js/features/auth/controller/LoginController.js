@@ -2,11 +2,11 @@
  *  Defines the LoginController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 24, 2015
  *
  */
 'use strict';
-var LoginController = function($scope, events, $location, AuthService) {
+var LoginController = function($scope, events, utils, AuthService) {
 
     $scope.user = {};
 
@@ -19,7 +19,8 @@ var LoginController = function($scope, events, $location, AuthService) {
                     return user.name === $scope.user.name && user.password === $scope.user.password;
                 });
                 if (founds.length) {
-                    $location.url('manager/' + founds[0].id);
+                    AuthService.currentUser(founds[0]);
+                    utils.redirect('manager');
                     return;
                 }
                 events.emit('toast', {
@@ -35,7 +36,7 @@ var LoginController = function($scope, events, $location, AuthService) {
 module.exports = [
     '$scope',
     'events',
-    '$location',
+    'utils',
     'AuthService',
     LoginController
 ];

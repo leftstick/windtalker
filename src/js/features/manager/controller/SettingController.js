@@ -12,26 +12,26 @@ var dialog = require('electron').remote.require('dialog');
 
 var merge = require('angular').merge;
 var debounce = require('lib/Debounce');
-var DB_ADDRESS_KEY = 'windtaler.dbaddress';
 var fs = require('fs');
 
-var SettingController = function($scope, events, AuthService, user, $location, $timeout, StorageService, utils) {
-
+var SettingController = function($scope, events, AuthService, DbService, utils) {
+    var user = AuthService.currentUser();
     $scope.user = {question: user.question};
-    $scope.db = {address: StorageService.get(DB_ADDRESS_KEY)};
+    $scope.db = {address: DbService.address()};
     $scope.passwordstate = {oldpasswordIncorrect: false};
     $scope.dbstate = {invalidAddress: false};
 
     var updateUser = function(newUser, message, needlogout) {
         AuthService.updateUser(newUser)
             .success(function() {
+                AuthService.currentUser(newUser);
                 events.emit('info', {
                     content: message,
                     onComplete: function() {
                         events.emit('bottomsheet-hide');
                         if (needlogout) {
-                            $timeout(function() {
-                                $location.url('login');
+                            utils.delay(function() {
+                                utils.redirect('login');
                             }, 600);
                         }
                     }
@@ -60,17 +60,14 @@ var SettingController = function($scope, events, AuthService, user, $location, $
     };
 
     $scope.updatedb = function() {
-        StorageService.set(DB_ADDRESS_KEY, $scope.db.address);
-        DbService.init(StorageService.get(DB_ADDRESS_KEY));
+        DbService.address($scope.db.address);
         events.emit('info', {
             content: '数据库目录锁定成功，需重新登录',
             onComplete: function() {
                 events.emit('bottomsheet-hide');
-                if (needlogout) {
-                    $timeout(function() {
-                        $location.url('login');
-                    }, 600);
-                }
+                utils.delay(function() {
+                    utils.redirect('login');
+                }, 600);
             }
         });
     };
@@ -84,9 +81,8 @@ var SettingController = function($scope, events, AuthService, user, $location, $
             ]
         }, function(files) {
             if (files && files.length) {
-                setTimeout(function() {
-                    $scope.db.address = files[0];
-                });
+                $scope.db.address = files[0];
+                $scope.$apply();
             }
         });
     };
@@ -147,10 +143,7 @@ module.exports = [
     '$scope',
     'events',
     'AuthService',
-    'user',
-    '$location',
-    '$timeout',
-    'StorageService',
+    'DbService',
     'utils',
     SettingController
 ];

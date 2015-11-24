@@ -103,7 +103,7 @@ gulp.task('release', ['compile-release'], function() {
             packageJson: packageJson,
             release: './dist',
             cache: './cache',
-            version: 'v0.35.1',
+            version: 'v0.35.0',
             packaging: true,
             asar: true,
             platforms: [

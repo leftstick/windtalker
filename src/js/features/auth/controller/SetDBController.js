@@ -12,11 +12,9 @@ var mainWindow = require('electron').remote.getCurrentWindow();
 var dialog = require('electron').remote.require('dialog');
 var fs = require('fs');
 
-var DB_ADDRESS_KEY = 'windtaler.dbaddress';
+var SetDBController = function($scope, events, utils, DbService) {
 
-var SetDBController = function($scope, events, utils, StorageService, DbService) {
-
-    $scope.db = {address: StorageService.get(DB_ADDRESS_KEY)};
+    $scope.db = {address: DbService.address()};
 
     $scope.state = {invalidAddress: false};
 
@@ -36,12 +34,12 @@ var SetDBController = function($scope, events, utils, StorageService, DbService)
     };
 
     $scope.saveDB = function() {
-        StorageService.set(DB_ADDRESS_KEY, $scope.db.address);
+        DbService.address($scope.db.address);
         events.emit('toast', {
             type: 'success',
+            delay: 500,
             content: '数据库目录锁定成功！'
         });
-        DbService.init(StorageService.get(DB_ADDRESS_KEY));
     };
 
     var checkAddress = debounce(function(value) {
@@ -71,7 +69,6 @@ module.exports = [
     '$scope',
     'events',
     'utils',
-    'StorageService',
     'DbService',
     SetDBController
 ];

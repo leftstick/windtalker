@@ -3,7 +3,7 @@
  *  Routes module expose route information used in auth feature
  *
  *  @author  Howard.Zuo
- *  @date    Nov 21, 2015
+ *  @date    Nov 24, 2015
  *
  */
 'use strict';
@@ -14,17 +14,8 @@ module.exports = [
     {
         id: 'manager',
         isDefault: false,
-        when: '/manager/:userId',
+        when: '/manager',
         controller: 'ManagerController',
-        resolve: {
-            user: [
-                'AuthService',
-                '$route',
-                function(AuthService, $route) {
-                    return AuthService.getUserById($route.current.params.userId);
-                }
-            ]
-        },
         template: tpl,
         size: {
             width: 750,

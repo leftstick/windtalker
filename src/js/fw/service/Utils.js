@@ -4,7 +4,7 @@
  *
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 24, 2015
  *
  */
 'use strict';
@@ -22,7 +22,17 @@ class Service extends ServiceBase {
     execute() {
         this.app.service('utils', [
             '$q',
-            function($q) {
+            '$timeout',
+            '$location',
+            function($q, $timeout, $location) {
+
+                this.delay = function(func, delay) {
+                    return $timeout(func, delay);
+                };
+
+                this.redirect = function(url) {
+                    $location.url(url);
+                };
 
                 this.base64ToString = function(str) {
                     return decodeURIComponent(escape(atob(str)));

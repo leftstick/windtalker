@@ -2,17 +2,17 @@
  *  Defines the ManagerController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 24, 2015
  *
  */
 'use strict';
 
 var settingTpl = require('../partials/setting.html');
 
-var ManagerController = function($routeParams, $scope, events, user, $location, ManagerService, AuthService) {
-    $scope.user = user;
+var ManagerController = function($scope, events, $location, ManagerService, AuthService) {
+    $scope.user = AuthService.currentUser();
 
-    ManagerService.getInfos(user.id)
+    ManagerService.getInfos($scope.user.id)
         .success(function(data) {
             $scope.secrets = data;
         });
@@ -21,12 +21,6 @@ var ManagerController = function($routeParams, $scope, events, user, $location, 
         events.emit('bottomsheet', {
             event: $event,
             controller: 'SettingController',
-            resolve: {
-                user: function() {
-                    return AuthService.getUserById($routeParams.userId);
-                }
-
-            },
             template: settingTpl
         });
     };
@@ -46,10 +40,8 @@ var ManagerController = function($routeParams, $scope, events, user, $location, 
 };
 
 module.exports = [
-    '$routeParams',
     '$scope',
     'events',
-    'user',
     '$location',
     'ManagerService',
     'AuthService',

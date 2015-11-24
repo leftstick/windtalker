@@ -61,6 +61,15 @@ class Feature extends FeatureBase {
                     }
                     return !!hasSet;
                 };
+
+                this.address = function(addr) {
+                    if (!addr) {
+                        return StorageService.get(DB_ADDRESS_KEY);
+                    }
+
+                    StorageService.set(DB_ADDRESS_KEY, addr);
+                    this.init(addr);
+                };
             }
         ]);
 

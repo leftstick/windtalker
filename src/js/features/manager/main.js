@@ -17,6 +17,7 @@ var CreateController = require('./controller/CreateController');
 var ManagerService = require('./service/ManagerService');
 var SearchFilter = require('./filter/SearchFilter');
 var ItemInput = require('./directive/ItemInput');
+var ItemEdit = require('./directive/ItemEdit');
 
 class Feature extends FeatureBase {
 
@@ -32,6 +33,7 @@ class Feature extends FeatureBase {
         this.service('ManagerService', ManagerService);
         this.filter('searchFilter', SearchFilter);
         this.directive('itemInput', ItemInput);
+        this.directive('itemEdit', ItemEdit);
     }
 }
 

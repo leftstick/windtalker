@@ -15,13 +15,17 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
     $scope.user = AuthService.currentUser();
     $scope.search = {txt: ''};
 
-    $scope.loading = true;
+    var secretsUpdate = function(){
+        $scope.secrets = [];
+        $scope.loading = true;
+        ManagerService.getInfos($scope.user.id)
+            .success(function(data) {
+                $scope.secrets = data;
+                $scope.loading = false;
+            });
+    };
 
-    ManagerService.getInfos($scope.user.id)
-        .success(function(data) {
-            $scope.secrets = data;
-            $scope.loading = false;
-        });
+    secretsUpdate();
 
     $scope.create = function($event) {
         events.emit('bottomsheet', {
@@ -61,8 +65,11 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
         updateSearchTxt(newValue);
     });
 
+    events.on('secrets-updated', secretsUpdate);
+
     $scope.$on('$destroy', function() {
         updateSearchTxt();
+        events.off('secrets-updated',secretsUpdate);
     });
 };
 

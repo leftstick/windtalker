@@ -5,10 +5,14 @@
         padding-bottom: 15px;
     }
 
+    md-bottom-sheet{
+        transform: translate3d(0, 0, 0);
+    }
+
     md-bottom-sheet.setting{
         border-top: 0;
         padding: 0;
-        height: 420px;
+        height: 330px;
         > md-content{
             height: 100%;
             > md-tabs{
@@ -33,17 +37,30 @@
     md-bottom-sheet.create{
         border-top: 0;
         padding: 0;
-        height: 600px;
+        height: 500px;
+        overflow: hidden;
         > md-content{
+            overflow: hidden;
             height: 100%;
 
             .md-toolbar-tools{
                 padding: 20px;
             }
-            md-input-container{
+            > md-input-container{
                 padding: 0 20px 8px 20px;
                 .md-char-counter{
                     right: 20px;
+                }
+            }
+
+            .item-container{
+                padding: 0 20px 10px 20px;
+                overflow-y: auto;
+                .item-input{
+                    width: 100%;
+                    md-input-container{
+                        padding-bottom: 8px;
+                    }
                 }
             }
         }

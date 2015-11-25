@@ -1,11 +1,17 @@
 <md-bottom-sheet class="md-grid create">
-    <md-content>
+    <md-content layout="column">
         <md-toolbar>
           <div class="md-toolbar-tools">
             <h2>
               <span>新增机密</span>
             </h2>
             <span flex></span>
+            <md-button class="md-fab md-warn md-mini exit" aria-label="logout" ng-click="logout()">
+              <md-icon md-font-icon="icon-logout-1"></md-icon>
+              <md-tooltip>
+                  确认保存
+              </md-tooltip>
+            </md-button>
           </div>
         </md-toolbar>
         <md-input-container class="md-block">
@@ -16,15 +22,18 @@
             <label>保密项描述</label>
             <textarea ng-model="secret.desc" columns="1" md-maxlength="100"></textarea>
         </md-input-container>
-        <div layout layout-sm="column">
-            <md-input-container flex>
-              <label>First name</label>
-              <input ng-model="user.firstName">
-            </md-input-container>
-            <md-input-container flex>
-              <label>Last Name</label>
-              <input ng-model="theMax">
-            </md-input-container>
+        <div layout="column" flex class="item-container">
+            <div class="item-input" layout="row" ng-repeat="item in items">
+                <md-input-container flex>
+                  <label>项目名称</label>
+                  <input ng-model="item.key" placeholder="如：用户名" ng-readonly="!item.keyEditable">
+                </md-input-container>
+                <md-input-container flex>
+                  <label>项目内容</label>
+                  <input ng-model="item.value" placeholder="如：密码" ng-readonly="!item.valueEditable">
+                </md-input-container>
+            </div>
+            <div class="item-input" layout="row" item-input="info" on-submit="addItem()"></div>
         </div>
     </md-content>
 </md-bottom-sheet>

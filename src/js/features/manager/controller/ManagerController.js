@@ -44,7 +44,9 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
             content: '您确定要登出么？',
             event: $event,
             onComplete: function() {
-                utils.redirect('/login');
+                utils.delay(function() {
+                    utils.redirect('/login');
+                }, 100);
             }
         });
         return;

@@ -4,7 +4,7 @@
  *   Defines a manager feature
  *
  *  @author  Howard.Zuo
- *  @date    Nov 24, 2015
+ *  @date    Nov 25, 2015
  *
  * ******************************************************************************************************
  */
@@ -16,6 +16,7 @@ var SettingController = require('./controller/SettingController');
 var CreateController = require('./controller/CreateController');
 var ManagerService = require('./service/ManagerService');
 var SearchFilter = require('./filter/SearchFilter');
+var ItemInput = require('./directive/ItemInput');
 
 class Feature extends FeatureBase {
 
@@ -30,6 +31,7 @@ class Feature extends FeatureBase {
         this.controller('CreateController', CreateController);
         this.service('ManagerService', ManagerService);
         this.filter('searchFilter', SearchFilter);
+        this.directive('itemInput', ItemInput);
     }
 }
 

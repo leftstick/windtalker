@@ -18,7 +18,7 @@
                             <input type="password" ng-model="user.password" required>
                         </md-input-container>
 
-                        <md-input-container class="md-block" style="padding-bottom: 8px;">
+                        <md-input-container class="md-block" style="padding-bottom: 0px;">
                             <label>重复新密码</label>
                             <input type="password" ng-model="user.repassword" required>
                             <div ng-messages="passwordstate">
@@ -35,7 +35,7 @@
             <md-tab id="question">
                 <md-tab-label>提示问题变更</md-tab-label>
                 <md-tab-body>
-                    <form name="questionform" ng-submit="saveNewQuestion()">
+                    <form name="questionform" ng-submit="saveNewQuestion()" style="margin-top: 24px;">
                         <md-input-container class="md-block">
                             <label>密码提示问题</label>
                             <md-select name="question" ng-model="user.question" required>
@@ -59,7 +59,7 @@
             <md-tab id="database">
                 <md-tab-label>数据库位置</md-tab-label>
                 <md-tab-body>
-                    <form name="dbform" ng-submit="updatedb()">
+                    <form name="dbform" ng-submit="updatedb()" style="margin-top: 24px;">
                         <md-input-container class="md-block">
                             <label>数据库目录</label>
                             <input ng-model="db.address" ng-click="openDialog($event)">

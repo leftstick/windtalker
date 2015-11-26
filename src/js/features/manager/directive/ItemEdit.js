@@ -20,7 +20,7 @@ var ItemInput = function(utils) {
                 if ($event.keyCode !== 13) {
                     return;
                 }
-                if (!$scope.itemInput.key) {
+                if (!$scope.itemEdit.key) {
                     return;
                 }
                 element.find('input')[1].focus();
@@ -30,15 +30,10 @@ var ItemInput = function(utils) {
                 if ($event.keyCode !== 13) {
                     return;
                 }
-                if (!$scope.itemInput.key || !$scope.itemInput.value) {
+                if (!$scope.itemEdit.key || !$scope.itemEdit.value) {
                     return;
                 }
-                $scope.onSubmit();
-                utils.delay(function() {
-                    $scope.itemInput.key = '';
-                    $scope.itemInput.value = '';
-                    element.find('input')[0].focus();
-                }, 10);
+                $scope.disableValue();
             };
 
             $scope.editKey = function() {
@@ -66,6 +61,7 @@ var ItemInput = function(utils) {
             };
 
             element.on('mouseenter', function() {
+                console.log($scope.itemEdit.keyEditable, $scope.itemEdit.valueEditable)
                 if ($scope.itemEdit.keyEditable || $scope.itemEdit.valueEditable) {
                     return;
                 }
@@ -81,7 +77,7 @@ var ItemInput = function(utils) {
                 element.off('mouseleave');
             });
         },
-        template: '<md-input-container flex><label>项目名称</label><input ng-model="itemEdit.key" placeholder="如：用户名" ng-readonly="!itemEdit.keyEditable" ng-dblclick="editKey()" ng-blur="disableKey()"></md-input-container><md-input-container flex><label>项目内容</label><input ng-model="itemEdit.value" placeholder="如：密码" ng-readonly="!itemEdit.valueEditable" ng-dblclick="editValue()" ng-blur="disableValue()"></md-input-container><i class="icon-cancel-circled" ng-click="onRemove()"></i>'
+        template: '<md-input-container flex><label>项目名称</label><input ng-model="itemEdit.key" placeholder="如：用户名" ng-readonly="!itemEdit.keyEditable" ng-dblclick="editKey()" ng-blur="disableKey()" ng-keyup="next($event)"></md-input-container><md-input-container flex><label>项目内容</label><input ng-model="itemEdit.value" placeholder="如：密码" ng-readonly="!itemEdit.valueEditable" ng-dblclick="editValue()" ng-blur="disableValue()" ng-keyup="finish($event)"></md-input-container><i class="icon-cancel-circled remove-item" ng-click="onRemove()"></i>'
     };
 };
 

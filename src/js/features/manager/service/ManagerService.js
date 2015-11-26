@@ -114,7 +114,7 @@ var ManagerService = function(utils, DbService) {
                 desc: utils.encryptTxt(info.desc),
                 createDate: info.createDate,
                 updateDate: new Date().getTime(),
-                items: _.map(info.items, function(item) {
+                items: info.items.map(function(item) {
                     return {
                         key: utils.encryptTxt(item.key),
                         value: utils.encryptTxt(item.value)

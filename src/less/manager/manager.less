@@ -53,44 +53,41 @@
                 }
             }
 
-            .item-container{
-                padding: 0 20px 10px 20px;
-                overflow-y: auto;
-                .item-input{
-                    width: 100%;
-                    position: relative;
-                    md-input-container{
-                        padding-bottom: 8px;
-                    }
-                    i{
-                        display: none;
-                        color: red;
-                        font-size: 25px;
-                        cursor: pointer;
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                    }
-                    i.show{
-                        display: block;
-                    }
-                }
-            }
         }
     }
 
     .view-secret-container{
         width: 550px;
         max-width: 550px;
-        md-input-container{
-            padding: 0 20px 8px 20px;
-            .md-char-counter{
-                right: 20px;
+        .md-char-counter{
+            right: 20px;
+        }
+    }
+
+    .item-container{
+        padding: 0 20px 10px 20px;
+        overflow-y: auto;
+        .item-input{
+            width: 100%;
+            position: relative;
+            md-input-container{
+                padding-bottom: 8px;
             }
         }
     }
 
-
+    i.remove-item{
+        display: none;
+        color: red;
+        font-size: 25px;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    i.remove-item.show{
+        display: block;
+    }
 
     .top-toolbar .md-toolbar-tools{
         padding-left: 0;

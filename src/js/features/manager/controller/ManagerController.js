@@ -10,16 +10,22 @@
 var debounce = require('lib/Debounce');
 var settingTpl = require('../partials/setting.html');
 var createTpl = require('../partials/create.html');
+var merge = require('angular').merge;
 
 var ManagerController = function($scope, events, utils, ManagerService, AuthService) {
     $scope.user = AuthService.currentUser();
     $scope.search = {txt: ''};
+    $scope.info = {};
     $scope.state = {canSave: true};
+
+    var commonErrorHandler = function(err) {
+        events.emit('toast', {type: 'error', content: err});
+    };
 
     var secretsUpdate = function() {
         utils.delay(function() {
             $scope.secrets = [];
-        })
+        }, 50)
             .then(function() {
                 return utils.delay(function() {
                     $scope.loading = true;
@@ -81,18 +87,39 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
                         });
                         secretsUpdate();
                     })
-                    .error(function(err) {
-                        events.emit('toast', {
-                            type: 'error',
-                            content: err
-                        });
-                    });
+                    .error(commonErrorHandler);
             }
         });
     };
 
     $scope.viewSecret = function(secret) {
+        $scope.state.currentSecret = merge({}, secret);
         events.emit('sidebar', {id: 'left'});
+    };
+
+    $scope.removeItem = function(item) {
+        $scope.state.currentSecret.items.splice($scope.state.currentSecret.items.indexOf(item), 1);
+    };
+
+    $scope.saveSecret = function() {
+        ManagerService
+            .updateInfo($scope.state.currentSecret)
+            .success(function() {
+                events.emit('toast', {
+                    type: 'success',
+                    content: '秘密已修改！'
+                });
+                events.emit('sidebar-hide', {id: 'left'});
+                secretsUpdate();
+            })
+            .error(commonErrorHandler);
+    };
+
+    $scope.addItem = function() {
+        $scope.state.currentSecret.items.push({
+            key: $scope.info.key,
+            value: $scope.info.value
+        });
     };
 
     var updateSearchTxt = debounce(function(newValue) {
@@ -102,6 +129,10 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
 
     var searchWatch = $scope.$watch('search.txt', function(newValue) {
         updateSearchTxt(newValue);
+    });
+
+    var searchWatch = $scope.$watch('state.currentSecret.desc', function(newValue) {
+        $scope.state.canSave = !!newValue;
     });
 
     events.on('secrets-updated', secretsUpdate);

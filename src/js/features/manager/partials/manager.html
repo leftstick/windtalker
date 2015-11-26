@@ -8,23 +8,23 @@
                 </h2>
                 <span flex></span>
                 <md-button class="md-icon-button" aria-label="create" ng-click="saveSecret()" ng-disabled="!state.canSave">
-                  <md-icon md-font-icon="icon-floppy"></md-icon>
+                  <md-icon md-font-icon="icon-floppy" style="font-size: 22px;"></md-icon>
                   <md-tooltip>
                       确认保存
                   </md-tooltip>
                 </md-button>
               </div>
             </md-toolbar>
-            <md-input-container class="md-block">
+            <md-input-container class="md-block" style="padding: 0 20px 10px 20px;">
                 <label>保密项名称</label>
-                <input ng-model="secret.name" required>
+                <input ng-model="state.currentSecret.name" readonly>
             </md-input-container>
-            <md-input-container class="md-block">
+            <md-input-container class="md-block" style="padding: 0 20px 10px 20px;">
                 <label>保密项描述</label>
-                <textarea ng-model="secret.desc" columns="1" md-maxlength="100" required></textarea>
+                <textarea ng-model="state.currentSecret.desc" columns="1" md-maxlength="100" required></textarea>
             </md-input-container>
             <div layout="column" flex class="item-container">
-                <div class="item-input" layout="row" ng-repeat="item in items" item-edit="item" on-remove="removeItem(item)"></div>
+                <div class="item-input" layout="row" ng-repeat="item in state.currentSecret.items" item-edit="item" on-remove="removeItem(item)"></div>
                 <div class="item-input" layout="row" item-input="info" on-submit="addItem()"></div>
             </div>
         </md-content>
@@ -38,22 +38,22 @@
                 {{ user.name }}
             </span>
 
-            <md-button class="md-mini create" aria-label="new" ng-click="create($event)">
+            <md-button class="md-icon-button create" aria-label="new" ng-click="create($event)">
               <md-icon md-font-icon="icon-doc-new"></md-icon>
               <md-tooltip>
                   新增机密
               </md-tooltip>
             </md-button>
 
-            <md-button class="md-mini setting" aria-label="new" ng-click="setting($event)">
-              <md-icon md-font-icon="icon-wrench"></md-icon>
+            <md-button class="md-icon-button setting" aria-label="new" ng-click="setting($event)">
+              <md-icon md-font-icon="icon-params"></md-icon>
               <md-tooltip>
                   设置
               </md-tooltip>
             </md-button>
 
-            <md-button class="md-fab md-warn md-mini exit" aria-label="logout" ng-click="logout()">
-              <md-icon md-font-icon="icon-logout-1"></md-icon>
+            <md-button class="md-icon-button exit" aria-label="logout" ng-click="logout()">
+              <md-icon md-font-icon="icon-logout-2" style="color: #d43f3a;"></md-icon>
               <md-tooltip>
                   登出系统
               </md-tooltip>
@@ -75,13 +75,13 @@
                     {{ secret.desc }}
                 </p>
             </div>
-            <md-button class="key-btn md-fab md-mini md-primary md-secondary" style="right: 65px;" ng-click="viewSecret(secret)">
+            <md-button class="key-btn md-icon-button md-primary md-secondary" style="right: 65px;" ng-click="viewSecret(secret)">
                 <md-icon class="key-icon" md-font-icon="icon-eye"></md-icon>
                 <md-tooltip>
                     查看
                 </md-tooltip>
             </md-button>
-            <md-button class="key-btn md-fab md-mini md-warn md-secondary" style="right: 12px;" ng-click="deleteSecret(secret,$event)">
+            <md-button class="key-btn md-icon-button md-warn md-secondary" style="right: 12px;" ng-click="deleteSecret(secret,$event)">
                 <md-icon class="key-icon" md-font-icon="icon-cancel"></md-icon>
                 <md-tooltip>
                     删除

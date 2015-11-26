@@ -15,13 +15,23 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
     $scope.user = AuthService.currentUser();
     $scope.search = {txt: ''};
 
-    var secretsUpdate = function(){
-        $scope.secrets = [];
-        $scope.loading = true;
-        ManagerService.getInfos($scope.user.id)
-            .success(function(data) {
-                $scope.secrets = data;
-                $scope.loading = false;
+    var secretsUpdate = function() {
+        utils.delay(function() {
+            $scope.secrets = [];
+        })
+            .then(function() {
+                return utils.delay(function() {
+                    $scope.loading = true;
+                });
+            })
+            .then(function() {
+                return ManagerService.getInfos($scope.user.id);
+            })
+            .then(function(data) {
+                utils.delay(function() {
+                    $scope.secrets = data;
+                    $scope.loading = false;
+                });
             });
     };
 
@@ -69,7 +79,7 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
 
     $scope.$on('$destroy', function() {
         updateSearchTxt();
-        events.off('secrets-updated',secretsUpdate);
+        events.off('secrets-updated', secretsUpdate);
     });
 };
 

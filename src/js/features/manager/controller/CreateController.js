@@ -43,13 +43,13 @@ var CreateController = function($scope, events, ManagerService, AuthService, uti
                 });
                 utils.delay(function() {
                     events.emit('bottomsheet-hide');
-                }, 100)
-                .then(function(){
-                    return utils.delay(noop,200);
-                })
-                .then(function(){
-                    events.emit('secrets-updated');
-                });
+                }, 20)
+                    .then(function() {
+                        return utils.delay(noop, 550);
+                    })
+                    .then(function() {
+                        events.emit('secrets-updated');
+                    });
             })
             .error(function(err) {
                 events.emit('toast', {

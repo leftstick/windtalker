@@ -37,7 +37,7 @@
     <div layout="column" layout-align="center center" ng-if="loading" flex>
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-    <md-list flex class="secrets-container" ng-if="!loading">
+    <md-list flex class="secrets-container" ng-if="!loading && secrets">
         <md-list-item ng-repeat="secret in secrets | searchFilter: search.searchTxt: ['name', 'desc']" class="secret" >
             <div class="md-list-item-text">
                 <h4 class="key-title">{{ secret.name }}</h4>

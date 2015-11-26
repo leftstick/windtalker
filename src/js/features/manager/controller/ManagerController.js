@@ -2,7 +2,7 @@
  *  Defines the ManagerController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 24, 2015
+ *  @date    Nov 26, 2015
  *
  */
 'use strict';
@@ -14,6 +14,7 @@ var createTpl = require('../partials/create.html');
 var ManagerController = function($scope, events, utils, ManagerService, AuthService) {
     $scope.user = AuthService.currentUser();
     $scope.search = {txt: ''};
+    $scope.state = {canSave: true};
 
     var secretsUpdate = function() {
         utils.delay(function() {
@@ -60,10 +61,38 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
             onComplete: function() {
                 utils.delay(function() {
                     utils.redirect('/login');
-                }, 100);
+                }, 400);
             }
         });
         return;
+    };
+
+    $scope.deleteSecret = function(secret, $event) {
+        events.emit('confirm', {
+            content: '您确定要删除这个秘密么？',
+            event: $event,
+            onComplete: function() {
+                ManagerService
+                    .removeInfo(secret)
+                    .success(function() {
+                        events.emit('toast', {
+                            type: 'success',
+                            content: '秘密已删除！'
+                        });
+                        secretsUpdate();
+                    })
+                    .error(function(err) {
+                        events.emit('toast', {
+                            type: 'error',
+                            content: err
+                        });
+                    });
+            }
+        });
+    };
+
+    $scope.viewSecret = function(secret) {
+        events.emit('sidebar', {id: 'left'});
     };
 
     var updateSearchTxt = debounce(function(newValue) {

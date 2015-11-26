@@ -13,6 +13,8 @@ var createTpl = require('../partials/create.html');
 var merge = require('angular').merge;
 
 var ManagerController = function($scope, events, utils, ManagerService, AuthService) {
+    $scope.secrets = [];
+    $scope.loading = true;
     $scope.user = AuthService.currentUser();
     $scope.search = {txt: ''};
     $scope.info = {};
@@ -25,12 +27,8 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
     var secretsUpdate = function() {
         utils.delay(function() {
             $scope.secrets = [];
-        }, 50)
-            .then(function() {
-                return utils.delay(function() {
-                    $scope.loading = true;
-                });
-            })
+            $scope.loading = true;
+        })
             .then(function() {
                 return ManagerService.getInfos($scope.user.id);
             })

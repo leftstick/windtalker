@@ -2,7 +2,7 @@
  *  Defines the ManagerService
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 26, 2015
  *
  */
 'use strict';
@@ -13,7 +13,8 @@ var ManagerService = function(utils, DbService) {
 
         return utils.promise(function(resolve, reject) {
 
-            DbService.getSecretDb()
+            DbService
+                .getSecretDb()
                 .find({userId: utils.encryptTxt(userId)})
                 .sort({updateDate: -1})
                 .exec(function(err, docs) {
@@ -63,20 +64,24 @@ var ManagerService = function(utils, DbService) {
                 })
             };
 
-            DbService.getSecretDb()
-                .find({
+            DbService
+                .getSecretDb()
+                .count({
                     userId: encryptInfo.userId,
                     name: encryptInfo.name
-                }, function(err, docs) {
+                })
+                .exec(function(err, count) {
                     if (err) {
                         reject('新增秘密信息失败 ' + err);
                         return;
                     }
-                    if (docs.length > 0) {
+                    if (count > 0) {
                         reject('该秘密信息已被注册，请重试');
                         return;
                     }
-                    DbService.getSecretDb()
+
+                    DbService
+                        .getSecretDb()
                         .insert(encryptInfo, function(err, doc) {
                             if (err) {
                                 reject('新增秘密信息失败 ' + err);
@@ -122,7 +127,8 @@ var ManagerService = function(utils, DbService) {
                 })
             };
 
-            DbService.getSecretDb()
+            DbService
+                .getSecretDb()
                 .findOne({id: id}, function(err, doc) {
                     if (err) {
                         reject('获取秘密信息失败 ' + err);
@@ -133,7 +139,8 @@ var ManagerService = function(utils, DbService) {
                         return;
                     }
 
-                    DbService.getSecretDb()
+                    DbService
+                        .getSecretDb()
                         .update({id: id}, {$set: encryptInfo}, {}, function(err) {
                             if (err) {
                                 reject('修改秘密信息失败 ' + err);
@@ -150,7 +157,8 @@ var ManagerService = function(utils, DbService) {
         return utils.promise(function(resolve, reject) {
             var id = utils.encryptTxt(info.id);
 
-            DbService.getSecretDb()
+            DbService
+                .getSecretDb()
                 .remove({id: id}, {}, function(err) {
                     if (err) {
                         reject('删除秘密信息失败 ' + err);

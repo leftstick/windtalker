@@ -67,8 +67,11 @@
     <div layout="column" layout-align="center center" ng-if="loading" flex>
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-    <md-list flex class="secrets-container" ng-if="!loading && secrets">
-        <md-list-item ng-repeat="secret in secrets | searchFilter: search.searchTxt: ['name', 'desc']" class="secret" >
+    <div layout="column" layout-align="center center" ng-if="!loading && !secrets.length" flex>
+        <h2>没有任何秘密可言哦，来创建吧！</h2>
+    </div>
+    <md-list flex class="secrets-container" ng-if="!loading && secrets.length">
+        <md-list-item ng-repeat="secret in secrets | searchFilter: search.searchTxt: ['name', 'desc']" class="secret" ng-if="!loading && secrets.length">
             <div class="md-list-item-text">
                 <h4 class="key-title">{{ secret.name }}</h4>
                 <p class="key-desc">

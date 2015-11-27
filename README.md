@@ -21,6 +21,6 @@
 
 看这里：[开发文档](./docs/start-guide.md)
 
- ## LICENSE ##
+## LICENSE ##
 
- [MIT License](https://raw.githubusercontent.com/leftstick/windtalker/master/LICENSE)
+[MIT License](https://raw.githubusercontent.com/leftstick/windtalker/master/LICENSE)

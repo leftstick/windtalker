@@ -13,8 +13,8 @@
 
 * **v2.0.0** (2015-11-27)
 
- * Windows: [64bit](https://github.com/leftstick/windtalker/releases/download/2.0.0/windtalker-v2.0.0-win-x64.tar.gz)
- * Mac 10.11+: [64bit](https://github.com/leftstick/windtalker/releases/download/2.0.0/windtalker-v2.0.0-darwin-x64.tar.gz)
+ * Windows: [64bit](https://github.com/leftstick/windtalker/releases/download/2.0.0/windtalker-2.0.0-win32-x64.zip)
+ * Mac 10.11+: [64bit](https://github.com/leftstick/windtalker/releases/download/2.0.0/windtalker-2.0.0-darwin-x64.zip)
 
 
 ## 想要贡献代码？ ##

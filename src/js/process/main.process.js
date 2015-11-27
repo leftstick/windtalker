@@ -13,6 +13,5 @@ exitHandler(app);
 //launch the app
 launcher(app)
     .then(function(win) {
-        win.webContents.openDevTools();
         return win;
     });

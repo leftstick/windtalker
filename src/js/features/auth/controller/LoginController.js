@@ -2,7 +2,7 @@
  *  Defines the LoginController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 24, 2015
+ *  @date    Nov 26, 2015
  *
  */
 'use strict';
@@ -15,6 +15,7 @@ var LoginController = function($scope, events, utils, AuthService) {
     $scope.login = function() {
         usersPromise
             .success(function(data) {
+
                 var founds = data.filter(function(user) {
                     return user.name === $scope.user.name && user.password === $scope.user.password;
                 });

@@ -1,15 +1,9 @@
 'use strict';
 
 var gulp = require('gulp');
-var os = require('os');
-var ncp = require('ncp').ncp;
-
-var path = require('path');
-var resolve = path.resolve;
+var resolve = require('path').resolve;
 
 var logger = console.log;
-
-var SYSTEMS = {darwin: 'osx', win32: 'win', linux: 'linux'};
 
 var argv = require('minimist')(process.argv.slice(2));
 
@@ -35,25 +29,16 @@ var compile = function(isDev, cb) {
     var go = require('go-txt');
     var config;
 
-    var indexVm = resolve(__dirname, 'src', 'index.html');
-    var indexHtml = resolve(__dirname, 'src', 'build', 'index.html');
-
     if (isDev) {
         config = require(resolve(__dirname, 'webpack.config.dev'));
     } else {
         config = require(resolve(__dirname, 'webpack.config.prod'));
     }
-    var passwordOpts = new Buffer(JSON.stringify({
-        password: password
-    })).toString('base64');
-    config.module.loaders[0].loader = config.module.loaders[0].loader + passwordOpts;
+    var passwordOpts = JSON.stringify({password: password});
 
-    require('rimraf').sync(resolve(__dirname, 'src', 'build'));
-    go(resolve(__dirname, 'package.json'), resolve(__dirname, 'src', 'build', 'package.json'));
+    config.module.loaders[0].loader = config.module.loaders[0].loader + new Buffer(passwordOpts).toString('base64');
 
     var compiler = webpack(config);
-
-    go(indexVm, indexHtml);
 
     if (isDev) {
         compiler.watch({aggregateTimeout: 500, poll: true}, function(err, stats) {
@@ -61,12 +46,6 @@ var compile = function(isDev, cb) {
                 logger('[ERROR]: ', err);
                 return;
             }
-            ncp(resolve(__dirname, 'src', 'js', 'process'), resolve(__dirname, 'src', 'build', 'js', 'process'), function(err) {
-                if (err) {
-                    return console.error(err);
-                }
-                console.log('done!');
-            });
             handleStatsError(stats);
         });
         return;
@@ -77,30 +56,57 @@ var compile = function(isDev, cb) {
             cb(err);
             return;
         }
-        ncp(resolve(__dirname, 'src', 'js', 'process'), resolve(__dirname, 'src', 'build', 'js', 'process'), function(err) {
-            if (err) {
-                return console.error(err);
-            }
-            cb();
-        });
-        handleStatsError(stats);
+        cb();
     });
 };
 
-gulp.task('compile-dev', function(cb) {
+gulp.task('clean-dist', function() {
+    return require('rimraf').sync(resolve(__dirname, 'dist'));
+});
+
+gulp.task('clean-build', function() {
+    return require('rimraf').sync(resolve(__dirname, 'src', 'build'));
+});
+
+gulp.task('copy-index', function() {
+    return gulp
+        .src(['./src/index.html'])
+        .pipe(gulp.dest('./src/build'));
+});
+
+gulp.task('copy-package.json', function() {
+    return gulp
+        .src(['./package.json'])
+        .pipe(gulp.dest('./src/build'));
+});
+
+gulp.task('copy-process', function() {
+    return gulp
+        .src(['./src/js/process/**/*'])
+        .pipe(gulp.dest('./src/build/js/process'));
+});
+
+gulp.task('watch', [
+    'copy-index',
+    'copy-package.json',
+    'copy-process',
+    'clean-build'
+], function(cb) {
     compile(true, cb);
 });
 
-gulp.task('compile-release', ['clean-dist'], function(cb) {
+gulp.task('compile-release', [
+    'copy-index',
+    'copy-package.json',
+    'copy-process',
+    'clean-build',
+    'clean-dist'
+], function(cb) {
     if (!password) {
-        console.warn('WARNING: you have to specify encryption password by -p');
+        logger('WARNING: you have to specify encryption password by -p');
         process.exit(0);
     }
     compile(false, cb);
-});
-
-gulp.task('clean-dist', function() {
-    return require('rimraf').sync(resolve(__dirname, 'dist'));
 });
 
 gulp.task('release', ['compile-release'], function() {

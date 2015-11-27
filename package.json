@@ -4,9 +4,8 @@
   "description": "windtalker helps people managing security cared information",
   "main": "./js/process/main.process.js",
   "scripts": {
-    "release": "node ./node_modules/.bin/gulp release",
     "dev": "node ./node_modules/.bin/gulp dev",
-    "watch": "node ./node_modules/.bin/gulp compile-dev -p abcdefg"
+    "watch": "node ./node_modules/.bin/gulp watch -p abcdefg"
   },
   "repository": {
     "type": "git",

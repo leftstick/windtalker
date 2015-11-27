@@ -61,7 +61,6 @@ var ItemInput = function(utils) {
             };
 
             element.on('mouseenter', function() {
-                console.log($scope.itemEdit.keyEditable, $scope.itemEdit.valueEditable)
                 if ($scope.itemEdit.keyEditable || $scope.itemEdit.valueEditable) {
                     return;
                 }

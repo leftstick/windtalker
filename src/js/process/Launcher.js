@@ -29,7 +29,7 @@ var Launcher = function(app) {
             mainWindow.on('closed', function() {
                 mainWindow = null;
             });
-            mainWindow.show();
+            // mainWindow.show();
             resolve(mainWindow);
         });
     });

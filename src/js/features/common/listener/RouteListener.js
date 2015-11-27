@@ -22,6 +22,7 @@ class Feature extends FeatureBase {
             'Routes',
             '$document',
             function($rootScope, Routes, $document) {
+                var isFirst = true;
                 $rootScope.$on('$viewContentLoaded', function() {
                     var route = Routes.filter(function(route) {
                         return route.id === $document[0].body.id;
@@ -33,6 +34,11 @@ class Feature extends FeatureBase {
                     mainWindow.setContentSize(size.width, size.height);
                     mainWindow.setMinimumSize(size.minWidth || size.width, size.minHeight || size.height);
                     mainWindow.setResizable(!!size.resizable);
+                    if (isFirst) {
+                        isFirst = false;
+                        mainWindow.show();
+                    }
+                    mainWindow.center();
                 });
             }
         ]);

@@ -17,6 +17,9 @@
  * Mac 10.11+: [64bit](https://github.com/leftstick/windtalker/releases/download/2.0.0/windtalker-v2.0.0-darwin-x64.tar.gz)
 
 
+## 想要贡献代码？ ##
+
+看这里：[开发文档](./docs/start-guide.md)
 
  ## LICENSE ##
 

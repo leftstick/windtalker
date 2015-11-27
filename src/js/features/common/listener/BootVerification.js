@@ -3,7 +3,7 @@
  *  Defines BootVerification
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 26, 2015
  *
  */
 'use strict';
@@ -28,7 +28,7 @@ class Feature extends FeatureBase {
                     $location.url('setdb');
                     return;
                 }
-                DbService.init(address);
+                DbService.init();
             }
         ]);
     }

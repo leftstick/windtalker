@@ -10,8 +10,8 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'src', 'build', 'js'),
-        filename: '[hash].[name].bundle.js',
-        chunkFilename: '[hash].[id].bundle.js',
+        filename: '[name].bundle.js',
+        chunkFilename: '[id].bundle.js',
         publicPath: 'js/'
     },
     target: 'electron',

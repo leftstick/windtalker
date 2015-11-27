@@ -85,6 +85,13 @@ class Service extends ServiceBase {
                     return dec;
                 };
 
+                this.getEncryptInfo = function() {
+                    return {
+                        algorithm: algorithm,
+                        password: password
+                    };
+                };
+
                 this.ID = function() {
                     return new Date().getTime() + '';
                 };

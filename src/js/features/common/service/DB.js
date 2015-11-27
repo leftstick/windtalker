@@ -3,11 +3,12 @@
  *  This module used to connect to nedb
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 26, 2015
  *
  */
 'use strict';
 var FeatureBase = require('lib/FeatureBase');
+var merge = require('angular').merge;
 
 var Datastore = require('nedb');
 var path = require('path');
@@ -24,15 +25,19 @@ class Feature extends FeatureBase {
     }
 
     execute() {
+
         this.service('DbService', [
             'StorageService',
             'events',
-            function(StorageService, events) {
+            'utils',
+            function(StorageService, events, utils) {
                 var userDb, secretDb;
 
-                this.init = function(basePath) {
-                    var userDbPath = path.join(basePath, USERS_DB_NAME);
-                    var secretDbPath = path.join(basePath, SECRETS_DB_NAME);
+                this.init = function() {
+                    var address = StorageService.get(DB_ADDRESS_KEY);
+
+                    var userDbPath = path.join(address, USERS_DB_NAME);
+                    var secretDbPath = path.join(address, SECRETS_DB_NAME);
                     userDb = new Datastore({
                         filename: userDbPath,
                         autoload: true
@@ -68,7 +73,7 @@ class Feature extends FeatureBase {
                     }
 
                     StorageService.set(DB_ADDRESS_KEY, addr);
-                    this.init(addr);
+                    this.init();
                 };
             }
         ]);

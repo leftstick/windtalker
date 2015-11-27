@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var os = require('os');
+var ncp = require('ncp').ncp;
 
 var path = require('path');
 var resolve = path.resolve;
@@ -34,7 +35,7 @@ var compile = function(isDev, cb) {
     var go = require('go-txt');
     var config;
 
-    var indexVm = resolve(__dirname, 'src', 'index.html.vm');
+    var indexVm = resolve(__dirname, 'src', 'index.html');
     var indexHtml = resolve(__dirname, 'src', 'build', 'index.html');
 
     if (isDev) {
@@ -42,23 +43,30 @@ var compile = function(isDev, cb) {
     } else {
         config = require(resolve(__dirname, 'webpack.config.prod'));
     }
-    config.module.loaders[0].loader = config.module.loaders[0].loader + new Buffer(JSON.stringify({
-            password: password
-        })).toString('base64');
+    var passwordOpts = new Buffer(JSON.stringify({
+        password: password
+    })).toString('base64');
+    config.module.loaders[0].loader = config.module.loaders[0].loader + passwordOpts;
 
     require('rimraf').sync(resolve(__dirname, 'src', 'build'));
-    go(resolve(__dirname, 'src', 'main.js.vm'), resolve(__dirname, 'src', 'build', 'main.js'));
     go(resolve(__dirname, 'package.json'), resolve(__dirname, 'src', 'build', 'package.json'));
 
     var compiler = webpack(config);
 
+    go(indexVm, indexHtml);
+
     if (isDev) {
-        go(indexVm, indexHtml);
         compiler.watch({aggregateTimeout: 500, poll: true}, function(err, stats) {
             if (err) {
                 logger('[ERROR]: ', err);
                 return;
             }
+            ncp(resolve(__dirname, 'src', 'js', 'process'), resolve(__dirname, 'src', 'build', 'js', 'process'), function(err) {
+                if (err) {
+                    return console.error(err);
+                }
+                console.log('done!');
+            });
             handleStatsError(stats);
         });
         return;
@@ -69,11 +77,13 @@ var compile = function(isDev, cb) {
             cb(err);
             return;
         }
-        go(indexVm, indexHtml, function(tmp) {
-            return tmp.replace('index.bundle.js', stats.hash + '.index.bundle.js');
+        ncp(resolve(__dirname, 'src', 'js', 'process'), resolve(__dirname, 'src', 'build', 'js', 'process'), function(err) {
+            if (err) {
+                return console.error(err);
+            }
+            cb();
         });
         handleStatsError(stats);
-        cb();
     });
 };
 
@@ -130,7 +140,7 @@ gulp.task('release', ['compile-release'], function() {
 
 gulp.task('dev', function(cb) {
     require('child_process')
-        .exec('node ./node_modules/.bin/electron ./src/build/', {
+        .exec('node ./node_modules/.bin/electron --debug=5858 ./src/build/', {
             cwd: __dirname,
             env: {
                 NODE_ENV: 'dev'

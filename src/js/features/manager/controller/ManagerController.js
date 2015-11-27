@@ -12,6 +12,8 @@ var settingTpl = require('../partials/setting.html');
 var createTpl = require('../partials/create.html');
 var merge = require('angular').merge;
 
+var ipcRenderer = require('electron').ipcRenderer;
+
 var ManagerController = function($scope, events, utils, ManagerService, AuthService) {
     $scope.secrets = [];
     $scope.loading = true;
@@ -26,17 +28,14 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
 
     var secretsUpdate = function() {
         utils.delay(function() {
-            $scope.secrets = [];
             $scope.loading = true;
-        })
+        }, 50)
             .then(function() {
                 return ManagerService.getInfos($scope.user.id);
             })
             .then(function(data) {
-                utils.delay(function() {
-                    $scope.secrets = data;
-                    $scope.loading = false;
-                });
+                $scope.secrets = data;
+                $scope.loading = false;
             });
     };
 

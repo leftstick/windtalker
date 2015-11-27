@@ -3,7 +3,7 @@
  *  This module used to emit events while route changed
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 26, 2015
  *
  */
 'use strict';
@@ -19,17 +19,21 @@ class Feature extends FeatureBase {
     execute() {
         this.run([
             '$rootScope',
-            function($rootScope) {
-                $rootScope.$on('$routeChangeSuccess', function(e, route) {
-                    if (!route || !route.$$route || !route.$$route.size) {
+            'Routes',
+            '$document',
+            function($rootScope, Routes, $document) {
+                $rootScope.$on('$viewContentLoaded', function() {
+                    var route = Routes.filter(function(route) {
+                        return route.id === $document[0].body.id;
+                    })[0];
+                    if (!route.size) {
                         return;
                     }
-                    var size = route.$$route.size;
+                    var size = route.size;
                     mainWindow.setContentSize(size.width, size.height);
                     mainWindow.setMinimumSize(size.minWidth || size.width, size.minHeight || size.height);
                     mainWindow.setResizable(!!size.resizable);
                 });
-
             }
         ]);
     }

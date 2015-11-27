@@ -2,7 +2,7 @@
   "name": "windtalker",
   "version": "2.0.0",
   "description": "windtalker helps people managing security cared information",
-  "main": "main.js",
+  "main": "./js/process/main.process.js",
   "scripts": {
     "release": "node ./node_modules/.bin/gulp release",
     "dev": "node ./node_modules/.bin/gulp dev",

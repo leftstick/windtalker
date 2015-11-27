@@ -29,6 +29,7 @@ class Feature extends FeatureBase {
                     self.$body.removeClass(classes);
                     if (route && route.$$route && route.$$route.id) {
                         self.$body.addClass(route.$$route.id);
+                        self.$body.attr('id', route.$$route.id);
                     }
                 });
             }

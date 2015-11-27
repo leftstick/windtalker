@@ -65,26 +65,29 @@ class Feature extends FeatureBase {
                 this.getUsers = function() {
 
                     return utils.promise(function(resolve, reject) {
-
-                        DbService
-                            .getUserDb()
-                            .find({})
-                            .exec(function(err, docs) {
-                                if (err) {
-                                    reject('读取用户信息失败');
-                                    return;
-                                }
-                                var users = docs.map(function(doc) {
-                                    return {
-                                        id: utils.decryptTxt(doc.id),
-                                        name: utils.decryptTxt(doc.name),
-                                        password: utils.decryptTxt(doc.password),
-                                        question: utils.decryptTxt(doc.question),
-                                        answer: utils.decryptTxt(doc.answer)
-                                    };
+                        try {
+                            DbService
+                                .getUserDb()
+                                .find({})
+                                .exec(function(err, docs) {
+                                    if (err) {
+                                        reject('读取用户信息失败');
+                                        return;
+                                    }
+                                    var users = docs.map(function(doc) {
+                                        return {
+                                            id: utils.decryptTxt(doc.id),
+                                            name: utils.decryptTxt(doc.name),
+                                            password: utils.decryptTxt(doc.password),
+                                            question: utils.decryptTxt(doc.question),
+                                            answer: utils.decryptTxt(doc.answer)
+                                        };
+                                    });
+                                    resolve(users);
                                 });
-                                resolve(users);
-                            });
+                        } catch (e) {
+                            reject('您还没有设置数据库，清先设置数据库位置');
+                        }
                     });
                 };
 

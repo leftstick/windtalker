@@ -123,7 +123,8 @@ gulp.task('release', ['compile-release'], function() {
             packaging: true,
             asar: true,
             platforms: [
-                'darwin-x64'
+                'darwin-x64',
+                'win32-x64'
             ],
             platformResources: {
                 darwin: {

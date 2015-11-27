@@ -6,11 +6,18 @@
  *
  */
 'use strict';
-var LoginController = function($scope, events, utils, AuthService) {
-
+var LoginController = function($scope, events, utils, AuthService, DbService) {
+    $scope.hasDbSet = DbService.checkDbAddress();
     $scope.user = {};
 
     var usersPromise = AuthService.getUsers();
+
+    var errorHandler = function(type) {
+        return function(msg) {
+            events.emit('toast', {type: type, content: msg});
+        };
+
+    };
 
     $scope.login = function() {
         usersPromise
@@ -24,11 +31,9 @@ var LoginController = function($scope, events, utils, AuthService) {
                     utils.redirect('/manager');
                     return;
                 }
-                events.emit('toast', {
-                    type: 'error',
-                    content: '用户名或密码输入错误'
-                });
-            });
+                errorHandler('error')('用户名或密码输入错误');
+            })
+            .error(errorHandler('warn'));
     };
 
     $scope.$on('$destroy', function() {});
@@ -39,5 +44,6 @@ module.exports = [
     'events',
     'utils',
     'AuthService',
+    'DbService',
     LoginController
 ];

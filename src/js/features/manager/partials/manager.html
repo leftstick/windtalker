@@ -17,7 +17,7 @@
             </md-toolbar>
             <md-input-container class="md-block" style="padding: 0 20px 10px 20px;">
                 <label>保密项名称</label>
-                <input ng-model="state.currentSecret.name" readonly>
+                <input value="{{ ::state.currentSecret.name }}" readonly>
             </md-input-container>
             <md-input-container class="md-block" style="padding: 0 20px 10px 20px;">
                 <label>保密项描述</label>
@@ -35,7 +35,7 @@
             <h1 class="title">保密局</h1>
             <span flex></span>
             <span style="margin-right: 10px;">
-                {{ user.name }}
+                {{ ::user.name }}
             </span>
 
             <md-button class="md-icon-button create" aria-label="new" ng-click="create($event)">
@@ -72,7 +72,7 @@
     </div>
     <div ng-if="!loading" flex layout="column" class="secrets-container">
         <md-list>
-            <md-list-item ng-repeat="secret in secrets | searchFilter: search.searchTxt: ['name', 'desc']" class="secret">
+            <md-list-item ng-repeat="secret in ::secrets | searchFilter: search.searchTxt: ['name', 'desc']" class="secret">
                 <div class="md-list-item-text">
                     <h4 class="key-title">{{ secret.name }}</h4>
                     <p class="key-desc">

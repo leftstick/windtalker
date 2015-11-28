@@ -82,7 +82,7 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
                             type: 'success',
                             content: '秘密已删除！'
                         });
-                        secretsUpdate();
+                        utils.delay(secretsUpdate, 100);
                     })
                     .error(commonErrorHandler);
             }
@@ -107,7 +107,7 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
                     content: '秘密已修改！'
                 });
                 events.emit('sidebar-hide', {id: 'left'});
-                secretsUpdate();
+                utils.delay(secretsUpdate, 300);
             })
             .error(commonErrorHandler);
     };

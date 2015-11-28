@@ -2,7 +2,7 @@
  *  Defines the Toast
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Nov 28, 2015
  *
  */
 'use strict';
@@ -19,10 +19,16 @@ class Feature extends FeatureBase {
 
     execute() {
 
+        var defaultDelay = {
+            info: 2000,
+            error: 3000,
+            success: 700,
+            warning: 1500
+        };
+
         var defaults = {
             content: '',
             position: 'top right',
-            delay: 3000,
             type: 'info'
         };
 
@@ -35,7 +41,7 @@ class Feature extends FeatureBase {
                     var opts = merge({}, defaults, data);
                     $mdToast.show({
                         template: '<md-toast class="md-toast ' + opts.type + '">' + opts.content + '</md-toast>',
-                        hideDelay: opts.delay,
+                        hideDelay: data.delay || defaultDelay[opts.type],
                         position: opts.position
                     });
                 });

@@ -1,6 +1,6 @@
 {
   "name": "windtalker",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "windtalker helps people managing security cared information",
   "main": "./js/process/main.process.js",
   "scripts": {
@@ -38,18 +38,17 @@
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
     "css-loader": "^0.23.0",
-    "electron-prebuilt": "0.35.0",
-    "file-loader": "^0.8.4",
-    "go-txt": "^1.1.0",
+    "electron-prebuilt": "^0.35.2",
+    "file-loader": "^0.8.5",
     "gulp": "^3.9.0",
     "gulp-electron": "0.0.9",
     "less": "^2.5.3",
-    "less-loader": "^2.2.1",
+    "less-loader": "^2.2.2",
     "minimist": "^1.2.0",
     "modify-loader": "^2.0.0",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.4.4",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.8"
+    "webpack": "^1.12.9"
   }
 }

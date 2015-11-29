@@ -26,7 +26,6 @@ var handleStatsError = function(stats) {
 
 var compile = function(isDev, cb) {
     var webpack = require('webpack');
-    var go = require('go-txt');
     var config;
 
     if (isDev) {
@@ -119,7 +118,7 @@ gulp.task('release', ['compile-release'], function() {
             packageJson: packageJson,
             release: './dist',
             cache: './cache',
-            version: 'v0.35.0',
+            version: 'v0.35.2',
             packaging: true,
             asar: true,
             platforms: [

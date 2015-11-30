@@ -2,7 +2,7 @@
  *  Defines the ManagerController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 26, 2015
+ *  @date    Nov 30, 2015
  *
  */
 'use strict';
@@ -11,16 +11,15 @@ var debounce = require('lib/Debounce');
 var settingTpl = require('../partials/setting.html');
 var createTpl = require('../partials/create.html');
 var merge = require('angular').merge;
+var co = require('co');
 
 var ipcRenderer = require('electron').ipcRenderer;
 
 var ManagerController = function($scope, events, utils, ManagerService, AuthService) {
-    $scope.secrets = [];
-    $scope.loading = true;
     $scope.user = AuthService.currentUser();
     $scope.search = {txt: ''};
     $scope.info = {};
-    $scope.state = {canSave: true};
+    $scope.state = {canSave: true, secrets: [], loading: true};
 
     var commonErrorHandler = function(err) {
         events.emit('toast', {type: 'error', content: err});
@@ -28,15 +27,15 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
 
     var secretsUpdate = function() {
         utils.delay(function() {
-            $scope.loading = true;
-        }, 50)
-            .then(function() {
-                return ManagerService.getInfos($scope.user.id);
-            })
-            .then(function(data) {
-                $scope.secrets = data;
-                $scope.loading = false;
+            $scope.state.loading = true;
+            co(function*() {
+                var data = yield ManagerService.getInfos($scope.user.id);
+                $scope.$apply(function() {
+                    $scope.state.secrets = data;
+                    $scope.state.loading = false;
+                });
             });
+        }, 50);
     };
 
     secretsUpdate();

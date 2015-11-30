@@ -64,15 +64,15 @@
         <label>搜索</label>
         <input ng-model="search.txt">
     </md-input-container>
-    <div layout="column" layout-align="center center" ng-if="loading" flex>
+    <div layout="column" layout-align="center center" ng-if="state.loading" flex>
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-    <div layout="column" layout-align="center center" ng-if="!loading && !secrets.length" flex>
+    <div layout="column" layout-align="center center" ng-if="!state.loading && !state.secrets.length" flex>
         <h2>没有任何秘密可言哦，来创建吧！</h2>
     </div>
-    <div ng-if="!loading" flex layout="column" class="secrets-container">
+    <div ng-if="!state.loading" flex layout="column" class="secrets-container">
         <md-list>
-            <md-list-item ng-repeat="secret in ::secrets | searchFilter: search.searchTxt: ['name', 'desc']" class="secret">
+            <md-list-item ng-repeat="secret in state.secrets | searchFilter: search.searchTxt: ['name', 'desc']" class="secret">
                 <div class="md-list-item-text">
                     <h4 class="key-title">{{ secret.name }}</h4>
                     <p class="key-desc">

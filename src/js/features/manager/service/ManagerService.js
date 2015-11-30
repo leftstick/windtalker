@@ -9,40 +9,31 @@
 
 var ManagerService = function(utils, DbService) {
 
-    this.getInfos = function(userId) {
+    this.getInfos = function*(userId) {
 
-        return utils.promise(function(resolve, reject) {
+        var secretDB = DbService.getSecretDb();
+        var cursor = secretDB.find({
+            userId: utils.encryptTxt(userId)
+        }).sort({updateDate: -1});
+        var finder = utils.promisify(cursor.exec).bind(cursor);
+        var docs = yield finder();
 
-            DbService
-                .getSecretDb()
-                .find({userId: utils.encryptTxt(userId)})
-                .sort({updateDate: -1})
-                .exec(function(err, docs) {
-                    if (err) {
-                        reject('读取秘密信息失败');
-                        return;
-                    }
-
-                    var infos = docs.map(function(doc) {
-                        var info = {
-                            id: utils.decryptTxt(doc.id),
-                            userId: utils.decryptTxt(doc.userId),
-                            name: utils.decryptTxt(doc.name),
-                            desc: utils.decryptTxt(doc.desc),
-                            createDate: doc.createDate,
-                            updateDate: doc.updateDate,
-                            items: doc.items.map(function(item) {
-                                return {
-                                    key: utils.decryptTxt(item.key),
-                                    value: utils.decryptTxt(item.value)
-                                };
-                            })
-                        };
-                        return info;
-                    });
-
-                    resolve(infos);
-                });
+        return docs.map(function(doc) {
+            var info = {
+                id: utils.decryptTxt(doc.id),
+                userId: utils.decryptTxt(doc.userId),
+                name: utils.decryptTxt(doc.name),
+                desc: utils.decryptTxt(doc.desc),
+                createDate: doc.createDate,
+                updateDate: doc.updateDate,
+                items: doc.items.map(function(item) {
+                    return {
+                        key: utils.decryptTxt(item.key),
+                        value: utils.decryptTxt(item.value)
+                    };
+                })
+            };
+            return info;
         });
     };
 

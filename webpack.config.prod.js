@@ -2,7 +2,14 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var presetsQuery = JSON.stringify({presets: ['es2015']});
+var presetsQuery = JSON.stringify({
+    presets: [
+        'es2015'
+    ],
+    plugins: [
+        'transform-runtime'
+    ]
+});
 
 module.exports = {
     entry: {

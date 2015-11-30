@@ -45,6 +45,34 @@ class Feature extends FeatureBase {
                         position: opts.position
                     });
                 });
+
+                events.on('toast-warning', function(content) {
+                    events.emit('toast', {
+                        type: 'warning',
+                        content: content
+                    });
+                });
+
+                events.on('toast-error', function(content) {
+                    events.emit('toast', {
+                        type: 'error',
+                        content: content
+                    });
+                });
+
+                events.on('toast-success', function(content) {
+                    events.emit('toast', {
+                        type: 'success',
+                        content: content
+                    });
+                });
+
+                events.on('toast-info', function(content) {
+                    events.emit('toast', {
+                        type: 'info',
+                        content: content
+                    });
+                });
             }
         ]);
     }

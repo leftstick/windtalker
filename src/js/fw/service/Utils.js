@@ -42,8 +42,7 @@ class Service extends ServiceBase {
                     return btoa(unescape(encodeURIComponent(str)));
                 };
 
-                this.promise = function(func) {
-                    var promise = $q(func);
+                var promiseExtra = function(promise) {
                     promise.success = function(fn) {
                         promise.then(function(response) {
                             fn(response);
@@ -57,6 +56,40 @@ class Service extends ServiceBase {
                         return promise;
                     };
                     return promise;
+                };
+
+                this.promise = function(func) {
+                    var promise = $q(func);
+                    return promiseExtra(promise);
+                };
+
+                this.resolve = function(value) {
+                    var promise = $q.resolve(value);
+                    return promiseExtra(promise);
+                };
+
+                this.reject = function(reason) {
+                    var promise = $q.reject(reason);
+                    return promiseExtra(promise);
+                };
+
+                this.promisify = function(func) {
+                    var _this = this;
+                    return function() {
+                        var ctx = this;
+                        var args = Array.prototype.slice.apply(arguments);
+
+                        return _this.promise(function(resolve, reject) {
+                            var cb = function(err, data) {
+                                if (err) {
+                                    reject(err);
+                                    return;
+                                }
+                                resolve(data);
+                            };
+                            func.apply(ctx, args.concat([cb]));
+                        });
+                    };
                 };
 
                 this.stopEvent = function(e) {

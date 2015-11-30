@@ -2,7 +2,7 @@
  *  Defines the SettingController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 23, 2015
+ *  @date    Nov 30, 2015
  *
  */
 'use strict';
@@ -13,6 +13,7 @@ var dialog = require('electron').remote.require('dialog');
 var merge = require('angular').merge;
 var debounce = require('lib/Debounce');
 var fs = require('fs');
+var co = require('co');
 
 var SettingController = function($scope, events, AuthService, DbService, utils) {
     var user = AuthService.currentUser();
@@ -21,34 +22,32 @@ var SettingController = function($scope, events, AuthService, DbService, utils) 
     $scope.passwordstate = {oldpasswordIncorrect: false};
     $scope.dbstate = {invalidAddress: false};
 
-    var updateUser = function(newUser, message, needlogout) {
-        AuthService.updateUser(newUser)
-            .success(function() {
-                AuthService.currentUser(newUser);
-                events.emit('info', {
-                    content: message,
-                    onComplete: function() {
-                        events.emit('bottomsheet-hide');
-                        if (needlogout) {
-                            utils.delay(function() {
-                                utils.redirect('login');
-                            }, 600);
-                        }
+    var updateUser = function*(newUser, message, needlogout) {
+        var user;
+        try {
+            user = yield AuthService.updateUser(newUser);
+            AuthService.currentUser(user);
+            events.emit('info', {
+                content: message,
+                onComplete: function() {
+                    events.emit('bottomsheet-hide');
+                    if (!needlogout) {
+                        return;
                     }
-                });
-            })
-            .error(function() {
-                events.emit('toast', {
-                    type: 'error',
-                    content: '密码重置失败，请联系作者'
-                });
+                    utils.delay(function() {
+                        utils.redirect('login');
+                    }, 600);
+                }
             });
+        } catch (e) {
+            events.emit('toast-error', '密码重置失败，请联系作者');
+        }
     };
 
     $scope.updatePassword = function(form) {
         var newUser = merge({}, user);
         newUser.password = $scope.user.password;
-        updateUser(newUser, '密码重置成功，需重新登录', true);
+        co(updateUser(newUser, '密码重置成功，需重新登录', true));
     };
 
     $scope.saveNewQuestion = function() {
@@ -56,7 +55,7 @@ var SettingController = function($scope, events, AuthService, DbService, utils) 
         newUser.question = $scope.user.question;
         newUser.answer = $scope.user.answer;
         $scope.user = {question: newUser.answer};
-        updateUser(newUser, '提示问题重置成功');
+        co(updateUser(newUser, '提示问题重置成功'));
     };
 
     $scope.updatedb = function() {

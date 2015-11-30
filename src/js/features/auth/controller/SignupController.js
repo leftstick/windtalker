@@ -2,10 +2,11 @@
  *  Defines the SignupController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 24, 2015
+ *  @date    Nov 30, 2015
  *
  */
 'use strict';
+var co = require('co');
 
 var DB_ADDRESS_KEY = 'windtaler.dbaddress';
 
@@ -29,24 +30,19 @@ var SignupController = function($scope, events, AuthService, utils, DbService) {
     });
 
     $scope.saveUser = function() {
-        AuthService.addUser({
-            name: $scope.user.name,
-            password: $scope.user.password,
-            question: $scope.user.question,
-            answer: $scope.user.answer
+        co(function*() {
+            var user = yield AuthService.addUser({
+                name: $scope.user.name,
+                password: $scope.user.password,
+                question: $scope.user.question,
+                answer: $scope.user.answer
+            });
+            events.emit('toast-success', '用户创建成功，请登录');
+            utils.redirect('login');
+            $scope.$apply();
         })
-            .success(function() {
-                events.emit('toast', {
-                    type: 'success',
-                    content: '用户创建成功，请登录'
-                });
-                utils.redirect('login');
-            })
-            .error(function(err) {
-                events.emit('toast', {
-                    type: 'error',
-                    content: err
-                });
+            .catch(function(err) {
+                events.emit('toast-error', err);
             });
     };
 

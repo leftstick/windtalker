@@ -1,6 +1,6 @@
 {
   "name": "windtalker",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "windtalker helps people managing security cared information",
   "main": "./js/process/main.process.js",
   "scripts": {

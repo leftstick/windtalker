@@ -3,7 +3,7 @@
  *  This module used to override the original `autofocus` attribute since it doesn't work properly with ngRoute
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Dec 1, 2015
  *
  */
 'use strict';
@@ -15,15 +15,17 @@ class Feature extends FeatureBase {
         super('AutofocusModule');
     }
 
+    autofocus() {
+        return {
+            restrict: 'A',
+            link: function($scope, element) {
+                element[0].focus();
+            }
+        };
+    }
+
     execute() {
-        this.directive('autofocus', function() {
-            return {
-                restrict: 'A',
-                link: function($scope, element) {
-                    element[0].focus();
-                }
-            };
-        });
+        this.directive('autofocus', this.autofocus);
     }
 }
 

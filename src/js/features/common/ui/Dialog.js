@@ -18,31 +18,26 @@ class Feature extends FeatureBase {
 
     beforeStart() {};
 
-    execute() {
-
+    dialogListener(events, $mdDialog) {
         var defaults = {
             template: '',
             onComplete: function() {}
         };
 
-        this.run([
-            'events',
-            '$mdDialog',
-            function(events, $mdDialog) {
+        events.on('dialog', function(data) {
+            var opts = merge({}, defaults, omit(data, ['scope']));
+            $mdDialog.show({
+                scope: opts.scope,
+                targetEvent: opts.event,
+                template: opts.template,
+                onComplete: opts.onComplete
+            });
+        });
+    }
 
-                events.on('dialog', function(data) {
-                    var opts = merge({}, defaults, omit(data, [
-                        'scope'
-                    ]));
-                    $mdDialog.show({
-                        scope: opts.scope,
-                        targetEvent: opts.event,
-                        template: opts.template,
-                        onComplete: opts.onComplete
-                    });
-                });
-            }
-        ]);
+    execute() {
+        this.dialogListener.$inject = ['events', '$mdDialog'];
+        this.run(this.dialogListener);
     }
 }
 

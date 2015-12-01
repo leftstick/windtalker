@@ -35,7 +35,7 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
                     $scope.state.loading = false;
                 });
             });
-        }, 50);
+        }, 30);
     };
 
     secretsUpdate();
@@ -74,16 +74,16 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
             content: '您确定要删除这个秘密么？',
             event: $event,
             onComplete: function() {
-                ManagerService
-                    .removeInfo(secret)
-                    .success(function() {
-                        events.emit('toast', {
-                            type: 'success',
-                            content: '秘密已删除！'
-                        });
-                        utils.delay(secretsUpdate, 100);
-                    })
-                    .error(commonErrorHandler);
+
+                co(function*() {
+                    var removed = yield ManagerService.removeInfo(secret);
+                    events.emit('toast', {
+                        type: 'success',
+                        content: '秘密已删除！'
+                    });
+                    utils.delay(secretsUpdate, 100);
+                })
+                    .catch(commonErrorHandler);
             }
         });
     };
@@ -98,17 +98,16 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
     };
 
     $scope.saveSecret = function() {
-        ManagerService
-            .updateInfo($scope.state.currentSecret)
-            .success(function() {
-                events.emit('toast', {
-                    type: 'success',
-                    content: '秘密已修改！'
-                });
-                events.emit('sidebar-hide', {id: 'left'});
-                utils.delay(secretsUpdate, 300);
-            })
-            .error(commonErrorHandler);
+        co(function*() {
+            var info = yield ManagerService.updateInfo($scope.state.currentSecret);
+            events.emit('toast', {
+                type: 'success',
+                content: '秘密已修改！'
+            });
+            events.emit('sidebar-hide', {id: 'left'});
+            utils.delay(secretsUpdate, 300);
+        })
+            .catch(commonErrorHandler);
     };
 
     $scope.addItem = function() {

@@ -2,12 +2,13 @@
  *  Defines the CreateController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 25, 2015
+ *  @date    Dec 1, 2015
  *
  */
 'use strict';
 
 var noop = require('angular').noop;
+var co = require('co');
 
 var CreateController = function($scope, events, ManagerService, AuthService, utils) {
     var user = AuthService.currentUser();
@@ -29,33 +30,25 @@ var CreateController = function($scope, events, ManagerService, AuthService, uti
     };
 
     $scope.addSecret = function() {
-        ManagerService.addInfo({
-            userId: user.id,
-            name: $scope.secret.name,
-            desc: $scope.secret.desc,
-            items: $scope.items
+        co(function*() {
+            var info = yield ManagerService.addInfo({
+                userId: user.id,
+                name: $scope.secret.name,
+                desc: $scope.secret.desc,
+                items: $scope.items
+            });
+            events.emit('toast', {
+                type: 'success',
+                content: '新机密创建成功！',
+                delay: 100
+            });
+            yield utils.delay(noop, 20);
+            events.emit('bottomsheet-hide');
+            yield utils.delay(noop, 550);
+            events.emit('secrets-updated');
         })
-            .success(function() {
-                events.emit('toast', {
-                    type: 'success',
-                    content: '新机密创建成功！',
-                    delay: 100
-                });
-                utils.delay(function() {
-                    events.emit('bottomsheet-hide');
-                }, 20)
-                    .then(function() {
-                        return utils.delay(noop, 550);
-                    })
-                    .then(function() {
-                        events.emit('secrets-updated');
-                    });
-            })
-            .error(function(err) {
-                events.emit('toast', {
-                    type: 'error',
-                    content: err
-                });
+            .catch(function(err) {
+                events.emit('toast-error', err);
             });
     };
 

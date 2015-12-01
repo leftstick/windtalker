@@ -2,7 +2,7 @@
  *  Defines the Sidebar
  *
  *  @author  Howard.Zuo
- *  @date    Nov 26, 2015
+ *  @date    Dec 1, 2015
  *
  */
 'use strict';
@@ -16,22 +16,19 @@ class Feature extends FeatureBase {
 
     beforeStart() {};
 
+    sidebarListener(events, $mdSidenav) {
+        events.on('sidebar', function(data) {
+            $mdSidenav(data.id).open();
+        });
+
+        events.on('sidebar-hide', function(data) {
+            $mdSidenav(data.id).close();
+        });
+    }
+
     execute() {
-
-        this.run([
-            'events',
-            '$mdSidenav',
-            function(events, $mdSidenav) {
-
-                events.on('sidebar', function(data) {
-                    $mdSidenav(data.id).open();
-                });
-
-                events.on('sidebar-hide', function(data) {
-                    $mdSidenav(data.id).close();
-                });
-            }
-        ]);
+        this.sidebarListener.$inject = ['events', '$mdSidenav'];
+        this.run(this.sidebarListener);
     }
 }
 

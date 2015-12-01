@@ -18,8 +18,7 @@ class Feature extends FeatureBase {
 
     beforeStart() {};
 
-    execute() {
-
+    infoListener(events, $mdDialog) {
         var defaults = {
             title: '确认',
             content: '',
@@ -27,28 +26,24 @@ class Feature extends FeatureBase {
             onComplete: function() {}
         };
 
-        this.run([
-            'events',
-            '$mdDialog',
-            function(events, $mdDialog) {
+        events.on('info', function(data) {
+            var opts = merge({}, defaults, omit(data, ['event']));
 
-                events.on('info', function(data) {
-                    var opts = merge({}, defaults, omit(data, [
-                        'event'
-                    ]));
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .clickOutsideToClose(false)
+                    .title(opts.title)
+                    .content(opts.content)
+                    .ok(opts.okTxt)
+                    .targetEvent(data.event)
+            )
+                .then(opts.onComplete);
+        });
+    }
 
-                    $mdDialog.show(
-                        $mdDialog.alert()
-                            .clickOutsideToClose(false)
-                            .title(opts.title)
-                            .content(opts.content)
-                            .ok(opts.okTxt)
-                            .targetEvent(data.event)
-                    )
-                        .then(opts.onComplete);
-                });
-            }
-        ]);
+    execute() {
+        this.infoListener.$inject = ['events', '$mdDialog'];
+        this.run(this.infoListener);
     }
 }
 

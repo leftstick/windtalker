@@ -2,7 +2,7 @@
  *  Defines the Toast
  *
  *  @author  Howard.Zuo
- *  @date    Nov 28, 2015
+ *  @date    Dec 1, 2015
  *
  */
 'use strict';
@@ -17,8 +17,7 @@ class Feature extends FeatureBase {
 
     beforeStart() {};
 
-    execute() {
-
+    toastListener(events, $mdToast) {
         var defaultDelay = {
             info: 2000,
             error: 3000,
@@ -32,49 +31,47 @@ class Feature extends FeatureBase {
             type: 'info'
         };
 
-        this.run([
-            'events',
-            '$mdToast',
-            function(events, $mdToast) {
+        events.on('toast', function(data) {
+            var opts = merge({}, defaults, data);
+            $mdToast.show({
+                template: '<md-toast class="md-toast ' + opts.type + '">' + opts.content + '</md-toast>',
+                hideDelay: data.delay || defaultDelay[opts.type],
+                position: opts.position
+            });
+        });
 
-                events.on('toast', function(data) {
-                    var opts = merge({}, defaults, data);
-                    $mdToast.show({
-                        template: '<md-toast class="md-toast ' + opts.type + '">' + opts.content + '</md-toast>',
-                        hideDelay: data.delay || defaultDelay[opts.type],
-                        position: opts.position
-                    });
-                });
+        events.on('toast-warning', function(content) {
+            events.emit('toast', {
+                type: 'warning',
+                content: content
+            });
+        });
 
-                events.on('toast-warning', function(content) {
-                    events.emit('toast', {
-                        type: 'warning',
-                        content: content
-                    });
-                });
+        events.on('toast-error', function(content) {
+            events.emit('toast', {
+                type: 'error',
+                content: content
+            });
+        });
 
-                events.on('toast-error', function(content) {
-                    events.emit('toast', {
-                        type: 'error',
-                        content: content
-                    });
-                });
+        events.on('toast-success', function(content) {
+            events.emit('toast', {
+                type: 'success',
+                content: content
+            });
+        });
 
-                events.on('toast-success', function(content) {
-                    events.emit('toast', {
-                        type: 'success',
-                        content: content
-                    });
-                });
+        events.on('toast-info', function(content) {
+            events.emit('toast', {
+                type: 'info',
+                content: content
+            });
+        });
+    }
 
-                events.on('toast-info', function(content) {
-                    events.emit('toast', {
-                        type: 'info',
-                        content: content
-                    });
-                });
-            }
-        ]);
+    execute() {
+        this.toastListener.$inject = ['events', '$mdToast'];
+        this.run(this.toastListener);
     }
 }
 

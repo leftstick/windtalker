@@ -2,7 +2,7 @@
  *  Defines the Confirm
  *
  *  @author  Howard.Zuo
- *  @date    Nov 22, 2015
+ *  @date    Dec 1, 2015
  *
  */
 'use strict';
@@ -17,8 +17,7 @@ class Feature extends FeatureBase {
 
     beforeStart() {};
 
-    execute() {
-
+    confirmListener(events, $mdDialog) {
         var defaults = {
             title: '确认',
             content: '',
@@ -29,25 +28,23 @@ class Feature extends FeatureBase {
             onCancel: function() {}
         };
 
-        this.run([
-            'events',
-            '$mdDialog',
-            function(events, $mdDialog) {
+        events.on('confirm', function(data) {
+            var opts = merge({}, defaults, data);
 
-                events.on('confirm', function(data) {
-                    var opts = merge({}, defaults, data);
+            var confirm = $mdDialog.confirm()
+                .title(opts.title)
+                .content(opts.content)
+                .targetEvent(opts.event)
+                .ok(opts.okTxt)
+                .cancel(opts.cancelTxt);
 
-                    var confirm = $mdDialog.confirm()
-                        .title(opts.title)
-                        .content(opts.content)
-                        .targetEvent(opts.event)
-                        .ok(opts.okTxt)
-                        .cancel(opts.cancelTxt);
+            $mdDialog.show(confirm).then(opts.onComplete, opts.onCancel);
+        });
+    }
 
-                    $mdDialog.show(confirm).then(opts.onComplete, opts.onCancel);
-                });
-            }
-        ]);
+    execute() {
+        this.confirmListener.$inject = ['events', '$mdDialog'];
+        this.run(this.confirmListener);
     }
 }
 

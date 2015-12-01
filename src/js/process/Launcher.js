@@ -10,7 +10,7 @@ var startupOpts = {
     resizable: process.env.NODE_ENV === 'dev',
     alwaysOnTop: false,
     fullscreen: false,
-    skipTaskbar: true,
+    skipTaskbar: false,
     kiosk: false,
     title: '',
     icon: null,

@@ -24,7 +24,8 @@ class Service extends ServiceBase {
             '$q',
             '$timeout',
             '$location',
-            function($q, $timeout, $location) {
+            'promiseify',
+            function($q, $timeout, $location, promiseify) {
 
                 this.delay = function(func, delay) {
                     return $timeout(func, delay);
@@ -73,24 +74,7 @@ class Service extends ServiceBase {
                     return promiseExtra(promise);
                 };
 
-                this.promisify = function(func) {
-                    var _this = this;
-                    return function() {
-                        var ctx = this;
-                        var args = Array.prototype.slice.apply(arguments);
-
-                        return _this.promise(function(resolve, reject) {
-                            var cb = function(err, data) {
-                                if (err) {
-                                    reject(err);
-                                    return;
-                                }
-                                resolve(data);
-                            };
-                            func.apply(ctx, args.concat([cb]));
-                        });
-                    };
-                };
+                this.promisify = promiseify;
 
                 this.stopEvent = function(e) {
                     if (!e) {

@@ -11,7 +11,7 @@
 
 ## 下载 ##
 
-* **v2.1.2** (2015-12-1)
+* **v2.1.2** (2015-12-4)
 
  * Windows: [64bit](https://github.com/leftstick/windtalker/releases/download/2.1.2/windtalker-2.1.2-win32-x64.zip)
  * Mac 10.11+: [64bit](https://github.com/leftstick/windtalker/releases/download/2.1.2/windtalker-2.1.2-darwin-x64.zip)

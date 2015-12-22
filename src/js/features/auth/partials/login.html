@@ -5,23 +5,24 @@
         <span class="hint md-display-1">欢迎进入保密局</span>
     </div>
     <div flex="67" layout="row" layout-align="center start">
-        <md-content layout-padding class="content">
-            <md-input-container class="md-block" style="padding-bottom: 14px; margin-top: 10px;">
+        <md-content class="content" style="padding-top: 20px;">
+
+            <md-input-container class="md-block" >
                 <label>用户名</label>
                 <input ng-model="user.name" name="username" type="text" autofocus required>
             </md-input-container>
 
-            <md-input-container class="md-block">
+            <md-input-container class="md-block" style="margin-bottom: 5px;">
                 <label>密码</label>
                 <input ng-model="user.password" name="password" type="password" required>
             </md-input-container>
 
-            <md-content class="content md-body-1" layout="row" layout-align="space-between center">
+            <md-content class="content md-body-1" layout="row" layout-align="space-between center" >
                 <a href="#/forget" flex="40">忘记密码？</a>
                 <md-button type="submit" flex="50" class="md-raised md-primary" style="margin-right: 0;" ng-disabled="loginform.$invalid || !hasDbSet">登录</md-button>
             </md-content>
 
-            <md-content class="content md-body-1" layout="row" layout-align="end center" style="margin-top: 10px;">
+            <md-content class="content md-body-1" layout="row" layout-align="end center" >
                 <a href="#/signup">没有账号？创建一个</a>
             </md-content>
 

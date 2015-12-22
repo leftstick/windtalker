@@ -44,7 +44,7 @@ module.exports = [
         template: signupTpl,
         size: {
             width: 500,
-            height: 600
+            height: 560
         }
     },
     {

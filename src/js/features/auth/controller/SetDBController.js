@@ -2,7 +2,7 @@
  *  Defines the SetDBController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 20, 2015
+ *  @date    Dec 21, 2015
  *
  */
 'use strict';
@@ -35,11 +35,7 @@ var SetDBController = function($scope, events, utils, DbService) {
 
     $scope.saveDB = function() {
         DbService.address($scope.db.address);
-        events.emit('toast', {
-            type: 'success',
-            delay: 500,
-            content: '数据库目录锁定成功！'
-        });
+        events.emit('toast-success', '数据库目录锁定成功！');
     };
 
     var checkAddress = debounce(function(value) {

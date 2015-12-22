@@ -15,7 +15,8 @@ class Feature extends FeatureBase {
         super('ToastModule');
     }
 
-    beforeStart() {};
+    beforeStart() {
+    };
 
     toastListener(events, $mdToast) {
         var defaultDelay = {
@@ -34,7 +35,7 @@ class Feature extends FeatureBase {
         events.on('toast', function(data) {
             var opts = merge({}, defaults, data);
             $mdToast.show({
-                template: '<md-toast class="md-toast ' + opts.type + '">' + opts.content + '</md-toast>',
+                template: '<md-toast md-theme="default" class="' + opts.type + '"><div class="md-toast-content"><span flex>' + opts.content + '</span></div></md-toast>',
                 hideDelay: data.delay || defaultDelay[opts.type],
                 position: opts.position
             });

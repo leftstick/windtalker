@@ -1,4 +1,4 @@
-<md-content layout="column">
+<md-content layout="column" style="height: 100%;">
     <md-sidenav md-component-id="left" class="md-sidenav-left view-secret-container">
         <md-content layout="column">
             <md-toolbar>
@@ -32,27 +32,27 @@
     <md-toolbar class="top-toolbar">
         <div class="md-toolbar-tools">
             <md-icon md-font-icon="icon-lock" class="logo"></md-icon>
-            <h1 class="title">保密局</h1>
+            <h1>保密局</h1>
             <span flex></span>
             <span style="margin-right: 10px;">
                 {{ ::user.name }}
             </span>
 
-            <md-button class="md-icon-button create" aria-label="new" ng-click="create($event)">
+            <md-button class="md-icon-button" aria-label="new" ng-click="create($event)">
               <md-icon md-font-icon="icon-doc-new"></md-icon>
               <md-tooltip>
                   新增机密
               </md-tooltip>
             </md-button>
 
-            <md-button class="md-icon-button setting" aria-label="new" ng-click="setting($event)">
+            <md-button class="md-icon-button" aria-label="setting" ng-click="setting($event)">
               <md-icon md-font-icon="icon-params"></md-icon>
               <md-tooltip>
                   设置
               </md-tooltip>
             </md-button>
 
-            <md-button class="md-icon-button exit" aria-label="logout" ng-click="logout()">
+            <md-button class="md-icon-button" aria-label="logout" ng-click="logout()" style="margin-right: 6px;">
               <md-icon md-font-icon="icon-logout-2" style="color: #d43f3a;"></md-icon>
               <md-tooltip>
                   登出系统
@@ -60,19 +60,24 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-input-container class="searchtxt-container">
-        <label>搜索</label>
-        <input ng-model="search.txt">
-    </md-input-container>
+    <md-content class="searchbox">
+        <md-input-container class="md-block">
+            <label>搜索</label>
+            <input ng-model="search.txt">
+        </md-input-container>
+    </md-content>
+
     <div layout="column" layout-align="center center" ng-if="state.loading" flex>
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
+
     <div layout="column" layout-align="center center" ng-if="!state.loading && !state.secrets.length" flex>
         <h2>没有任何秘密可言哦，来创建吧！</h2>
     </div>
+
     <div ng-if="!state.loading" flex layout="column" class="secrets-container">
-        <md-list>
-            <md-list-item ng-repeat="secret in state.secrets | searchFilter: search.searchTxt: ['name', 'desc']" class="secret">
+        <md-list flex>
+            <md-list-item ng-repeat="secret in state.secrets | searchFilter: search.searchTxt: ['name', 'desc']">
                 <div class="md-list-item-text">
                     <h4 class="key-title">{{ secret.name }}</h4>
                     <p class="key-desc">

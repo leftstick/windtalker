@@ -64,13 +64,34 @@ var MenuHandler = function(app) {
                     selector: 'selectAll:'
                 }
             ]
-        }
+        },
+        {
+            label: 'View',
+            submenu: [
+                {
+                    label: 'Toggle Full Screen',
+                    accelerator: (function() {
+                        if (process.platform == 'darwin') {
+                            return 'Ctrl+Command+F';
+                        } else {
+                            return 'F11';
+                        }
+                    })(),
+                    click: function(item, focusedWindow) {
+                        if (focusedWindow) {
+                            focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
+                        }
+                    }
+                }
+            ]
+        },
     ];
 
-    app.on('ready', function() {
-        Menu.setApplicationMenu(Menu.buildFromTemplate(template));
-    });
-
+    if (process.env.NODE_ENV !== 'dev') {
+        app.on('ready', function() {
+            Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+        });
+    }
 };
 
 module.exports = MenuHandler;

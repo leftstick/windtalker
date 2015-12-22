@@ -6,13 +6,13 @@
     </div>
 
     <div flex="80" layout="row" layout-align="center start">
-        <md-content layout-padding class="content">
+        <md-content class="content" style="padding-top: 20px;">
             <md-input-container class="md-block">
                 <label>用户名</label>
                 <input ng-model="user.name" required>
             </md-input-container>
 
-            <md-input-container style="padding-top: 0;">
+            <md-input-container class="md-block" style="padding-top: 0;">
                 <label>密码提示问题</label>
                 <input ng-model="user.question" readonly>
                 <div ng-messages="state">
@@ -20,7 +20,7 @@
                 </div>
             </md-input-container>
 
-            <md-input-container class="md-block">
+            <md-input-container class="md-block" style="margin-bottom: 0;">
                 <label>密码提示答案</label>
                 <input ng-model="user.answer" required>
             </md-input-container>

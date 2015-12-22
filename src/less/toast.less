@@ -1,15 +1,27 @@
-.md-toast.error {
+@media (max-width: 959px){
+    md-toast{
+        padding: 0 !important;
+    }
+}
+
+md-toast.error .md-toast-content{
     background-color: red;
 }
 
-.md-toast.warning {
+md-toast.warning .md-toast-content{
     background-color: orange;
 }
 
-.md-toast.success {
+md-toast.success .md-toast-content{
     background-color: green;
 }
 
-.md-toast.info {
+md-toast.info .md-toast-content{
     background-color: #323232;
+}
+
+md-toast .md-toast-content{
+    background-color: transparent;
+    box-shadow: none;
+    padding: 8px 10px;
 }

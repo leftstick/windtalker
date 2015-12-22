@@ -2,7 +2,7 @@
  *  Defines the ManagerController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 30, 2015
+ *  @date    Dec 22, 2015
  *
  */
 'use strict';
@@ -15,11 +15,15 @@ var co = require('co');
 
 var ipcRenderer = require('electron').ipcRenderer;
 
-var ManagerController = function($scope, events, utils, ManagerService, AuthService) {
-    $scope.user = AuthService.currentUser();
+var ManagerController = function($scope, $routeParams, events, utils, ManagerService, AuthService) {
+
     $scope.search = {txt: ''};
     $scope.info = {};
     $scope.state = {canSave: true, secrets: [], loading: true};
+
+    co(function*() {
+        $scope.user = yield AuthService.getUserById($routeParams.userId);
+    });
 
     var commonErrorHandler = function(err) {
         events.emit('toast', {type: 'error', content: err});
@@ -29,7 +33,8 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
         utils.delay(function() {
             $scope.state.loading = true;
             co(function*() {
-                var data = yield ManagerService.getInfos($scope.user.id);
+                var user = yield AuthService.getUserById($routeParams.userId);
+                var data = yield ManagerService.getInfos(user.id);
                 $scope.$apply(function() {
                     $scope.state.secrets = data;
                     $scope.state.loading = false;
@@ -74,7 +79,6 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
             content: '您确定要删除这个秘密么？',
             event: $event,
             onComplete: function() {
-
                 co(function*() {
                     var removed = yield ManagerService.removeInfo(secret);
                     events.emit('toast', {
@@ -140,6 +144,7 @@ var ManagerController = function($scope, events, utils, ManagerService, AuthServ
 
 module.exports = [
     '$scope',
+    '$routeParams',
     'events',
     'utils',
     'ManagerService',

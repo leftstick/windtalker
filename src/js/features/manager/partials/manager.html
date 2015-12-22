@@ -1,4 +1,4 @@
-<md-content layout="column" style="height: 100%;">
+<md-content layout="column" style="height: 100%; padding-bottom: 10px;">
     <md-sidenav md-component-id="left" class="md-sidenav-left view-secret-container">
         <md-content layout="column">
             <md-toolbar>
@@ -15,17 +15,17 @@
                 </md-button>
               </div>
             </md-toolbar>
-            <md-input-container class="md-block" style="padding: 0 20px 10px 20px;">
+            <md-input-container class="md-block" style="margin-bottom: 0;">
                 <label>保密项名称</label>
                 <input value="{{ ::state.currentSecret.name }}" readonly>
             </md-input-container>
-            <md-input-container class="md-block" style="padding: 0 20px 10px 20px;">
+            <md-input-container class="md-block" style="margin-bottom: 0px;">
                 <label>保密项描述</label>
                 <textarea ng-model="state.currentSecret.desc" columns="1" md-maxlength="100" required></textarea>
             </md-input-container>
             <div layout="column" flex class="item-container">
-                <div class="item-input" layout="row" ng-repeat="item in state.currentSecret.items" item-edit="item" on-remove="removeItem(item)"></div>
-                <div class="item-input" layout="row" item-input="info" on-submit="addItem()"></div>
+                <div class="item" layout="row" ng-repeat="item in state.currentSecret.items" item-edit="item" on-remove="removeItem(item)"></div>
+                <div layout="row" item-input="info" on-submit="addItem()"></div>
             </div>
         </md-content>
     </md-sidenav>
@@ -67,7 +67,7 @@
         </md-input-container>
     </md-content>
 
-    <div layout="column" layout-align="center center" ng-if="state.loading" flex>
+    <div layout="column" layout-align="center center" ng-if="state.loading">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
 
@@ -79,19 +79,19 @@
         <md-list flex>
             <md-list-item ng-repeat="secret in state.secrets | searchFilter: search.searchTxt: ['name', 'desc']">
                 <div class="md-list-item-text">
-                    <h4 class="key-title">{{ secret.name }}</h4>
-                    <p class="key-desc">
+                    <h4>{{ secret.name }}</h4>
+                    <p>
                         {{ secret.desc }}
                     </p>
                 </div>
-                <md-button class="key-btn md-icon-button md-primary md-secondary" style="right: 65px;" ng-click="viewSecret(secret)">
-                    <md-icon class="key-icon" md-font-icon="icon-eye"></md-icon>
+                <md-button class="md-icon-button md-primary md-secondary" style="right: 65px;" ng-click="viewSecret(secret)">
+                    <md-icon md-font-icon="icon-eye"></md-icon>
                     <md-tooltip>
                         查看
                     </md-tooltip>
                 </md-button>
-                <md-button class="key-btn md-icon-button md-warn md-secondary" style="right: 12px;" ng-click="deleteSecret(secret,$event)">
-                    <md-icon class="key-icon" md-font-icon="icon-cancel"></md-icon>
+                <md-button class="md-icon-button md-warn md-secondary" style="right: 12px;" ng-click="deleteSecret(secret,$event)">
+                    <md-icon md-font-icon="icon-cancel"></md-icon>
                     <md-tooltip>
                         删除
                     </md-tooltip>

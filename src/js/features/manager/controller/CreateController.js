@@ -2,7 +2,7 @@
  *  Defines the CreateController controller
  *
  *  @author  Howard.Zuo
- *  @date    Dec 1, 2015
+ *  @date    Dec 22, 2015
  *
  */
 'use strict';
@@ -10,8 +10,7 @@
 var noop = require('angular').noop;
 var co = require('co');
 
-var CreateController = function($scope, events, ManagerService, AuthService, utils) {
-    var user = AuthService.currentUser();
+var CreateController = function($scope, $routeParams, events, ManagerService, AuthService, utils) {
     $scope.state = {canAdd: false};
 
     $scope.secret = {};
@@ -31,6 +30,7 @@ var CreateController = function($scope, events, ManagerService, AuthService, uti
 
     $scope.addSecret = function() {
         co(function*() {
+            var user = yield AuthService.getUserById($routeParams.userId);
             var info = yield ManagerService.addInfo({
                 userId: user.id,
                 name: $scope.secret.name,
@@ -68,6 +68,7 @@ var CreateController = function($scope, events, ManagerService, AuthService, uti
 
 module.exports = [
     '$scope',
+    '$routeParams',
     'events',
     'ManagerService',
     'AuthService',

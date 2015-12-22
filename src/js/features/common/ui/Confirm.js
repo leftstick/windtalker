@@ -15,13 +15,13 @@ class Feature extends FeatureBase {
         super('ConfirmModule');
     }
 
-    beforeStart() {};
+    beforeStart() {
+    };
 
     confirmListener(events, $mdDialog) {
         var defaults = {
             title: '确认',
             content: '',
-            event: null,
             okTxt: '确定',
             cancelTxt: '取消',
             onComplete: function() {},
@@ -33,8 +33,8 @@ class Feature extends FeatureBase {
 
             var confirm = $mdDialog.confirm()
                 .title(opts.title)
-                .content(opts.content)
-                .targetEvent(opts.event)
+                .textContent(opts.content)
+                .targetEvent(data.event)
                 .ok(opts.okTxt)
                 .cancel(opts.cancelTxt);
 

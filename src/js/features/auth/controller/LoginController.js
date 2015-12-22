@@ -25,8 +25,7 @@ var LoginController = function($scope, events, utils, AuthService, DbService) {
                 return user.name === $scope.user.name && user.password === $scope.user.password;
             });
             if (founds.length) {
-                AuthService.currentUser(founds[0]);
-                utils.redirect('/manager');
+                utils.redirect('/manager/' + founds[0].id);
                 $scope.$apply();
                 return;
             }

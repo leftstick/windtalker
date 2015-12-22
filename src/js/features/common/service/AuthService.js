@@ -16,13 +16,6 @@ class Feature extends FeatureBase {
     }
 
     AuthService(utils, DbService) {
-        var user;
-        this.currentUser = function(info) {
-            if (!info) {
-                return user;
-            }
-            user = info;
-        };
 
         var questions;
         this.questions = function() {

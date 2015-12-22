@@ -2,7 +2,7 @@
  *  Defines the SettingController controller
  *
  *  @author  Howard.Zuo
- *  @date    Nov 30, 2015
+ *  @date    Dec 22, 2015
  *
  */
 'use strict';
@@ -15,18 +15,24 @@ var debounce = require('lib/Debounce');
 var fs = require('fs');
 var co = require('co');
 
-var SettingController = function($scope, events, AuthService, DbService, utils) {
-    var user = AuthService.currentUser();
-    $scope.user = {question: user.question};
+var SettingController = function($scope, $routeParams, events, AuthService, DbService, utils) {
+    $scope.user = {};
     $scope.db = {address: DbService.address()};
     $scope.passwordstate = {oldpasswordIncorrect: false};
     $scope.dbstate = {invalidAddress: false};
 
+    var user = {};
+
+    co(function*() {
+        var userInfo = yield AuthService.getUserById($routeParams.userId);
+        $scope.user.question = userInfo.question;
+        merge(user, userInfo);
+    });
+
     var updateUser = function*(newUser, message, needlogout) {
-        var user;
+        var userInfo;
         try {
-            user = yield AuthService.updateUser(newUser);
-            AuthService.currentUser(user);
+            userInfo = yield AuthService.updateUser(newUser);
             events.emit('info', {
                 content: message,
                 onComplete: function() {
@@ -40,7 +46,7 @@ var SettingController = function($scope, events, AuthService, DbService, utils) 
                 }
             });
         } catch (e) {
-            events.emit('toast-error', '密码重置失败，请联系作者');
+            events.emit('toast-error', e.message);
         }
     };
 
@@ -140,6 +146,7 @@ var SettingController = function($scope, events, AuthService, DbService, utils) 
 
 module.exports = [
     '$scope',
+    '$routeParams',
     'events',
     'AuthService',
     'DbService',

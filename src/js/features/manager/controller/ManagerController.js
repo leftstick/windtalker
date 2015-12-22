@@ -13,8 +13,6 @@ var createTpl = require('../partials/create.html');
 var merge = require('angular').merge;
 var co = require('co');
 
-var ipcRenderer = require('electron').ipcRenderer;
-
 var ManagerController = function($scope, $routeParams, events, utils, ManagerService, AuthService) {
 
     $scope.search = {txt: ''};

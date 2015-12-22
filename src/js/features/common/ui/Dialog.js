@@ -2,21 +2,21 @@
  *  Defines the Dialog
  *
  *  @author  Howard.Zuo
- *  @date    Nov 22, 2015
+ *  @date    Dec 22, 2015
  *
  */
 'use strict';
 
 var FeatureBase = require('lib/FeatureBase');
-var omit = require('lib/Omit');
-var merge = require('angular').merge;
+var extend = require('angular').extend;
 
 class Feature extends FeatureBase {
     constructor() {
         super('DialogModule');
     }
 
-    beforeStart() {};
+    beforeStart() {
+    };
 
     dialogListener(events, $mdDialog) {
         var defaults = {
@@ -25,7 +25,7 @@ class Feature extends FeatureBase {
         };
 
         events.on('dialog', function(data) {
-            var opts = merge({}, defaults, omit(data, ['scope']));
+            var opts = extend({}, defaults, data);
             $mdDialog.show({
                 scope: opts.scope,
                 targetEvent: opts.event,

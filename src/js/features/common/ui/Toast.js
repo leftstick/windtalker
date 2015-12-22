@@ -2,13 +2,13 @@
  *  Defines the Toast
  *
  *  @author  Howard.Zuo
- *  @date    Dec 1, 2015
+ *  @date    Dec 22, 2015
  *
  */
 'use strict';
 
 var FeatureBase = require('lib/FeatureBase');
-var {merge} = require('angular');
+var {extend} = require('angular');
 
 class Feature extends FeatureBase {
     constructor() {
@@ -33,7 +33,7 @@ class Feature extends FeatureBase {
         };
 
         events.on('toast', function(data) {
-            var opts = merge({}, defaults, data);
+            var opts = extend({}, defaults, data);
             $mdToast.show({
                 template: '<md-toast md-theme="default" class="' + opts.type + '"><div class="md-toast-content"><span flex>' + opts.content + '</span></div></md-toast>',
                 hideDelay: data.delay || defaultDelay[opts.type],

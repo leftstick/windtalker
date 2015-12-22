@@ -2,13 +2,13 @@
  *  Defines the Confirm
  *
  *  @author  Howard.Zuo
- *  @date    Dec 1, 2015
+ *  @date    Dec 22, 2015
  *
  */
 'use strict';
 
 var FeatureBase = require('lib/FeatureBase');
-var merge = require('angular').merge;
+var extend = require('angular').extend;
 
 class Feature extends FeatureBase {
     constructor() {
@@ -29,12 +29,12 @@ class Feature extends FeatureBase {
         };
 
         events.on('confirm', function(data) {
-            var opts = merge({}, defaults, data);
+            var opts = extend({}, defaults, data);
 
             var confirm = $mdDialog.confirm()
                 .title(opts.title)
                 .textContent(opts.content)
-                .targetEvent(data.event)
+                .targetEvent(opts.event)
                 .ok(opts.okTxt)
                 .cancel(opts.cancelTxt);
 

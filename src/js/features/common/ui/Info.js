@@ -8,26 +8,27 @@
 'use strict';
 
 var FeatureBase = require('lib/FeatureBase');
-var omit = require('lib/Omit');
-var merge = require('angular').merge;
+var extend = require('angular').extend;
 
 class Feature extends FeatureBase {
     constructor() {
         super('InfoModule');
     }
 
-    beforeStart() {};
+    beforeStart() {
+    };
 
     infoListener(events, $mdDialog) {
         var defaults = {
             title: '确认',
             content: '',
+            event: null,
             okTxt: '确定',
             onComplete: function() {}
         };
 
         events.on('info', function(data) {
-            var opts = merge({}, defaults, omit(data, ['event']));
+            var opts = extend({}, defaults, data);
 
             $mdDialog.show(
                 $mdDialog.alert()
@@ -35,7 +36,7 @@ class Feature extends FeatureBase {
                     .title(opts.title)
                     .content(opts.content)
                     .ok(opts.okTxt)
-                    .targetEvent(data.event)
+                    .targetEvent(opts.event)
             )
                 .then(opts.onComplete);
         });

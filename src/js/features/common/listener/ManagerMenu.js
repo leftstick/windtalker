@@ -6,14 +6,16 @@ module.exports = [
         submenu: [
             {
                 label: 'About Application',
+                visible: process.platform == 'darwin',
                 selector: 'orderFrontStandardAboutPanel:'
             },
             {
-                type: 'separator'
+                type: 'separator',
+                visible: process.platform == 'darwin',
             },
             {
                 label: 'Quit',
-                accelerator: 'Command+Q',
+                accelerator: 'CmdOrCtrl+Q',
                 click: function() {
                     require('electron').remote.app.quit();
                 }
@@ -68,21 +70,6 @@ module.exports = [
                 click: function(item, focusedWindow) {
                     if (focusedWindow) {
                         focusedWindow.reload();
-                    }
-                }
-            },
-            {
-                label: 'Toggle Full Screen',
-                accelerator: (function() {
-                    if (process.platform == 'darwin') {
-                        return 'Ctrl+Command+F';
-                    } else {
-                        return 'F11';
-                    }
-                })(),
-                click: function(item, focusedWindow) {
-                    if (focusedWindow) {
-                        focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
                     }
                 }
             },

@@ -6,14 +6,16 @@ module.exports = [
         submenu: [
             {
                 label: 'About Application',
+                visible: process.platform == 'darwin',
                 selector: 'orderFrontStandardAboutPanel:'
             },
             {
-                type: 'separator'
+                type: 'separator',
+                visible: process.platform == 'darwin',
             },
             {
                 label: 'Quit',
-                accelerator: 'Command+Q',
+                accelerator: 'CmdOrCtrl+Q',
                 click: function() {
                     require('electron').remote.app.quit();
                 }
@@ -26,12 +28,14 @@ module.exports = [
             {
                 label: 'Undo',
                 accelerator: 'CmdOrCtrl+Z',
-                selector: 'undo:'
+                selector: 'undo:',
+                role: 'undo'
             },
             {
                 label: 'Redo',
                 accelerator: 'Shift+CmdOrCtrl+Z',
-                selector: 'redo:'
+                selector: 'redo:',
+                role: 'redo'
             },
             {
                 type: 'separator'
@@ -39,22 +43,26 @@ module.exports = [
             {
                 label: 'Cut',
                 accelerator: 'CmdOrCtrl+X',
-                selector: 'cut:'
+                selector: 'cut:',
+                role: 'cut'
             },
             {
                 label: 'Copy',
                 accelerator: 'CmdOrCtrl+C',
-                selector: 'copy:'
+                selector: 'copy:',
+                role: 'copy'
             },
             {
                 label: 'Paste',
                 accelerator: 'CmdOrCtrl+V',
-                selector: 'paste:'
+                selector: 'paste:',
+                role: 'paste'
             },
             {
                 label: 'Select All',
                 accelerator: 'CmdOrCtrl+A',
-                selector: 'selectAll:'
+                selector: 'selectAll:',
+                role: 'selectall'
             }
         ]
     },
@@ -68,21 +76,6 @@ module.exports = [
                 click: function(item, focusedWindow) {
                     if (focusedWindow) {
                         focusedWindow.reload();
-                    }
-                }
-            },
-            {
-                label: 'Toggle Full Screen',
-                accelerator: (function() {
-                    if (process.platform == 'darwin') {
-                        return 'Ctrl+Command+F';
-                    } else {
-                        return 'F11';
-                    }
-                })(),
-                click: function(item, focusedWindow) {
-                    if (focusedWindow) {
-                        focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
                     }
                 }
             },

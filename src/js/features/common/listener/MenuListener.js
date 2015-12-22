@@ -35,7 +35,11 @@ class Feature extends FeatureBase {
                 Menu.setApplicationMenu(Menu.buildFromTemplate(ManagerMenu));
                 return;
             }
-            Menu.setApplicationMenu(Menu.buildFromTemplate(NonManagerMenu));
+            var menus = NonManagerMenu.slice(0, NonManagerMenu.length);
+            if (process.env.NODE_ENV !== 'dev') {
+                menus = NonManagerMenu.slice(0, NonManagerMenu.length - 1);
+            }
+            Menu.setApplicationMenu(Menu.buildFromTemplate(menus));
         });
     }
 

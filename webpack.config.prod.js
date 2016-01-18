@@ -13,7 +13,8 @@ var presetsQuery = JSON.stringify({
 
 module.exports = {
     entry: {
-        index: './src/js/index.js'
+        index: './src/js/index.js',
+        main: './src/js/process/index.js'
     },
     output: {
         path: path.resolve(__dirname, 'src', 'build', 'js'),
@@ -22,6 +23,9 @@ module.exports = {
         publicPath: 'js/'
     },
     target: 'electron',
+    node: {
+        __dirname: false
+    },
     module: {
         loaders: [
             {

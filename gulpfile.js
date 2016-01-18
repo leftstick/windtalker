@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var del = require('del');
 var resolve = require('path').resolve;
 
 var logger = console.log;
@@ -60,47 +61,30 @@ var compile = function(isDev, cb) {
 };
 
 gulp.task('clean-dist', function() {
-    return require('rimraf').sync(resolve(__dirname, 'dist'));
+    return del(['./dist/**/*']);
 });
 
 gulp.task('clean-build', function() {
-    return require('rimraf').sync(resolve(__dirname, 'src', 'build'));
+    return del(['./src/build/**/*']);
 });
 
-gulp.task('copy-index', function() {
+gulp.task('copy-index', ['clean-build', 'clean-dist'], function() {
     return gulp
         .src(['./src/index.html'])
         .pipe(gulp.dest('./src/build'));
 });
 
-gulp.task('copy-package.json', function() {
+gulp.task('copy-package.json', ['clean-build', 'clean-dist'], function() {
     return gulp
         .src(['./package.json'])
         .pipe(gulp.dest('./src/build'));
 });
 
-gulp.task('copy-process', function() {
-    return gulp
-        .src(['./src/js/process/**/*'])
-        .pipe(gulp.dest('./src/build/js/process'));
-});
-
-gulp.task('watch', [
-    'copy-index',
-    'copy-package.json',
-    'copy-process',
-    'clean-build'
-], function(cb) {
+gulp.task('watch', ['copy-index', 'copy-package.json'], function(cb) {
     compile(true, cb);
 });
 
-gulp.task('compile-release', [
-    'copy-index',
-    'copy-package.json',
-    'copy-process',
-    'clean-build',
-    'clean-dist'
-], function(cb) {
+gulp.task('compile-release', ['copy-index', 'copy-package.json'], function(cb) {
     if (!password) {
         logger('WARNING: you have to specify encryption password by -p');
         process.exit(0);
@@ -118,7 +102,7 @@ gulp.task('release', ['compile-release'], function() {
             packageJson: packageJson,
             release: './dist',
             cache: './cache',
-            version: 'v0.36.1',
+            version: 'v0.36.4',
             packaging: true,
             asar: true,
             platforms: [
@@ -152,4 +136,10 @@ gulp.task('dev', function(cb) {
                 NODE_ENV: 'dev'
             }
         }, cb);
+});
+
+gulp.task('fix', function() {
+    return gulp
+        .src('./fix/WebpackOptionsApply.js')
+        .pipe(gulp.dest('./node_modules/webpack/lib'));
 });

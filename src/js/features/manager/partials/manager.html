@@ -17,7 +17,7 @@
             </md-toolbar>
             <md-input-container class="md-block" style="margin-bottom: 0;">
                 <label>保密项名称</label>
-                <input value="{{ ::state.currentSecret.name }}" readonly>
+                <input value="{{ state.currentSecret.name }}" readonly>
             </md-input-container>
             <md-input-container class="md-block" style="margin-bottom: 0px;">
                 <label>保密项描述</label>
@@ -63,7 +63,7 @@
     <md-content class="searchbox">
         <md-input-container class="md-block">
             <label>搜索</label>
-            <input ng-model="search.txt">
+            <input ng-model="search.txt" autofocus>
         </md-input-container>
     </md-content>
 

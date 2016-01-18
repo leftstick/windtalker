@@ -1,4 +1,4 @@
-# 保密局 ![](http://img.shields.io/badge/version-v2.2.0-green.svg) #
+# 保密局 ![](http://img.shields.io/badge/version-v2.2.1-green.svg) #
 ===============
 
 在信息极速膨胀的时代，我们都面临着大量的敏感信息，最重要的莫过于自己各种网站、卡的账号和密码了。因为众所周知的一些云存储泄漏丑闻，以及人类本能的自我保护意识，相信大家都不会放心把自己的众多银行卡密码保存在一个Online的“云”里，随时有可能被盗哦！
@@ -11,10 +11,10 @@
 
 ## 下载 ##
 
-* **v2.2.0** (2015-12-22)
+* **v2.2.1** (2016-01-18)
 
- * Windows: [64bit](https://github.com/leftstick/windtalker/releases/download/2.2.0/windtalker-2.2.0-win32-x64.zip)
- * Mac 10.11+: [64bit](https://github.com/leftstick/windtalker/releases/download/2.2.0/windtalker-2.2.0-darwin-x64.zip)
+ * Windows: [64bit](https://github.com/leftstick/windtalker/releases/download/2.2.1/windtalker-2.2.1-win32-x64.zip)
+ * Mac 10.11+: [64bit](https://github.com/leftstick/windtalker/releases/download/2.2.1/windtalker-2.2.1-darwin-x64.zip)
 
 
 ## 想要贡献代码？ ##

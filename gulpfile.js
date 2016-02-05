@@ -137,9 +137,3 @@ gulp.task('dev', function(cb) {
             }
         }, cb);
 });
-
-gulp.task('fix', function() {
-    return gulp
-        .src('./fix/WebpackOptionsApply.js')
-        .pipe(gulp.dest('./node_modules/webpack/lib'));
-});
